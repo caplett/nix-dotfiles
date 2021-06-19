@@ -149,6 +149,7 @@
      isNormalUser = true;
      home = "/home/stefan";
      extraGroups = [ "wheel" "networkmanager" "video" ]; # Enable ‘sudo’ for the user.
+     shell = pkgs.zsh;
    };
   
   nixpkgs.config.allowUnfree = true;
