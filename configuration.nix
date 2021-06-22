@@ -4,7 +4,9 @@
 
 { config, pkgs, lib, ... }:
 
-{
+let 
+   kmonad = import ./kmonad.nix;
+in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -18,6 +20,7 @@
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/nvme0n1"; # or "nodev" for efi only
+
 
   networking.networkmanager.enable = true;
   # networking.hostName = "nixos"; # Define your hostname.
@@ -50,7 +53,7 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  #services.xserver.desktopManager.gnome.enable = true;
 
   programs.sway = {
     enable = true;
@@ -64,17 +67,34 @@
       alacritty
       kitty
       dmenu # Dmenu is the default in the config but i recommend wofi since its wayland native
+      rofi
+      wofi
       waybar # status bar
       kanshi # autorandr
     ];
   };
 
+  fonts.fonts = with pkgs; [
+    #(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+    nerdfonts
+    #fira-code-retina
+    #fire-code-bold
+    #fira-code-symbols
+    pango
+  ];
+
 
   environment.etc = {
       # Put config files in /etc. Note that you also can put these in ~/.config, but then you can't manage them with NixOS anymore!
-      # "sway/config".source = ./dotfiles/sway/config;
+      "sway/config".source = ./dotfiles/.config/i3/config;
       # "xdg/waybar/config".source = ./dotfiles/waybar/config;
       # "xdg/waybar/style.css".source = ./dotfiles/waybar/style.css;
+      #"zsh/config".source = "./dotfiles/.zshrc";
+      "zsh/zshrc".source = builtins.path{ name = "zshrc"; path = ./dotfiles/.zshrc;};
+      "zshrc".source = builtins.path{ name = "zshrc"; path = ./dotfiles/.zshrc;};
+      "xdg/kitty/kitty.conf".source = builtins.path{ name = "kitty.conf"; path = ./dotfiles/.config/kitty/kitty.conf;};
+      "kmonad/neo_hybrid.kbd".source = builtins.path{ name = "neo_hybrid.kbd"; path = ./dotfiles/Dokumente/Programmieren/Projekte/other/kmonad/keymap/user/caplett/neo_hybrid.kbd;};
+      #"zshrc".source = [ (builtins.readFile ./dotfiles/.zshrc) ];
   };
 
 
@@ -83,6 +103,7 @@
 
 
   systemd.user.services.kanshi = {
+    enable = true;
     description = "Kanshi output autoconfig ";
     wantedBy = [ "graphical-session.target" ];
     partOf = [ "graphical-session.target" ];
@@ -99,6 +120,7 @@
 
 
   systemd.user.targets.sway-session = {
+    enable = true;
     description = "Sway compositor session";
     documentation = [ "man:systemd.special(7)" ];
     bindsTo = [ "graphical-session.target" ];
@@ -106,26 +128,40 @@
     after = [ "graphical-session-pre.target" ];
   };
 
-  systemd.user.services.sway = {
-    description = "Sway - Wayland window manager";
-    documentation = [ "man:sway(5)" ];
-    bindsTo = [ "graphical-session.target" ];
-    wants = [ "graphical-session-pre.target" ];
-    after = [ "graphical-session-pre.target" ];
-    # We explicitly unset PATH here, as we want it to be set by
-    # systemctl --user import-environment in startsway
-    environment.PATH = lib.mkForce null;
+#  systemd.user.services.sway = {
+#    enable = true;
+#    description = "Sway - Wayland window manager";
+#    documentation = [ "man:sway(5)" ];
+#    bindsTo = [ "graphical-session.target" ];
+#    wants = [ "graphical-session-pre.target" ];
+#    after = [ "graphical-session-pre.target" ];
+#    # We explicitly unset PATH here, as we want it to be set by
+#    # systemctl --user import-environment in startsway
+#    environment.PATH = lib.mkForce null;
+#    serviceConfig = {
+#      Type = "simple";
+#      ExecStart = ''
+#        ${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway --debug
+#      '';
+#      Restart = "on-failure";
+#      RestartSec = 1;
+#      TimeoutStopSec = 10;
+#    };
+#  };
+    
+  systemd.user.services.kmonad = {
+    enable = true;
+    description = "Autostart kmoand ";
+    wantedBy = [ "graphical-session.target" ];
     serviceConfig = {
-      Type = "simple";
+      # Run kmoand on fixed config 
       ExecStart = ''
-        ${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway --debug
+        /run/current-system/sw/bin/kmonad /etc/kmonad/neo_hybrid.kbd 
       '';
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
+      RestartSec = 5;
+      Restart = "always";
     };
   };
-    
    #
 
   services.xserver.displayManager.defaultSession = "sway";
@@ -148,9 +184,45 @@
    users.users.stefan = {
      isNormalUser = true;
      home = "/home/stefan";
-     extraGroups = [ "wheel" "networkmanager" "video" ]; # Enable ‘sudo’ for the user.
+     extraGroups = [ "wheel" "networkmanager" "video" "input" "uinput"]; # Enable ‘sudo’ for the user.
      shell = pkgs.zsh;
    };
+
+  users.groups = { uinput = {}; };
+
+  users.extraUsers.stefan = {
+    extraGroups = ["input" "uinput" ];
+  };
+
+
+  services.udev.extraRules =
+    ''
+      # KMonad user access to /dev/uinput
+      KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
+    '';
+
+
+  programs.zsh.enable = true;
+  programs.zsh.enableBashCompletion = true;
+  programs.zsh.enableCompletion = true;
+  programs.zsh.autosuggestions.enable = true;
+  programs.zsh.ohMyZsh.enable = true;
+
+  programs.zsh.interactiveShellInit = ''
+    # z - jump around
+    # source ${pkgs.fetchurl {url = "https://github.com/rupa/z/raw/2ebe419ae18316c5597dd5fb84b5d8595ff1dde9/z.sh"; sha256 = "0ywpgk3ksjq7g30bqbhl9znz3jh6jfg8lxnbdbaiipzgsy41vi10";}}
+    export ZSH=${pkgs.oh-my-zsh}/share/oh-my-zsh
+    #export ZSH_THEME="lambda"
+    source $ZSH/oh-my-zsh.sh
+  '';
+
+
+  #programs.zsh.shellInit = ''
+  #  if [ -n "${commands[fzf-share]}" ]; then
+  #    source "$(fzf-share)/key-bindings.zsh"
+  #    source "$(fzf-share)/completion.zsh"
+  #  fi
+  #'';
   
   nixpkgs.config.allowUnfree = true;
 
@@ -158,6 +230,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    neovim
     wget
     firefox
     htop
@@ -170,7 +243,15 @@
     brightnessctl
 
     git
+    fzf
+
+    direnv
+    kmonad
 	
+    oh-my-zsh
+
+    anki
+    #kmonad
     # Sway stuff. Move into single file later
     # Here we but a shell script into path, which lets us start sway.service (after importing the environment of the login shell).
     (
@@ -185,6 +266,25 @@
           systemctl --user import-environment
           # then start the service
           exec systemctl --user start sway.service
+        '';
+      }
+    )
+
+    (
+      pkgs.writeTextFile {
+        name = "togglebacklight";
+        destination = "/bin/tooglebacklight";
+        executable = true;
+        text = ''
+          #! ${pkgs.bash}/bin/sh
+          read lcd < /tmp/lcd
+            if [ "$lcd" -eq "0" ]; then
+                swaymsg "output * dpms on"
+                echo 1 > /tmp/lcd
+            else
+                swaymsg "output * dpms off"
+                echo 0 > /tmp/lcd
+            fi
         '';
       }
     )
