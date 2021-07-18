@@ -6,11 +6,25 @@
 
 let 
    kmonad = import ./kmonad.nix;
+   amd_gpu_patch = pkgs.callPackage ./dotfiles/amd_gpu_patch/default.nix {};
+   amd_gpu_firmware = pkgs.callPackage ./dotfiles/amd_gpu_firmware/default.nix {};
 in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      #./tuxedo.nix
+      ./amd_gpu.nix
+	
+ 
+      (import "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos")
     ];
+
+  
+  nixpkgs.overlays = [
+     (import (builtins.fetchTarball {
+       url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+     }))
+   ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -20,6 +34,19 @@ in {
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/nvme0n1"; # or "nodev" for efi only
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_5_9;
+  boot.kernelParams = [ "i8042.reset i8042.nomux i8042.nopnp i8042.noloop xhci_hcd.quirks=1073741824" ];
+  boot.initrd.availableKernelModules = [ "i8042 xhci_hcd" ];
+  boot.kernelModules = [ "i8042 xhci_hcd" ];
+
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  hardware.cpu.amd.updateMicrocode = true;
+
+  services.mpd.enable = false;
 
 
   networking.networkmanager.enable = true;
@@ -27,7 +54,7 @@ in {
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "Europe/Berlin";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -52,7 +79,7 @@ in {
 
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.displayManager.gdm.enable = true;
   #services.xserver.desktopManager.gnome.enable = true;
 
   programs.sway = {
@@ -77,6 +104,7 @@ in {
   fonts.fonts = with pkgs; [
     #(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     nerdfonts
+    font-awesome
     #fira-code-retina
     #fire-code-bold
     #fira-code-symbols
@@ -87,19 +115,44 @@ in {
   environment.etc = {
       # Put config files in /etc. Note that you also can put these in ~/.config, but then you can't manage them with NixOS anymore!
       "sway/config".source = ./dotfiles/.config/i3/config;
-      # "xdg/waybar/config".source = ./dotfiles/waybar/config;
-      # "xdg/waybar/style.css".source = ./dotfiles/waybar/style.css;
-      #"zsh/config".source = "./dotfiles/.zshrc";
+       "xdg/waybar/config".source = ./dotfiles/waybar/config;
+       "xdg/waybar/style.css".source = ./dotfiles/waybar/style.css;
       "zsh/zshrc".source = builtins.path{ name = "zshrc"; path = ./dotfiles/.zshrc;};
       "zshrc".source = builtins.path{ name = "zshrc"; path = ./dotfiles/.zshrc;};
       "xdg/kitty/kitty.conf".source = builtins.path{ name = "kitty.conf"; path = ./dotfiles/.config/kitty/kitty.conf;};
       "kmonad/neo_hybrid.kbd".source = builtins.path{ name = "neo_hybrid.kbd"; path = ./dotfiles/Dokumente/Programmieren/Projekte/other/kmonad/keymap/user/caplett/neo_hybrid.kbd;};
-      #"zshrc".source = [ (builtins.readFile ./dotfiles/.zshrc) ];
+      "tmux.conf".source = builtins.path{ name = "tmux.conf"; path = ./dotfiles/.tmux.conf;};
   };
 
 
+  systemd.user.services.clone_vimwiki = {
+    enable = true;
+    description = "Clone vimwiki repo if not present ";
+    after=["network-online.target"];
+    wants=["network-online.target"];
+    serviceConfig = {
+      # Minus before command signals that failure are ignored.
+      ExecStart = ''
+        -${pkgs.git}/bin/git clone git@git.caplett.com:jadas/zettelkasten.git /home/stefan/vimwiki -q
+      '';
+      Restart = "no";
+    };
+  };
 
-  programs.waybar.enable = true;
+
+  systemd.user.services.syncvimwiki = {
+    enable = true;
+    description = "automatic push and pull on save in vimwiki";
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      # Minus before command signals that failure are ignored.
+      ExecStart = ''
+       /run/current-system/sw/bin/syncvimwiki 
+      '';
+      Restart = "always";
+    };
+  };
 
 
   systemd.user.services.kanshi = {
@@ -184,73 +237,125 @@ in {
    users.users.stefan = {
      isNormalUser = true;
      home = "/home/stefan";
-     extraGroups = [ "wheel" "networkmanager" "video" "input" "uinput"]; # Enable ‘sudo’ for the user.
+     extraGroups = [ "wheel" "networkmanager" "video" "input" "uinput" "docker"]; # Enable ‘sudo’ for the user.
      shell = pkgs.zsh;
    };
 
-  users.groups = { uinput = {}; };
+   home-manager.users.stefan = {
+     programs.git = {
+       enable = true;
+       userName  = "Stefan Geyer";
+       userEmail = "git@stefan-geyer.org";
+     };
 
-  users.extraUsers.stefan = {
-    extraGroups = ["input" "uinput" ];
+
+   programs.zsh = {
+     enable = true;
+     autocd = true;
+     enableAutosuggestions = true;
+     enableCompletion = true;
+     initExtra = (builtins.readFile ./dotfiles/.zshrc);
+   };
+
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    # Configuration written to ~/.config/starship.toml
+    settings = {
+    # add_newline = false;
+    
+    # character = {
+    #   success_symbol = "[➜](bold green)";
+    #   error_symbol = "[➜](bold red)";
+    # };
+    
+    # package.disabled = true;
+    };
+  };
+  };
+
+  virtualisation.docker.enable = true;
+
+  users.groups = { uinput = {}; };
 
   services.udev.extraRules =
     ''
       # KMonad user access to /dev/uinput
       KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
+
+      ACTION=="add", SUBSYSTEM=="backlight", MODE="0666", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
+      
     '';
 
-
-  programs.zsh.enable = true;
-  programs.zsh.enableBashCompletion = true;
-  programs.zsh.enableCompletion = true;
-  programs.zsh.autosuggestions.enable = true;
-  programs.zsh.ohMyZsh.enable = true;
-
-  programs.zsh.interactiveShellInit = ''
-    # z - jump around
-    # source ${pkgs.fetchurl {url = "https://github.com/rupa/z/raw/2ebe419ae18316c5597dd5fb84b5d8595ff1dde9/z.sh"; sha256 = "0ywpgk3ksjq7g30bqbhl9znz3jh6jfg8lxnbdbaiipzgsy41vi10";}}
-    export ZSH=${pkgs.oh-my-zsh}/share/oh-my-zsh
-    #export ZSH_THEME="lambda"
-    source $ZSH/oh-my-zsh.sh
-  '';
-
-
-  #programs.zsh.shellInit = ''
-  #  if [ -n "${commands[fzf-share]}" ]; then
-  #    source "$(fzf-share)/key-bindings.zsh"
-  #    source "$(fzf-share)/completion.zsh"
-  #  fi
-  #'';
-  
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    neovim
+    #neovim
     wget
     firefox
     htop
+    pavucontrol
+    ripgrep
     keepassxc
     dropbox
     killall
     gparted
+    parted
     ncdu
+    unzip
+    entr
+    gcc
+    ccache
     tmux
     brightnessctl
 
     git
+    wev
     fzf
+    ranger
+    tree
+    mupdf
+    qpdfview
+    libreoffice
+    pdftk
+    conda
+
+    feh
 
     direnv
     kmonad
 	
-    oh-my-zsh
+    dolphin
+
+    (python3.withPackages(ps: [
+      ps.python-language-server
+      ps.pyls-mypy ps.pyls-isort ps.pyls-black
+      ps.jedi
+      ps.numpy
+      ]))
+   
+
+    pyright
+
+
+    geckodriver
+    light
 
     anki
+    neuron-notes
+    ag
+    fd
+    amd_gpu_patch
+    amd_gpu_firmware
     #kmonad
     # Sway stuff. Move into single file later
     # Here we but a shell script into path, which lets us start sway.service (after importing the environment of the login shell).
@@ -288,7 +393,32 @@ in {
         '';
       }
     )
+
+
+    (
+      pkgs.writeTextFile {
+        name = "syncvimwiki";
+        destination = "/bin/syncvimwiki";
+        executable = true;
+        text = ''
+          #! ${pkgs.bash}/bin/sh
+          cd /home/stefan/vimwiki
+          while sleep 1 ; do /run/current-system/sw/bin/find . | /run/current-system/sw/bin/entr -n -d /bin/sh -c "/run/current-system/sw/bin/git add -A && /run/current-system/sw/bin/git commit -m 'Update vimwiki' && /run/current-system/sw/bin/git pull && /run/current-system/sw/bin/git push" ; done
+        '';
+      }
+
+    )
   ];
+
+  programs.neovim.enable = true;
+  programs.neovim.defaultEditor = true;
+  programs.neovim.configure.customRC = (builtins.readFile ./dotfiles/.vim/vimrc);
+
+
+virtualisation.oci-containers.backend= "docker";
+
+
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -302,6 +432,7 @@ in {
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+  programs.ssh.startAgent = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
