@@ -21,13 +21,6 @@ in {
       (import "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos")
     ];
 
-  
-  nixpkgs.overlays = [
-     (import (builtins.fetchTarball {
-       url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-     }))
-   ];
-
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
