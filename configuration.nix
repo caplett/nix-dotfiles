@@ -237,6 +237,9 @@ in {
     libreoffice
     pdftk
     conda
+    
+    slurp
+    grim
 
     feh
 
