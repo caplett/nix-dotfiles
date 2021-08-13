@@ -87,11 +87,6 @@ in {
 
   environment.etc = {
       # Put config files in /etc. Note that you also can put these in ~/.config, but then you can't manage them with NixOS anymore!
-
-
-  };
-
-
       "xdg/kitty/kitty.conf".source = builtins.path{ name = "kitty.conf"; path = ./config/kitty.conf;};
       "kmonad/neo_hybrid.kbd".source = builtins.path{ name = "neo_hybrid.kbd"; path = ./config/neo_hybrid.kbd;};
       "tmux.conf".source = builtins.path{ name = "tmux.conf"; path = ./config/tmux.conf;};
