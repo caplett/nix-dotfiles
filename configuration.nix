@@ -258,10 +258,6 @@ in {
     fd
     amd_gpu_patch
     amd_gpu_firmware
-    #kmonad
-    # Sway stuff. Move into single file later
-    # Here we but a shell script into path, which lets us start sway.service (after importing the environment of the login shell).
-
   ];
 
 
