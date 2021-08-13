@@ -267,39 +267,6 @@ in {
     # Sway stuff. Move into single file later
     # Here we but a shell script into path, which lets us start sway.service (after importing the environment of the login shell).
 
-    (
-      pkgs.writeTextFile {
-        name = "togglebacklight";
-        destination = "/bin/tooglebacklight";
-        executable = true;
-        text = ''
-          #! ${pkgs.bash}/bin/sh
-          read lcd < /tmp/lcd
-            if [ "$lcd" -eq "0" ]; then
-                swaymsg "output * dpms on"
-                echo 1 > /tmp/lcd
-            else
-                swaymsg "output * dpms off"
-                echo 0 > /tmp/lcd
-            fi
-        '';
-      }
-    )
-
-
-    (
-      pkgs.writeTextFile {
-        name = "syncvimwiki";
-        destination = "/bin/syncvimwiki";
-        executable = true;
-        text = ''
-          #! ${pkgs.bash}/bin/sh
-          cd /home/stefan/vimwiki
-          while sleep 1 ; do /run/current-system/sw/bin/find . | /run/current-system/sw/bin/entr -n -d /bin/sh -c "/run/current-system/sw/bin/git add -A && /run/current-system/sw/bin/git commit -m 'Update vimwiki' && /run/current-system/sw/bin/git pull && /run/current-system/sw/bin/git push" ; done
-        '';
-      }
-
-    )
   ];
 
 
