@@ -1,0 +1,861 @@
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                            vimrc / init.vim                            "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""
+"  Vim Plugins  "
+"""""""""""""""""
+
+" download vim-plug if missing
+"if empty(glob("~/.vim/autoload/plug.vim"))
+ " silent! execute '!curl --create-dirs -fsSLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+ " autocmd VimEnter * silent! PlugInstall  --sync | source $MYVIMRC
+"endif
+set hidden
+
+" Load vim-plug
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+
+" Disable polyglot in python. Use semshi there instead
+let g:polyglot_disabled = ['python']
+
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+Plug 'steelsojka/completion-buffers'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
+
+Plug 'nvim-lua/lsp-status.nvim'
+
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   Lint                                "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Plug 'sheerun/vim-polyglot'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   Python                              "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Automatically handle indentation and formatiing for python
+Plug 'Vimjas/vim-python-pep8-indent'
+
+
+Plug 'davidhalter/jedi-vim'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+
+
+Plug 'airblade/vim-gitgutter'
+
+Plug 'plasticboy/vim-markdown'
+
+Plug 'scrooloose/nerdcommenter'
+
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+Plug 'vimwiki/vimwiki', {'branch' : 'master'}
+Plug 'michal-h21/vim-zettel'
+Plug 'https://github.com/alok/notational-fzf-vim'
+
+Plug 'samoshkin/vim-mergetool'
+
+Plug 'rhysd/vim-clang-format'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'shumphrey/fugitive-gitlab.vim'
+Plug 'kana/vim-operator-user'
+
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'edkolev/tmuxline.vim'
+Plug 'tmux-plugins/vim-tmux'
+
+
+Plug 'simeji/winresizer'
+
+Plug 'altercation/vim-colors-solarized'
+Plug 'arcticicestudio/nord-vim'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+"Plug 'yuki-ycino/fzf-preview.vim'
+
+Plug 'psf/black', { 'tag': '19.10b0' }
+
+Plug 'CoatiSoftware/vim-sourcetrail'
+
+
+" Tabbar with fancy features
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
+
+Plug 'marko-cerovac/material.nvim'
+
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/trouble.nvim'
+
+Plug 'folke/lsp-colors.nvim'
+
+" Git Blame auf steroiden
+Plug 'rhysd/git-messenger.vim'
+
+" Lightbulb wenn eine lsp action verfeugbar ist
+Plug 'kosayoda/nvim-lightbulb'
+
+" Kleine pictograme bei den lsp vorschlaegen
+Plug 'onsails/lspkind-nvim'
+
+" Lualine mit Nord Theme
+Plug 'hoob3rt/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+
+" Fancy suchen
+Plug 'ggandor/lightspeed.nvim'
+
+" Besseres smooth scrollen
+Plug 'karb94/neoscroll.nvim'
+
+" Fade out vim windows not in focus
+Plug 'sunjon/shade.nvim'
+
+" lsp trees visualieren
+Plug 'simrat39/symbols-outline.nvim'
+
+" Termninal aus nvim raus toggeln
+Plug 'akinsho/nvim-toggleterm.lua'
+
+" Plugin um register einfach waehlen zu koennen
+Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
+
+" Another eye friendly colortheme
+Plug 'sainnhe/everforest'
+
+" Highlight Colorcodes in theire color
+Plug 'norcalli/nvim-colorizer.lua'
+
+" Highlight and search for TODO and other
+Plug 'folke/todo-comments.nvim'
+
+
+call plug#end()
+
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+if has("vms")
+  set nobackup		" do not keep a backup file, use versions instead
+else
+  set backup		" keep a backup file
+endif
+
+set ruler		" show the cursor position all the time
+
+set showcmd		" display incomplete commands
+
+set incsearch		" do incremental searching
+
+set virtualedit=all     "virtualedit allows cursor movement on every position
+
+set wildmenu "Tab autovervollständigung"
+set wildmode=list:longest,full
+
+syntax on
+set hlsearch
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+  " Enable file type detection.
+  " Use the default filetype settings, so that mail gets 'tw' set to 72,
+  " 'cindent' is on in C files, etc.
+  " Also load indent files, to automatically do language-dependent indenting.
+  filetype plugin indent on
+
+  " Put these in an autocmd group, so that we can delete them easily.
+  augroup vimrcEx
+  au!
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  " Also don't do it when the mark is in the first line, that is the default
+  " position when opening a file.
+  autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+  augroup END
+
+else
+
+  set autoindent		" always set autoindenting on
+
+endif " has("autocmd")
+
+set autowrite
+set autowriteall
+
+" Some servers have issues with backup files, see #649
+" set nobackup
+" set nowritebackup
+set backupdir=~/.vim/backupdir
+set directory=~/.vim/backupdir
+
+set undodir=~/.vim/undodir
+set undofile
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" History lenght. Maybe helpful for fzf history search
+set history=10000
+ 
+"Ask to save before buffer change"
+set confirm
+
+" if hidden is not set, TextEdit might fail.
+" set hidden
+
+"dont use mouse
+set mouse=nv
+
+"" Omnicompletion "
+set omnifunc=syntaxcomplete#Complete
+
+" Bei suche nicht auf groß- und kleinschreibung achten
+set ignorecase
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set softtabstop=4
+set shiftround
+
+" hyprid number with auto toggling
+set number relativenumber cursorline
+augroup numbertoggle
+	autocmd!
+	autocmd BufEnter,FocusGained,InsertLeave * set relativenumber cursorline
+	autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber nocursorline
+augroup END 
+
+autocmd! bufwritepost init.vim source %
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  C++                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:clang_format#google = {}
+autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              Key mappings                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Space> <leader>
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+
+" Tmux style window movement
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+nnoremap H :BufferPrevious<CR>
+nnoremap L :BufferNext<CR>
+
+" Quick edit vimrc in vertical split
+nmap <silent> <leader>ev :e ~/dotfiles/.vim/vimrc<CR>
+nmap <silent> <leader>eb :e ~/dotfiles/.bashrc<CR>
+nmap <silent> <leader>ez :e ~/.dotfiles/zshrc<CR>
+nmap <silent> <leader>ei :e ~/.dotfiles/config/i3/base<CR>
+nmap <silent> <leader>sv :so ~/dotfiles/vim/vimrc<CR>
+
+nnoremap <leader>f <cmd>lua require('telescope.builtin').git_files()<CR>
+nnoremap <leader>F <cmd>lua require('telescope.builtin').find_files()<CR>
+nnoremap <leader>h <cmd>lua require('telescope.builtin').oldfiles()<CR>
+
+
+nmap <Leader>H <cmd>lua require('telescope.builtin').man_pages()<CR>
+nmap <Leader>[ :BufferPrevious<CR>
+nmap <Leader>] :BufferNext<CR>
+nnoremap <leader>dd :BufferClose<CR>
+
+" Easy most-recent-buffer switching
+nnoremap <Tab> :b#<CR>
+
+nnoremap <Space><space> <cmd>lua require('telescope.builtin').buffers()<CR>
+
+
+noremap <Leader>r '
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                Airline                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" let g:airline_theme='atomic'
+let g:airline_theme='nord'
+let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#enabled = 0
+" let g:airline#extensions#tabline#buffer_nr_show = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail'
+"let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+"let g:airline_statusline_ontop=1
+"Status line settings
+"laststatus 2 = show statusline always
+"           1 = only if more than two windows
+"           0 = never
+set laststatus=2 " Always display the statusline in all windows
+"set showtabline=2 " Always display the tabline, even if there is only one tab
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                Vimwiki                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let wiki_1 = {}
+let wiki_1.path = '/home/stefan/vimwiki'
+let wiki_1.syntax = 'markdown'
+let wiki_1.ext = '.md'
+let wiki_1.auto_tags = 1
+let wiki_1.automatic_nested_syntaxes = 1
+" Refresh TOC if exists on save
+let wiki_1.auto_toc = 1
+" Highlight wiki links to non existing pages
+let wiki_1.maxhi = 1
+let wiki_1.auto_diary_index = 1
+
+let g:vimwiki_conceal_pre = 1
+
+let g:vimwiki_list = [wiki_1]
+let g:vimwiki_use_mouse = 0
+"let g:vimwiki_folding = 'expr'
+let g:vimwiki_auto_chdir = 1
+
+let g:zettel_format = "%Y-%m-%d_%H-%M_%A"
+
+let g:nv_search_paths = ['~stefan/vimwiki']
+
+nnoremap <leader>nn :NV!
+
+nnoremap <leader>zb :ZettelBackLinks<cr>
+nnoremap <leader>zz :ZettelNew<space>
+nnoremap <leader>zl :ZettelSearch<cr>
+
+"Mandatory for Ultisnips   
+let g:vimwiki_table_mappings = 0
+
+let g:vimwiki_hl_headers = 1
+
+" Set highliting of Headers in vimwiki more visible
+highlight! VimwikiHeaderChar cterm=bold ctermfg=0 ctermbg=6 gui=bold guifg=#5e81ac guibg=#2e3440
+highlight! link VimwikiLink SpellRare
+highlight! link VimwikiList markdownH1
+
+highlight! VimwikiHeader1 cterm=bold ctermfg=0 ctermbg=6 gui=bold guifg=#2e3440 guibg=#BF616A
+highlight! VimwikiHeader2 cterm=bold ctermfg=0 ctermbg=6 gui=bold guifg=#3B4252 guibg=#d08770
+highlight! VimwikiHeader4 cterm=bold ctermfg=0 ctermbg=6 gui=bold guifg=#2E3440 guibg=#A3BE8C
+highlight! VimwikiHeader3 cterm=bold ctermfg=0 ctermbg=6 gui=bold guifg=#2E3440 guibg=#EBCB8B
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                           Ultisnips settings                           "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<c-s>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" 
+let g:UltiSnipsSnippetsDir = $HOME."/.vim/privat_snippets"
+let g:UltiSnipsSnippetDirectories = [$HOME."/.vim/plugged/vim-snippets/UltiSnips/", $HOME."/.vim/privat_snippets"]
+
+let g:snips_author = "Stefan Geyer"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  fzf                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set rtp+=~/.fzf
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+\ 'bg':      ['bg', 'Normal'],
+\ 'hl':      ['fg', 'Comment'],
+\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+\ 'hl+':     ['fg', 'Statement'],
+\ 'info':    ['fg', 'PreProc'],
+\ 'border':  ['fg', 'Ignore'],
+\ 'prompt':  ['fg', 'Conditional'],
+\ 'pointer': ['fg', 'Exception'],
+\ 'marker':  ['fg', 'Keyword'],
+\ 'spinner': ['fg', 'Label'],
+\ 'header':  ['fg', 'Comment'] }
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                         vim fugitive settings                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"delte hidden fugitive buffer. Reduces cluttering of past opend git objects
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                          Clipboard management                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                Anki vim                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"Put curser at question field in new anki window
+autocmd BufReadPost *.anki_vim :10
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               lsp Stuff                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+command Declaration :lua vim.lsp.buf.declaration()
+command Definition :lua vim.lsp.buf.definition()
+command Hover :lua vim.lsp.buf.hover()
+command Implementation :lua vim.lsp.buf.implementation()
+command SignatureHelp :lua vim.lsp.buf.signature_help()
+command TypeDefinition :lua vim.lsp.buf.type_definition()
+command References :lua require'telescope.builtin'.lsp_references{}
+command DocumentSymbol :lua vim.lsp.buf.document_symbol()
+command WorkspaceSymbol :lua vim.lsp.buf.workspace_symbol()
+command Format :lua vim.lsp.buf.formatting_sync(nil, 1000)
+command Rename :lua vim.lsp.buf.rename()
+
+nnoremap <silent>K  <cmd>Hover<CR>
+nnoremap <silent>gd <cmd>Definition<CR>
+nnoremap <silent>gy <cmd>TypeDefinition<CR>
+nnoremap <silent>gi <cmd>Implementation<CR>
+nnoremap <silent>gr <cmd>References<CR>
+nnoremap <silent>]d :lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent>[d :lua vim.lsp.diagnostic.goto_prev()<CR>
+
+nnoremap <leader>f  <cmd>Format<CR>
+nnoremap <leader>r  <cmd>Rename<CR>
+nnoremap <leader>p  <cmd>lua require'telescope.builtin'.git_files{}<CR>
+nnoremap <leader>ws <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>
+nnoremap <leader>ds <cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<CR>
+nnoremap <leader>w  <cmd>update<CR>
+nnoremap <leader>q  <cmd>quit<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                            GitGutter                                  "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Dont use standard mappings. They interact with <leader>h from vim clap
+let g:gitgutter_map_keys = 0
+
+nmap ]j <Plug>(GitGutterNextHunk)
+nmap [j <Plug>(GitGutterPrevHunk)
+
+" Required after having changed the colorscheme
+hi clear SignColumn
+" In vim-airline, only display "hunks" if the diff is non-zero
+let g:airline#extensions#hunks#non_zero_only = 1
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 Other                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" VIm Autoscroll. 
+set scrolloff=4
+" Jump Lenght of Autoscroll
+set scrolljump=1
+
+set foldlevel=1
+
+
+" Do default action for previous item.
+nnoremap <silent> <space>=  :set ea noea<CR>
+
+lua << EOF
+
+lsp_status = require('lsp-status')
+lsp_status.register_progress()
+lsp_status.config({
+    status_symbol = "",
+})
+
+EOF
+
+
+
+lua << EOF 
+
+local lspconfig = require'lspconfig'
+
+lspconfig.clangd.setup{
+    cmd = { "clangd-10", "--background-index" , "--cross-file-rename", "--all-scopes-completion", "--completion-style=detailed", "-j=10"}
+    }
+
+lspconfig.cmake.setup{}
+
+
+--Enable (broadcasting) snippet capability for completion
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+
+
+lspconfig.html.setup {
+  capabilities = capabilities,
+}
+
+require'lspconfig'.pyright.setup{}
+
+
+require'lspconfig'.texlab.setup{}
+
+
+EOF 
+
+"lspconfig.clangd.setup{
+    "cmd = { "clangd-10", "--background-index" , "--cross-file-rename", --function-arg-placeholders", "--all-scopes-completion", "--clang-tidy", "--completion-style=detailed", "--pch-storage=memory", "-j=3"}
+    "}
+
+" Use completion-nvim in every buffer
+autocmd BufEnter * lua require'completion'.on_attach()
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+let g:completion_enable_snippet = 'UltiSnips'
+
+let g:completion_chain_complete_list = {
+    \ 'default': [
+    \    {'complete_items': ['lsp', 'snippet']},
+    \    {'mode': '<c-p>'},
+    \    {'mode': '<c-n>'}
+    \]
+\}
+let g:completion_sorting = "none"
+
+lua << EOF
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+  },
+  refactor = {
+    highlight_definitions = { enable = true },
+    --highlight_current_scope = { enable = true }
+  },
+  indent = {
+    enable = true
+  }
+}
+
+EOF
+
+nnoremap <leader>a  :ClangdSwitchSourceHeader<CR>
+
+"autocmd BufReadPost * BufferOrderByDirectory
+"autocmd BufRead * BufferOrderByDirectory
+autocmd BufWinEnter * BufferOrderByDirectory
+
+"""""""""""""""""""""""""
+"  Material Colorsheme  "
+"""""""""""""""""""""""""
+
+let g:material_style = 'palenight'
+let g:material_italic_comments = 1
+let g:material_italic_keywords = 1
+let g:material_italic_functions = 1
+let g:material_contrast = 1
+let g:material_lighter_contrast = 1
+let g:material_borders = 1
+
+nnoremap <leader>ml :lua require('material.functions').change_style('lighter')<CR>
+nnoremap <leader>md :colorscheme nord<CR>
+
+""""""""""""""""""
+"  Trouble.nvim  "
+""""""""""""""""""
+nnoremap <F2> <cmd>TroubleToggle<cr>
+
+lua << EOF
+  --- more config can be found here: 
+  --- https://github.com/folke/trouble.nvim
+  require("trouble").setup { }
+EOF
+
+"""""""""""""""""""
+"  git messenger  "
+"""""""""""""""""""
+
+nnoremap <F3> <cmd>GitMessenger<cr>
+
+" zwei mal den befehl ausfuehren bewegt den crsor in das gitmessenger feld
+" Mit o und O kann durch die history gewechselt werden
+" d und D zeigen verschiedene dif versionen 
+" ? zeigt die hilfeseite
+
+
+"""""""""""""""""
+"  lspkind nvim "
+"""""""""""""""""
+
+lua <<EOF
+
+require('lspkind').init({
+    -- enables text annotations
+    --
+    -- default: true
+    with_text = true,
+
+    -- default symbol map
+    -- can be either 'default' or
+    -- 'codicons' for codicon preset (requires vscode-codicons font installed)
+    --
+    -- default: 'default'
+    preset = 'codicons',
+
+    -- override preset symbols
+    --
+    -- default: {}
+    symbol_map = {
+      Text = '',
+      Method = 'ƒ',
+      Function = '',
+      Constructor = '',
+      Variable = '',
+      Class = '',
+      Interface = 'ﰮ',
+      Module = '',
+      Property = '',
+      Unit = '',
+      Value = '',
+      Enum = '了',
+      Keyword = '',
+      Snippet = '﬌',
+      Color = '',
+      File = '',
+      Folder = '',
+      EnumMember = '',
+      Constant = '',
+      Struct = ''
+    },
+})
+
+EOF
+
+""""""""""""""""""""
+"  Nvim lightbulb  "
+""""""""""""""""""""
+
+autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+
+
+"""""""""""""
+"  Lualine  "
+"""""""""""""
+lua << EOF
+require('lualine').setup {
+    --- options = {theme = "nord"}
+    options = {theme = "everforest"}
+    }
+EOF
+
+"""""""""""""""
+"  neoscroll  "
+"""""""""""""""
+
+lua << EOF
+require('neoscroll').setup({
+easing_function = "sine",
+})
+EOF
+
+
+"""""""""""""""
+"  Shade.vim  "
+"""""""""""""""
+
+lua << EOF
+require'shade'.setup({
+  overlay_opacity = 80,
+  opacity_step = 1,
+})
+EOF
+
+""""""""""""""""""""
+"  symbol outline  "
+""""""""""""""""""""
+
+nnoremap <F4> <cmd>SymbolsOutline<cr>
+
+""""""""""""""""
+"  toggleterm  "
+""""""""""""""""
+
+lua << EOF
+require("toggleterm").setup{
+    hide_numbers = true, -- hide the number column in toggleterm buffers
+    shade_filetypes = {},
+    shade_terminals = true,
+    start_in_insert = true,
+    insert_mappings = true, -- whether or not the open mapping applies in insert mode
+    direction = "vertical",
+
+    size = vim.o.columns * 0.4
+
+}
+EOF
+
+nnoremap <C-g> <cmd>ToggleTerm dir=git_dir<cr>
+tnoremap <silent><c-g> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+
+  " Terminal mode:
+tnoremap <C-h> <c-\><c-n><c-w>h
+tnoremap <C-j> <c-\><c-n><c-w>j
+tnoremap <C-k> <c-\><c-n><c-w>k
+tnoremap <C-l> <c-\><c-n><c-w>l
+
+""""""""""""""""
+"  everforest  "
+""""""""""""""""
+
+set termguicolors 
+
+" Set contrast.
+" This configuration option should be placed before `colorscheme everforest`.
+" Available values: 'hard', 'medium'(default), 'soft'
+
+"" For dark version.
+set background=dark
+"" For light version.
+"" set background=light
+
+let g:everforest_background = 'soft'
+colorscheme everforest
+
+"""""""""""""""
+"  colorizer  "
+"""""""""""""""
+
+lua require("colorizer").setup()
+
+""""""""""""""""""""""""
+"  todo-comments.nvim  "
+""""""""""""""""""""""""
+
+lua << EOF
+  require("todo-comments").setup {
+        signs = true, -- show icons in the signs column
+  sign_priority = 8, -- sign priority
+  -- keywords recognized as todo comments
+  keywords = {
+    FIX = {
+      icon = " ", -- icon used for the sign, and in search results
+      color = "error", -- can be a hex color, or a named color (see below)
+      alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+      -- signs = false, -- configure signs for some keywords individually
+    },
+    TODO = { icon = " ", color = "warning" },
+    HACK = { icon = " ", color = "warning" },
+    WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+    PERF = { icon = " ", color = "info", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+    NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+  },
+  merge_keywords = true, -- when true, custom keywords will be merged with the defaults
+  -- highlighting of the line containing the todo comment
+  -- * before: highlights before the keyword (typically comment characters)
+  -- * keyword: highlights of the keyword
+  -- * after: highlights after the keyword (todo text)
+  highlight = {
+    before = "", -- "fg" or "bg" or empty
+    keyword = "wide", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
+    after = "fg", -- "fg" or "bg" or empty
+    pattern = [[.*<(KEYWORDS)\s*:]], -- pattern used for highlightng (vim regex)
+    comments_only = true, -- uses treesitter to match keywords in comments only
+    max_line_len = 400, -- ignore lines longer than this
+    exclude = {}, -- list of file types to exclude highlighting
+  },
+  -- list of named colors where we try to extract the guifg from the
+  -- list of hilight groups or use the hex color if hl not found as a fallback
+  colors = {
+    error = { "LspDiagnosticsDefaultError", "ErrorMsg", "#DC2626" },
+    warning = { "LspDiagnosticsDefaultWarning", "WarningMsg", "#FBBF24" },
+    info = { "LspDiagnosticsDefaultInformation", "#2563EB" },
+    hint = { "LspDiagnosticsDefaultHint", "#10B981" },
+    default = { "Identifier", "#7C3AED" },
+      },
+  search = {
+    command = "rg",
+    args = {
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+    },
+    -- regex that will be used to match keywords.
+    -- don't replace the (KEYWORDS) placeholder
+    pattern = [[\b(KEYWORDS):]], -- ripgrep regex
+    -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
+  },
+  }
+EOF

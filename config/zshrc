@@ -1,0 +1,266 @@
+# auto-install antigen
+export ANTIGEN_CACHE=$HOME/.cache/zshrc.zwc
+if [[ ! -d ~/.antigen ]]; then
+    echo '[zshrc] installing antigen...'
+    git clone https://github.com/zsh-users/antigen.git ~/.antigen
+    #antigen theme romkatv/powerlevel10k
+    antigen apply
+fi
+
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+eval "$(starship init zsh)"
+
+# History Settings (big history for use with many open shells and no dups)
+# # Different History files for root and standard user
+HISTFILE=~/.zsh_history
+SAVEHIST=10000
+HISTSIZE=12000
+setopt share_history append_history extended_history hist_no_store hist_ignore_all_dups hist_ignore_space
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+#HIST_STAMPS="dd/mm/yyyy"
+HIST_STAMPS=$(date +"%d/%m/%Y")
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nvim'
+else
+  export EDITOR='nvim'
+fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+#####################
+#  EDITOR Settings  #
+#####################
+
+export EDITOR=nvim
+export VISUAL=nvim
+
+
+#######################
+#  Alias definitions  #
+#######################
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls --color=auto --ignore-backups'
+alias x='exit'
+alias p='ping 1.1'
+
+alias screenoff='xset dpms force off'
+alias r='ranger'
+alias v='nvim'
+alias vim='nvim'
+alias fv='nvim $(rg --files | fzf -m)'
+alias g='git'
+alias gs='git status'
+alias s='sudo'
+alias h='htop'
+
+alias kl='ps -A | fzf | grep -Eoh "[^:][0-9]{2,6}[^:]" | xargs kill'
+alias hpause='ps -A | fzf | grep -Eoh "[^:][0-9]{2,6}[^:]" | xargs kill -STOP'
+alias pause='ps -A | fzf | grep -Eoh "[^:][0-9]{2,6}[^:]" | xargs kill -TSTP'
+alias resume='ps -A | fzf | grep -Eoh "[^:][0-9]{2,6}[^:]" | xargs kill -CONT'
+
+alias vanki='anki-vim -e nvim --editor-args="" daily'
+
+alias activate='bash /home/stefan/Dokumente/Programmieren/Projekte/KITcar/kitcar_ros_branches/activate.sh && source ~stefan/.zshrc'
+alias src='source ~stefan/.zshrc'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+
+alias wget_chrome='wget -c --user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"'
+
+alias f='nice -n 5 firefox'
+
+alias c='clear'
+
+alias lg='lazygit'
+
+###########
+#  Toggl  #
+###########
+
+alias tp='toggl start --project pause pause &; disown'
+alias ti='toggl start --project internet internet &; disown'
+alias tc='toggl start --project freunde Chatten &; disown'
+alias te='toggl start --project alltag essen &; disown'
+alias tt='toggl start --project "self management" todoist &; disown'
+alias ts='toggl start --project "self management" "self management" &; disown'
+alias tu='toggl start --project "uni" uni &; disown'
+alias td='toggl start --project "projekte" datascience &; disown'
+alias tk='toggl start --project kitcar kitcar &; disown'
+
+#alias tk='echo "neue KITcar aufgabe starten"; read toggl_argument; toggl start --project kitcar "$toggl_argument" &; disown'
+alias tpr='echo "neue Projekt aufgabe starten"; read toggl_argument; toggl start --project projekte "$toggl_argument" &; disown'
+alias tl='echo "neue lernen aufgabe starten"; read toggl_argument; toggl start --project lernen "$toggl_argument" &; disown'
+alias tre='echo "neue lesen zeit starten"; read toggl_argument; toggl start --project lesen "$toggl_argument" &; disown'
+alias tse='echo "neue self management zeit starten"; read toggl_argument; toggl start --project "self management" "$toggl_argument" &; disown'
+alias tles='echo "neue lesen zeit starten"; read toggl_argument; toggl start --project lesen "$toggl_argument" &; disown'
+
+
+alias clip='xclip -selection clipboard'
+
+alias w='wd'
+
+############
+#  CCache  #
+############
+
+export CC="/usr/lib/ccache/cc"
+export CXX="/usr/lib/ccache/c++"
+export PATH="/usr/lib/ccache:$PATH"
+
+#####################
+#  KITcar Settings  #
+#####################
+
+if [ -z "$KITCAR_REPO_PATH" ]; then
+  export KITCAR_REPO_PATH=$HOME/Dokumente/Programmieren/Projekte/KITcar
+fi
+
+#source $KITCAR_REPO_PATH/kitcar-init/config/zshrc_private 
+export CAR_NAME='dr_drift'
+
+set_nuc_ros_master () {
+  export ROS_MASTER_URI=http://10.10.0.1:11311
+}
+
+set_nuc_ros_master_new () {
+  export ROS_MASTER_URI=http://10.20.0.1:11311
+}
+
+mr () {
+  git fetch origin merge-requests/$1/head:mr-origin-$1 && git checkout mr-origin-$1
+}
+
+##################
+#  FZF Settings  #
+##################
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_TMUX='1'
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+
+# Use ~~ as the trigger sequence instead of the default **
+export FZF_COMPLETION_TRIGGER='~~'
+
+# Options to fzf command
+export FZF_COMPLETION_OPTS='+c -x'
+
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" --exclude "*~" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" --exclude "*~" . "$1"
+}
+
+###############################
+#  fzf variants of programms  #
+###############################
+
+fm () {
+  mv $1 $(fd . --full-path /home/stefan --type d 2>/dev/null | fzf )
+}
+
+fcd () {
+  cd $(fd . --full-path /home/stefan --type d 2>/dev/null | fzf )
+}
+
+#####################
+#  Toggle Touchpad  #
+#####################
+
+export PATH="/home/stefan/Dokumente/Programmieren/Projekte/capG/touchpad_toggle:$PATH"
+
+########
+#  Git #
+########
+
+# Necesarry for git aliases (files and stat)
+export REVIEW_BASE='origin/master'
+
+#########
+#  ssh  #
+#########
+
+ssh-add 2&> /dev/null
+ssh-add /home/stefan/.ssh/id_rsa_insecure 2&> /dev/null
+ssh-add /home/stefan/.ssh/caplett_key 2&> /dev/null
+
+###########
+#  Other  #
+###########
+
+export PATH="/home/stefan/.cargo/bin:$PATH"
+#source /usr/share/gazebo/setup.sh # for gazebo paths
+
+path+=('/home/stefan/.scripts')
+
+LD_PRELOAD+=('/usr/lib/x86_64-linux-gnu/libgtk3-nocsd.so.0')
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+BAT_THEME='Nord'
+
+xset r rate 200 60
+
+#source /opt/ros/melodic/setup.zsh
+#source /opt/orocos/${ROS_DISTRO}/setup.sh
+#source /home/stefan/projekte/other/orocos_ros_intergration/devel/setup.sh
+#source /home/stefan/antropromatik_praktikum/code/devel/setup.sh
+#source /home/stefan/antropromatik_praktikum/dev_ws/devel/setup.sh
+
+eval "$(direnv hook zsh)"
+
+export PYTHONBREAKPOINT="pudb.set_trace"
+
+export ROSCONSOLE_FORMAT='[${severity}] [${time}] [${node}]: ${message}'
+
+if [ -n "${commands[fzf-share]}" ]; then
+	  source "$(fzf-share)/key-bindings.zsh"
+	    source "$(fzf-share)/completion.zsh"
+fi
+

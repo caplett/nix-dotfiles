@@ -6,8 +6,8 @@
 
 let 
    kmonad = import ./kmonad.nix;
-   amd_gpu_patch = pkgs.callPackage ./dotfiles/amd_gpu_patch/default.nix {};
-   amd_gpu_firmware = pkgs.callPackage ./dotfiles/amd_gpu_firmware/default.nix {};
+   amd_gpu_patch = pkgs.callPackage ./amd_gpu_patch/default.nix {};
+   amd_gpu_firmware = pkgs.callPackage ./amd_gpu_firmware/default.nix {};
 in {
   imports =
     [ # Include the results of the hardware scan.
@@ -119,9 +119,6 @@ in {
        "xdg/waybar/style.css".source = ./dotfiles/waybar/style.css;
       "zsh/zshrc".source = builtins.path{ name = "zshrc"; path = ./dotfiles/.zshrc;};
       "zshrc".source = builtins.path{ name = "zshrc"; path = ./dotfiles/.zshrc;};
-      "xdg/kitty/kitty.conf".source = builtins.path{ name = "kitty.conf"; path = ./dotfiles/.config/kitty/kitty.conf;};
-      "kmonad/neo_hybrid.kbd".source = builtins.path{ name = "neo_hybrid.kbd"; path = ./dotfiles/Dokumente/Programmieren/Projekte/other/kmonad/keymap/user/caplett/neo_hybrid.kbd;};
-      "tmux.conf".source = builtins.path{ name = "tmux.conf"; path = ./dotfiles/.tmux.conf;};
   };
 
 
@@ -179,6 +176,9 @@ in {
     bindsTo = [ "graphical-session.target" ];
     wants = [ "graphical-session-pre.target" ];
     after = [ "graphical-session-pre.target" ];
+      "xdg/kitty/kitty.conf".source = builtins.path{ name = "kitty.conf"; path = ./config/kitty.conf;};
+      "kmonad/neo_hybrid.kbd".source = builtins.path{ name = "neo_hybrid.kbd"; path = ./config/neo_hybrid.kbd;};
+      "tmux.conf".source = builtins.path{ name = "tmux.conf"; path = ./config/tmux.conf;};
   };
 
 #  systemd.user.services.sway = {
@@ -254,7 +254,7 @@ in {
      autocd = true;
      enableAutosuggestions = true;
      enableCompletion = true;
-     initExtra = (builtins.readFile ./dotfiles/.zshrc);
+     initExtraFirst = (builtins.readFile ./config/zshrc);
    };
 
 
