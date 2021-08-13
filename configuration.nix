@@ -86,9 +86,6 @@ in {
 
   environment.etc = {
       # Put config files in /etc. Note that you also can put these in ~/.config, but then you can't manage them with NixOS anymore!
-      "zsh/zshrc".source = builtins.path{ name = "zshrc"; path = ./dotfiles/.zshrc;};
-      "zshrc".source = builtins.path{ name = "zshrc"; path = ./dotfiles/.zshrc;};
-  };
 
 
   };
