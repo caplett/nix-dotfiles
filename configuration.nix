@@ -81,12 +81,8 @@ in {
 
 
   fonts.fonts = with pkgs; [
-    #(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     nerdfonts
     font-awesome
-    #fira-code-retina
-    #fire-code-bold
-    #fira-code-symbols
     pango
   ];
 
