@@ -14,6 +14,7 @@ in {
       ./hardware-configuration.nix
       #./tuxedo.nix
       ./vim.nix
+      ./utils.nix
       ./sway.nix
       ./amd_gpu.nix
 	
