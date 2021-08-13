@@ -47,6 +47,9 @@ in {
   networking.networkmanager.enable = true;
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.firewall.checkReversePath = "loose";
+  networking.wireguard.enable = true;
+  services.mullvad-vpn.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -235,6 +238,7 @@ in {
     kmonad
     steam
     protontricks
+    mullvad-vpn
 	
     dolphin
 
