@@ -13,6 +13,7 @@ in {
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       #./tuxedo.nix
+      ./vim.nix
       ./amd_gpu.nix
 	
  
@@ -122,33 +123,6 @@ in {
   };
 
 
-  systemd.user.services.clone_vimwiki = {
-    enable = true;
-    description = "Clone vimwiki repo if not present ";
-    after=["network-online.target"];
-    wants=["network-online.target"];
-    serviceConfig = {
-      # Minus before command signals that failure are ignored.
-      ExecStart = ''
-        -${pkgs.git}/bin/git clone git@git.caplett.com:jadas/zettelkasten.git /home/stefan/vimwiki -q
-      '';
-      Restart = "no";
-    };
-  };
-
-
-  systemd.user.services.syncvimwiki = {
-    enable = true;
-    description = "automatic push and pull on save in vimwiki";
-    wants = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-    serviceConfig = {
-      # Minus before command signals that failure are ignored.
-      ExecStart = ''
-       /run/current-system/sw/bin/syncvimwiki 
-      '';
-      Restart = "always";
-    };
   };
 
 
@@ -298,8 +272,6 @@ in {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #neovim
     wget
     firefox
     htop
@@ -410,9 +382,6 @@ in {
     )
   ];
 
-  programs.neovim.enable = true;
-  programs.neovim.defaultEditor = true;
-  programs.neovim.configure.customRC = (builtins.readFile ./dotfiles/.vim/vimrc);
 
 
 virtualisation.oci-containers.backend= "docker";
