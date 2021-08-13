@@ -16,7 +16,6 @@ in {
       ./utils.nix
       ./sway.nix
       ./amd_gpu.nix
-	
       (import "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos")
     ];
 
@@ -74,11 +73,9 @@ in {
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-
   # Enable the GNOME Desktop Environment.
   #services.xserver.displayManager.gdm.enable = true;
   #services.xserver.desktopManager.gnome.enable = true;
-
 
   fonts.fonts = with pkgs; [
     nerdfonts
@@ -102,7 +99,6 @@ in {
       "tmux.conf".source = builtins.path{ name = "tmux.conf"; path = ./config/tmux.conf;};
   };
 
-    
   systemd.user.services.kmonad = {
     enable = true;
     description = "Autostart kmoand ";
@@ -116,7 +112,6 @@ in {
       Restart = "always";
     };
   };
-   #
 
 
   # Configure keymap in X11
@@ -133,6 +128,7 @@ in {
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
   services.xserver.libinput.touchpad.disableWhileTyping = true;
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
    users.users.stefan = {
@@ -251,6 +247,7 @@ in {
     kmonad
     steam
     protontricks
+
     mullvad-vpn
 	
     dolphin
