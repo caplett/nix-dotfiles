@@ -269,11 +269,7 @@ in {
     amd_gpu_firmware
   ];
 
-
-
-virtualisation.oci-containers.backend= "docker";
-
-
+  virtualisation.oci-containers.backend= "docker";
 
   programs.steam.enable = true;
 
