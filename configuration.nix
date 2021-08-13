@@ -243,6 +243,9 @@ in {
 
     feh
     wdisplays
+    sourcetrail
+    nix-index
+    lazygit
 
     direnv
     kmonad
