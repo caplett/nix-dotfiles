@@ -242,6 +242,7 @@ in {
     grim
 
     feh
+    wdisplays
 
     direnv
     kmonad
