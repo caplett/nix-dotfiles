@@ -12,13 +12,11 @@ in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      #./tuxedo.nix
       ./vim.nix
       ./utils.nix
       ./sway.nix
       ./amd_gpu.nix
 	
- 
       (import "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos")
     ];
 
