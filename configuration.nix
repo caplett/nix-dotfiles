@@ -14,6 +14,7 @@ in {
       ./hardware-configuration.nix
       #./tuxedo.nix
       ./vim.nix
+      ./sway.nix
       ./amd_gpu.nix
 	
  
@@ -83,24 +84,6 @@ in {
   #services.xserver.displayManager.gdm.enable = true;
   #services.xserver.desktopManager.gnome.enable = true;
 
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true; # so that gtk works properly
-    extraPackages = with pkgs; [
-      swaylock
-      swayidle
-      wl-clipboard
-      mako # notification daemon
-      xwayland # for legacy apps
-      alacritty
-      kitty
-      dmenu # Dmenu is the default in the config but i recommend wofi since its wayland native
-      rofi
-      wofi
-      waybar # status bar
-      kanshi # autorandr
-    ];
-  };
 
   fonts.fonts = with pkgs; [
     #(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
@@ -115,9 +98,6 @@ in {
 
   environment.etc = {
       # Put config files in /etc. Note that you also can put these in ~/.config, but then you can't manage them with NixOS anymore!
-      "sway/config".source = ./dotfiles/.config/i3/config;
-       "xdg/waybar/config".source = ./dotfiles/waybar/config;
-       "xdg/waybar/style.css".source = ./dotfiles/waybar/style.css;
       "zsh/zshrc".source = builtins.path{ name = "zshrc"; path = ./dotfiles/.zshrc;};
       "zshrc".source = builtins.path{ name = "zshrc"; path = ./dotfiles/.zshrc;};
   };
@@ -126,55 +106,11 @@ in {
   };
 
 
-  systemd.user.services.kanshi = {
-    enable = true;
-    description = "Kanshi output autoconfig ";
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    serviceConfig = {
-      # kanshi doesn't have an option to specifiy config file yet, so it looks
-      # at .config/kanshi/config
-      ExecStart = ''
-        ${pkgs.kanshi}/bin/kanshi
-      '';
-      RestartSec = 5;
-      Restart = "always";
-    };
-  };
-
-
-  systemd.user.targets.sway-session = {
-    enable = true;
-    description = "Sway compositor session";
-    documentation = [ "man:systemd.special(7)" ];
-    bindsTo = [ "graphical-session.target" ];
-    wants = [ "graphical-session-pre.target" ];
-    after = [ "graphical-session-pre.target" ];
       "xdg/kitty/kitty.conf".source = builtins.path{ name = "kitty.conf"; path = ./config/kitty.conf;};
       "kmonad/neo_hybrid.kbd".source = builtins.path{ name = "neo_hybrid.kbd"; path = ./config/neo_hybrid.kbd;};
       "tmux.conf".source = builtins.path{ name = "tmux.conf"; path = ./config/tmux.conf;};
   };
 
-#  systemd.user.services.sway = {
-#    enable = true;
-#    description = "Sway - Wayland window manager";
-#    documentation = [ "man:sway(5)" ];
-#    bindsTo = [ "graphical-session.target" ];
-#    wants = [ "graphical-session-pre.target" ];
-#    after = [ "graphical-session-pre.target" ];
-#    # We explicitly unset PATH here, as we want it to be set by
-#    # systemctl --user import-environment in startsway
-#    environment.PATH = lib.mkForce null;
-#    serviceConfig = {
-#      Type = "simple";
-#      ExecStart = ''
-#        ${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway --debug
-#      '';
-#      Restart = "on-failure";
-#      RestartSec = 1;
-#      TimeoutStopSec = 10;
-#    };
-#  };
     
   systemd.user.services.kmonad = {
     enable = true;
@@ -191,7 +127,6 @@ in {
   };
    #
 
-  services.xserver.displayManager.defaultSession = "sway";
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -331,21 +266,6 @@ in {
     #kmonad
     # Sway stuff. Move into single file later
     # Here we but a shell script into path, which lets us start sway.service (after importing the environment of the login shell).
-    (
-      pkgs.writeTextFile {
-        name = "startsway";
-        destination = "/bin/startsway";
-        executable = true;
-        text = ''
-          #! ${pkgs.bash}/bin/bash
-
-          # first import environment variables from the login manager
-          systemctl --user import-environment
-          # then start the service
-          exec systemctl --user start sway.service
-        '';
-      }
-    )
 
     (
       pkgs.writeTextFile {
