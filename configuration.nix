@@ -238,6 +238,7 @@ in {
     sourcetrail
     nix-index
     lazygit
+    mosh
 
     direnv
     kmonad
