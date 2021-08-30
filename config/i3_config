@@ -364,7 +364,7 @@ bindcode $mod_alt+108 exec "/home/stefan/Dokumente/Programmieren/Projekte/capG/t
 #  Toggle Laptop screen on/off  #
 #################################
 
-bindcode $mod_alt+10 exec "/home/stefan/Dokumente/Programmieren/Projekte/Burnit/toggle_laptop_backlight/toogle_laptop_backlight.sh"
+bindcode 127` exec "/run/current-system/sw/bin/togglebacklight"
 
 #################################
 #  Toggle Laptop screen on/off  #
