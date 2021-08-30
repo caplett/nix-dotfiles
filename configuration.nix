@@ -175,7 +175,10 @@ in {
 	   enableCompletion = true;
 	   autosuggestions.enable = true;
 	   syntaxHighlighting.enable = true;
+	   # Disable vi mode
+	   # Init starship command prompt
            shellInit = ''
+		   bindkey -e		
 		   eval "$(starship init zsh)"
 		   '';
    };
