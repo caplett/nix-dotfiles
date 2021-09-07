@@ -31,7 +31,7 @@ in {
   #boot.kernelPackages = pkgs.linuxPackages_5_9;
   boot.kernelParams = [ "i8042.reset i8042.nomux i8042.nopnp i8042.noloop xhci_hcd.quirks=1073741824" ];
   boot.initrd.availableKernelModules = [ "i8042 xhci_hcd" ];
-  boot.kernelModules = [ "i8042 xhci_hcd" ];
+  boot.kernelModules = [ "kvm-amd" "kvm-intel" "i8042 xhci_hcd" ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -184,6 +184,7 @@ in {
    };
 
   virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   users.groups = { uinput = {}; };
 
@@ -197,6 +198,14 @@ in {
     '';
 
   nixpkgs.config.allowUnfree = true;
+  #services.nfs.server.enable = true;
+  networking.firewall.extraCommands = ''
+    ip46tables -I INPUT 1 -i vboxnet+ -p tcp -m tcp --dport 2049 -j ACCEPT
+  '';
+
+   virtualisation.virtualbox.host.enable = true;
+   users.extraGroups.vboxusers.members = [ "stefan" ];
+   virtualisation.virtualbox.host.enableExtensionPack = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -239,6 +248,7 @@ in {
     nix-index
     lazygit
     mosh
+    vagrant
 
     direnv
     kmonad
