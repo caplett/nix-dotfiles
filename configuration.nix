@@ -256,6 +256,7 @@ in {
     mosh
     unstable.staruml
     vagrant
+    qbittorrent
 
     direnv
     kmonad
