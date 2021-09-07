@@ -558,9 +558,6 @@ require'lspconfig'.texlab.setup{}
 
 EOF 
 
-"lspconfig.clangd.setup{
-    "cmd = { "clangd-10", "--background-index" , "--cross-file-rename", --function-arg-placeholders", "--all-scopes-completion", "--clang-tidy", "--completion-style=detailed", "--pch-storage=memory", "-j=3"}
-    "}
 """"""""""""""
 " nvim-compe "
 """"""""""""""
