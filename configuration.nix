@@ -8,6 +8,12 @@ let
    kmonad = import ./kmonad.nix;
    amd_gpu_patch = pkgs.callPackage ./amd_gpu_patch/default.nix {};
    amd_gpu_firmware = pkgs.callPackage ./amd_gpu_firmware/default.nix {};
+
+   unstable = import
+     (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/master)
+     # reuse the current configuration
+     { config = config.nixpkgs.config; };
+
 in {
   imports =
     [ # Include the results of the hardware scan.
@@ -248,6 +254,7 @@ in {
     nix-index
     lazygit
     mosh
+    unstable.staruml
     vagrant
 
     direnv
