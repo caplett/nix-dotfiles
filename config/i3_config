@@ -172,7 +172,6 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id indicator-cpufreq
 
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh
-# exec --no-startup-id compton --config /home/stefan/.compton.conf
 
 default_border pixel 1
         
@@ -357,8 +356,6 @@ workspace ⬂ output DP-1 eDP-1
 
 bindcode Control+$letter_. exec "/home/stefan/Dokumente/Programmieren/Projekte/capG/touchpad_toggle/touchpad_toogle.py"
 bindcode $mod_alt+108 exec "/home/stefan/Dokumente/Programmieren/Projekte/capG/touchpad_toggle/touchpad_toogle.py"
-
-# bindsym XF86Search exec "/home/stefan/Dokumente/Programmieren/Projekte/capG/touchpad_toggle/touchpad_toogle.py"
 
 #################################
 #  Toggle Laptop screen on/off  #
