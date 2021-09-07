@@ -435,7 +435,6 @@ bindcode $mod+$letter_. [class="KeePassXC"] scratchpad show
 
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"
 
-exec swaymsg "workspace 5; exec kitty;"
 exec swaymsg "workspace 7; exec keepassxc;"
 exec swaymsg "workspace 4; exec firefox;"
 
