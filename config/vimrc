@@ -124,9 +124,6 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
-" Fancy suchen
-Plug 'ggandor/lightspeed.nvim'
-
 " Besseres smooth scrollen
 Plug 'karb94/neoscroll.nvim'
 
