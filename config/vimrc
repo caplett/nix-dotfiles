@@ -314,27 +314,6 @@ noremap <Leader>r '
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                Airline                                 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" let g:airline_theme='atomic'
-let g:airline_theme='nord'
-let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#enabled = 0
-" let g:airline#extensions#tabline#buffer_nr_show = 1
-" let g:airline#extensions#tabline#formatter = 'unique_tail'
-"let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-"let g:airline_statusline_ontop=1
-"Status line settings
-"laststatus 2 = show statusline always
-"           1 = only if more than two windows
-"           0 = never
-set laststatus=2 " Always display the statusline in all windows
-"set showtabline=2 " Always display the tabline, even if there is only one tab
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                Vimwiki                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -497,9 +476,6 @@ nmap [j <Plug>(GitGutterPrevHunk)
 
 " Required after having changed the colorscheme
 hi clear SignColumn
-" In vim-airline, only display "hunks" if the diff is non-zero
-let g:airline#extensions#hunks#non_zero_only = 1
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Other                                  "
