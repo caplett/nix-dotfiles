@@ -241,6 +241,7 @@ in {
     tree
     mupdf
     qpdfview
+    vlc
     libreoffice
     pdftk
     conda
