@@ -38,7 +38,6 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 
-Plug 'hrsh7th/nvim-compe'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Lint                                "
@@ -117,6 +116,9 @@ Plug 'kosayoda/nvim-lightbulb'
 
 " Kleine pictograme bei den lsp vorschlaegen
 Plug 'onsails/lspkind-nvim'
+
+" Fancy Autocompletion
+Plug 'hrsh7th/nvim-compe'
 
 " Lualine mit Nord Theme
 Plug 'hoob3rt/lualine.nvim'
