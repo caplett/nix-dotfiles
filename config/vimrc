@@ -148,6 +148,8 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'folke/todo-comments.nvim'
 
 
+Plug 'blackCauldron7/surround.nvim'
+
 call plug#end()
 
 " Use Vim settings, rather than Vi settings (much better!).
@@ -475,6 +477,17 @@ nmap [j <Plug>(GitGutterPrevHunk)
 
 " Required after having changed the colorscheme
 hi clear SignColumn
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 surround.nvim                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+lua << EOF
+
+require"surround".setup {mappings_style = "surround"}
+
+EOF
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Other                                  "
