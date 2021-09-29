@@ -603,8 +603,6 @@ EOF
 
 nnoremap <leader>a  :ClangdSwitchSourceHeader<CR>
 
-"autocmd BufReadPost * BufferOrderByDirectory
-"autocmd BufRead * BufferOrderByDirectory
 autocmd BufWinEnter * BufferOrderByDirectory
 
 """""""""""""""""""""""""
