@@ -53,7 +53,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'Vimjas/vim-python-pep8-indent'
 
 
-" Plug 'davidhalter/jedi-vim'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 
