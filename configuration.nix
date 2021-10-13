@@ -23,6 +23,9 @@ in {
       ./sway.nix
       ./amd_gpu.nix
       (import "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos")
+
+      # Fish plug manager
+      (fetchTarball "https://github.com/takagiy/nixos-declarative-fish-plugin-mgr/archive/0.0.5.tar.gz")
     ];
 
   # Use the GRUB 2 boot loader.
@@ -134,7 +137,7 @@ in {
      isNormalUser = true;
      home = "/home/stefan";
      extraGroups = [ "wheel" "networkmanager" "video" "input" "uinput" "docker"]; # Enable ‘sudo’ for the user.
-     shell = pkgs.zsh;
+     shell = pkgs.fish;
    };
 
    home-manager.users.stefan = {
@@ -175,6 +178,14 @@ in {
     };
   };
   };
+
+   programs.fish = {
+	   enable = true;
+	   plugins = [
+		   "lilyball/nix-env.fish"
+		   "jethrokuan/z"
+	   ];
+   };
  
    programs.zsh = {
 	   enable = true;
