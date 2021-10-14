@@ -5,24 +5,24 @@
 { config, pkgs, lib, ... }:
 
 let 
-   kmonad = import ./kmonad.nix;
-   amd_gpu_patch = pkgs.callPackage ./amd_gpu_patch/default.nix {};
-   amd_gpu_firmware = pkgs.callPackage ./amd_gpu_firmware/default.nix {};
+  kmonad = import ./kmonad.nix;
+  amd_gpu_patch = pkgs.callPackage ./amd_gpu_patch/default.nix {};
+  amd_gpu_firmware = pkgs.callPackage ./amd_gpu_firmware/default.nix {};
 
-   unstable = import
-     (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/master)
+  unstable = import
+  (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/master)
      # reuse the current configuration
      { config = config.nixpkgs.config; };
 
 in {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./vim.nix
-      ./utils.nix
-      ./sway.nix
-      ./amd_gpu.nix
-      (import "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos")
+    ./hardware-configuration.nix
+    ./vim.nix
+    ./utils.nix
+    ./sway.nix
+    ./amd_gpu.nix
+    (import "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos")
 
       # Fish plug manager
       (fetchTarball "https://github.com/takagiy/nixos-declarative-fish-plugin-mgr/archive/0.0.5.tar.gz")
@@ -99,16 +99,16 @@ in {
       "xdg/kitty/kitty.conf".source = builtins.path{ name = "kitty.conf"; path = ./config/kitty.conf;};
       "kmonad/neo_hybrid.kbd".source = builtins.path{ name = "neo_hybrid.kbd"; path = ./config/neo_hybrid.kbd;};
       "tmux.conf".source = builtins.path{ name = "tmux.conf"; path = ./config/tmux.conf;};
-  };
+    };
 
-  systemd.user.services.kmonad = {
-    enable = true;
-    description = "Autostart kmoand ";
-    wantedBy = [ "graphical-session.target" ];
-    serviceConfig = {
+    systemd.user.services.kmonad = {
+      enable = true;
+      description = "Autostart kmoand ";
+      wantedBy = [ "graphical-session.target" ];
+      serviceConfig = {
       # Run kmoand on fixed config 
       ExecStart = ''
-        /run/current-system/sw/bin/kmonad /etc/kmonad/neo_hybrid.kbd 
+      /run/current-system/sw/bin/kmonad /etc/kmonad/neo_hybrid.kbd 
       '';
       RestartSec = 5;
       Restart = "always";
@@ -133,96 +133,96 @@ in {
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-   users.users.stefan = {
-     isNormalUser = true;
-     home = "/home/stefan";
-     extraGroups = [ "wheel" "networkmanager" "video" "input" "uinput" "docker"]; # Enable ‘sudo’ for the user.
-     shell = pkgs.fish;
-   };
-
-   home-manager.users.stefan = {
-     programs.git = {
-       enable = true;
-       userName  = "Stefan Geyer";
-       userEmail = "git@stefan-geyer.org";
-     };
-
-
-   programs.zsh = {
-     enable = true;
-     autocd = true;
-     enableAutosuggestions = true;
-     enableCompletion = true;
-     initExtraFirst = (builtins.readFile ./config/zshrc);
-   };
-
-
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
+  users.users.stefan = {
+    isNormalUser = true;
+    home = "/home/stefan";
+    extraGroups = [ "wheel" "networkmanager" "video" "input" "uinput" "docker"]; # Enable ‘sudo’ for the user.
+    shell = pkgs.fish;
   };
 
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
+  home-manager.users.stefan = {
+    programs.git = {
+      enable = true;
+      userName  = "Stefan Geyer";
+      userEmail = "git@stefan-geyer.org";
+    };
+
+
+    programs.zsh = {
+      enable = true;
+      autocd = true;
+      enableAutosuggestions = true;
+      enableCompletion = true;
+      initExtraFirst = (builtins.readFile ./config/zshrc);
+    };
+
+
+    programs.fzf = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    programs.starship = {
+      enable = true;
+      enableZshIntegration = true;
     # Configuration written to ~/.config/starship.toml
     settings = {
     # add_newline = false;
-    
+
     # character = {
     #   success_symbol = "[➜](bold green)";
     #   error_symbol = "[➜](bold red)";
     # };
-    
+
     # package.disabled = true;
-    };
   };
+};
   };
 
-   programs.fish = {
-	   enable = true;
-	   plugins = [
-		   "lilyball/nix-env.fish"
-		   "jethrokuan/z"
-	   ];
-   };
- 
-   programs.zsh = {
-	   enable = true;
-	   enableCompletion = true;
-	   autosuggestions.enable = true;
-	   syntaxHighlighting.enable = true;
-	   # Disable vi mode
-	   # Init starship command prompt
-           shellInit = ''
-		   bindkey -e		
-		   eval "$(starship init zsh)"
-		   '';
-   };
+  programs.fish = {
+    enable = true;
+    plugins = [
+      "lilyball/nix-env.fish"
+      "jethrokuan/z"
+    ];
+  };
 
-  virtualisation.docker.enable = true;
-  virtualisation.libvirtd.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+       # Disable vi mode
+       # Init starship command prompt
+       shellInit = ''
+       bindkey -e		
+       eval "$(starship init zsh)"
+       '';
+     };
 
-  users.groups = { uinput = {}; };
+     virtualisation.docker.enable = true;
+     virtualisation.libvirtd.enable = true;
 
-  services.udev.extraRules =
-    ''
+     users.groups = { uinput = {}; };
+
+     services.udev.extraRules =
+       ''
       # KMonad user access to /dev/uinput
       KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
 
       ACTION=="add", SUBSYSTEM=="backlight", MODE="0666", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
-      
-    '';
 
-  nixpkgs.config.allowUnfree = true;
+      '';
+
+      nixpkgs.config.allowUnfree = true;
   #services.nfs.server.enable = true;
   networking.firewall.extraCommands = ''
-    ip46tables -I INPUT 1 -i vboxnet+ -p tcp -m tcp --dport 2049 -j ACCEPT
+  ip46tables -I INPUT 1 -i vboxnet+ -p tcp -m tcp --dport 2049 -j ACCEPT
   '';
 
-   virtualisation.virtualbox.host.enable = true;
-   users.extraGroups.vboxusers.members = [ "stefan" ];
-   virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "stefan" ];
+  virtualisation.virtualbox.host.enableExtensionPack = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -256,7 +256,7 @@ in {
     libreoffice
     pdftk
     conda
-    
+
     slurp
     grim
 
@@ -276,7 +276,7 @@ in {
     protontricks
 
     mullvad-vpn
-	
+
     dolphin
 
     (python3.withPackages(ps: [
@@ -284,8 +284,8 @@ in {
       ps.pyls-mypy ps.pyls-isort ps.pyls-black
       ps.jedi
       ps.numpy
-      ]))
-   
+    ]))
+
 
     pyright
 
