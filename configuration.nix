@@ -166,7 +166,7 @@ in {
       enable = true;
       enableZshIntegration = true;
     # Configuration written to ~/.config/starship.toml
-    settings = {
+      settings = {
     # add_newline = false;
 
     # character = {
@@ -175,8 +175,21 @@ in {
     # };
 
     # package.disabled = true;
-  };
-};
+      };
+    };
+
+    home.file = {
+
+      ".config/fish" = {
+        source = ./config/fish;
+        recursive = true;
+      };
+
+      ".config/lazygit/config.yml" = {
+        source = ./config/lazygit/config.yml;
+      };
+    };
+
   };
 
   programs.fish = {
