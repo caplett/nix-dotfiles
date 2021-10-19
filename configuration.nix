@@ -49,7 +49,7 @@ in {
   hardware.cpu.amd.updateMicrocode = true;
 
   services.mpd.enable = false;
-  services.tlp.enable = false;
+  services.tlp.enable = true;
 
 
   networking.networkmanager.enable = true;
