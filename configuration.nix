@@ -239,6 +239,8 @@ in {
     parted
     ncdu
     unzip
+    unp
+    unrar
     entr
     gcc
     ccache
