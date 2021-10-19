@@ -6,11 +6,11 @@ SETUVAR Z_DATA:/home/stefan/\x2elocal/share/z/data
 SETUVAR Z_DATA_DIR:/home/stefan/\x2elocal/share/z
 SETUVAR Z_EXCLUDE:\x5e/home/stefan\x24
 SETUVAR __fish_initialized:3100
-SETUVAR _fish_abbr_r:ranger
 SETUVAR _fish_abbr_s:sudo\x20\x2dE
 SETUVAR _fish_abbr_sv:sudo\x20\x2dE nvim
-SETUVAR _fish_abbr_sl:sudo\x20\x2dE lazygit
 SETUVAR _fish_abbr_v:nvim
+SETUVAR _fish_abbr_sgl:sudo\x20\x2dE lazygit
+SETUVAR _fish_abbr_r:ranger
 SETUVAR fish_color_autosuggestion:747369
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:99cc99
