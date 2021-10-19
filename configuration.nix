@@ -254,6 +254,7 @@ in {
     tree
     mupdf
     qpdfview
+    zathura
     vlc
     libreoffice
     pdftk
