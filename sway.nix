@@ -35,6 +35,7 @@
     extraPackages = with pkgs; [
       swaylock
       swayidle
+      swaybg
       wl-clipboard
       mako # notification daemon
       xwayland # for legacy apps

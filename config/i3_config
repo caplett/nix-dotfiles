@@ -159,7 +159,7 @@ bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
 #  Background and apperance  #
 ##############################
 
-exec_always feh --bg-fill /home/stefan/Bilder/Wallpapers/wallpapersden.com_minimal-mojave_3200x1800.jpg
+exec_always swaybg -i /etc/nixos/config/mountains_aidenDrew2560x1440.jpg
 
 # Redo autorander profile indetification
 exec_always autorandr --change
