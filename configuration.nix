@@ -155,7 +155,7 @@ in {
     programs.starship = {
       enable = true;
     # Configuration written to ~/.config/starship.toml
-      settings = {
+    settings = {
     # add_newline = false;
 
     # character = {
@@ -164,20 +164,20 @@ in {
     # };
 
     # package.disabled = true;
-      };
-    };
+  };
+};
 
-    home.file = {
+home.file = {
 
-      ".config/fish" = {
-        source = ./config/fish;
-        recursive = true;
-      };
+  ".config/fish" = {
+    source = ./config/fish;
+    recursive = true;
+  };
 
-      ".config/lazygit/config.yml" = {
-        source = ./config/lazygit/config.yml;
-      };
-    };
+  ".config/lazygit/config.yml" = {
+    source = ./config/lazygit/config.yml;
+  };
+};
 
   };
 
@@ -190,13 +190,13 @@ in {
   };
 
 
-     virtualisation.docker.enable = true;
-     virtualisation.libvirtd.enable = true;
+  virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
 
-     users.groups = { uinput = {}; };
+  users.groups = { uinput = {}; };
 
-     services.udev.extraRules =
-       ''
+  services.udev.extraRules =
+    ''
       # KMonad user access to /dev/uinput
       KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
 
