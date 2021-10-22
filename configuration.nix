@@ -148,23 +148,12 @@ in {
     };
 
 
-    programs.zsh = {
-      enable = true;
-      autocd = true;
-      enableAutosuggestions = true;
-      enableCompletion = true;
-      initExtraFirst = (builtins.readFile ./config/zshrc);
-    };
-
-
     programs.fzf = {
       enable = true;
-      enableZshIntegration = true;
     };
 
     programs.starship = {
       enable = true;
-      enableZshIntegration = true;
     # Configuration written to ~/.config/starship.toml
       settings = {
     # add_newline = false;
@@ -200,18 +189,6 @@ in {
     ];
   };
 
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-       # Disable vi mode
-       # Init starship command prompt
-       shellInit = ''
-       bindkey -e		
-       eval "$(starship init zsh)"
-       '';
-     };
 
      virtualisation.docker.enable = true;
      virtualisation.libvirtd.enable = true;
