@@ -269,6 +269,7 @@ home.file = {
     protontricks
 
     slack
+    zotero
 
     mullvad-vpn
 
