@@ -268,6 +268,8 @@ home.file = {
     steam
     protontricks
 
+    slack
+
     mullvad-vpn
 
     dolphin
