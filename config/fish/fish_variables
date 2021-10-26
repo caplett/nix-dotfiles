@@ -18,7 +18,7 @@ SETUVAR _fish_abbr_gl:lazygit
 SETUVAR _fish_abbr_gs:git status
 SETUVAR _fish_abbr_g:git
 SETUVAR _fish_abbr_r:ranger
-SETUVAR _fish_abbr_kl:ps -A | fzf | grep -Eoh "[^:][0-9]{2,6}[^:]" | xargs kill
+SETUVAR _fish_abbr_kl:ps -A | fzf | grep -Eoh \"[^:][0-9]{2,6}[^:]\" | xargs kill
 
 SETUVAR fish_color_autosuggestion:747369
 SETUVAR fish_color_cancel:\x2dr
