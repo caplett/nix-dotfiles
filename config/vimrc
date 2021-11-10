@@ -53,9 +53,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'Vimjas/vim-python-pep8-indent'
 
 
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-
-
 Plug 'airblade/vim-gitgutter'
 
 Plug 'plasticboy/vim-markdown'
@@ -91,7 +88,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 "Plug 'yuki-ycino/fzf-preview.vim'
 
-Plug 'psf/black', { 'tag': '19.10b0' }
+Plug 'averms/black-nvim', {'do': ':UpdateRemotePlugins'}
 
 Plug 'CoatiSoftware/vim-sourcetrail'
 
@@ -148,7 +145,6 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'folke/todo-comments.nvim'
 
 
-Plug 'blackCauldron7/surround.nvim'
 
 call plug#end()
 
@@ -477,16 +473,6 @@ nmap [j <Plug>(GitGutterPrevHunk)
 
 " Required after having changed the colorscheme
 hi clear SignColumn
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 surround.nvim                          "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-lua << EOF
-
-require"surround".setup {mappings_style = "surround"}
-
-EOF
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
