@@ -292,7 +292,7 @@ home.file = {
     geckodriver
     light
 
-    anki
+    anki-bin
     neuron-notes
     ag
     fd
