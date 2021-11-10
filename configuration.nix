@@ -270,6 +270,8 @@ home.file = {
 
     slack
     zotero
+    texlive.combined.scheme-full
+    texlab
 
     mullvad-vpn
 
