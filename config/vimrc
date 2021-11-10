@@ -21,10 +21,6 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 endif
 
 
-" Disable polyglot in python. Use semshi there instead
-let g:polyglot_disabled = ['python']
-
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'neovim/nvim-lspconfig'
