@@ -38,7 +38,7 @@ in {
   boot.loader.grub.device = "/dev/nvme0n1"; # or "nodev" for efi only
   boot.kernelPackages = pkgs.linuxPackages_latest;
   #boot.kernelPackages = pkgs.linuxPackages_5_9;
-  boot.kernelParams = [ "i8042.reset i8042.nomux i8042.nopnp i8042.noloop xhci_hcd.quirks=1073741824" ];
+  boot.kernelParams = [ "i8042.reset" "i8042.nomux" "i8042.nopnp" "i8042.noloop" "xhci_hcd.quirks=1073741824" ];
   boot.initrd.availableKernelModules = [ "i8042 xhci_hcd" ];
   boot.kernelModules = [ "kvm-amd" "kvm-intel" "i8042 xhci_hcd" ];
 
@@ -276,9 +276,10 @@ home.file = {
     dolphin
 
     (python3.withPackages(ps: [
-      ps.python-language-server
-      ps.pyls-mypy ps.pyls-isort ps.pyls-black
-      ps.jedi
+      #ps.pyls-mypy 
+      #ps.pyls-isort 
+      ps.black
+      #ps.jedi
       ps.numpy
     ]))
 
