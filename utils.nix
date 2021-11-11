@@ -21,21 +21,6 @@
         '';
       }
     )
-
-
-    (
-      pkgs.writeTextFile {
-        name = "screensnip";
-        destination = "/bin/screensnip";
-        executable = true;
-        text = ''
-          #! ${pkgs.bash}/bin/sh
-	  ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | wl-copy
-        '';
-      }
-
-    )
-
   ];
 
 }
