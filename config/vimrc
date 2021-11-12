@@ -289,11 +289,8 @@ nnoremap H :BufferPrevious<CR>
 nnoremap L :BufferNext<CR>
 
 " Quick edit vimrc in vertical split
-nmap <silent> <leader>ev :e ~/dotfiles/.vim/vimrc<CR>
-nmap <silent> <leader>eb :e ~/dotfiles/.bashrc<CR>
-nmap <silent> <leader>ez :e ~/.dotfiles/zshrc<CR>
-nmap <silent> <leader>ei :e ~/.dotfiles/config/i3/base<CR>
-nmap <silent> <leader>sv :so ~/dotfiles/vim/vimrc<CR>
+nmap <silent> <leader>ev :e /etc/nixos/config/vimrc<CR>
+nmap <silent> <leader>ec :e /etc/nixos/configuration.nix<CR>
 
 nnoremap <leader>f <cmd>lua require('telescope.builtin').git_files()<CR>
 nnoremap <leader>F <cmd>lua require('telescope.builtin').find_files()<CR>
