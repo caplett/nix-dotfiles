@@ -20,6 +20,9 @@ SETUVAR _fish_abbr_g:git
 SETUVAR _fish_abbr_r:ranger
 SETUVAR _fish_abbr_kl:ps -A | fzf | grep -Eoh \"[^:][0-9]{2,6}[^:]\" | xargs kill
 
+SETUVAR _fish_abbr_cdn:cd /etc/nixos
+SETUVAR _fish_abbr_cdnc:cd /etc/nixos/config
+
 SETUVAR _fish_abbr_nr:NIXPKGS_ALLOW_UNFREE=1 nix run -f channel:nixos-21.05
 SETUVAR _fish_abbr_l:ls
 SETUVAR _fish_abbr_ss:grim -g (slurp) 
