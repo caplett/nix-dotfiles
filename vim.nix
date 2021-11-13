@@ -4,7 +4,7 @@
 
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
-  programs.neovim.configure.customRC = (builtins.readFile ./config/vimrc);
+  programs.neovim.configure.customRC = (builtins.readFile ./config/vim/vimrc);
 
 
   environment.systemPackages = with pkgs; [
