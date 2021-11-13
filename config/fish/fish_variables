@@ -23,6 +23,9 @@ SETUVAR _fish_abbr_kl:ps -A | fzf | grep -Eoh \"[^:][0-9]{2,6}[^:]\" | xargs kil
 SETUVAR _fish_abbr_cdn:cd /etc/nixos
 SETUVAR _fish_abbr_cdnc:cd /etc/nixos/config
 
+SETUVAR _fish_abbr_tap_enable:swaymsg input type:touchpad tap enable
+SETUVAR _fish_abbr_tap_disable:swaymsg input type:touchpad tap disable
+
 SETUVAR _fish_abbr_nr:NIXPKGS_ALLOW_UNFREE=1 nix run -f channel:nixos-21.05
 SETUVAR _fish_abbr_l:ls
 SETUVAR _fish_abbr_ss:grim -g (slurp) 
