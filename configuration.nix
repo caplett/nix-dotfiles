@@ -177,6 +177,11 @@ home.file = {
   ".config/lazygit/config.yml" = {
     source = ./config/lazygit/config.yml;
   };
+
+  ".vim/privat_snippets" = {
+    source = ./config/vim/ultisnips;
+    recursive = true;
+  };
 };
 
   };
