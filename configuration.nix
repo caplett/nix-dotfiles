@@ -98,6 +98,7 @@ in {
       # Put config files in /etc. Note that you also can put these in ~/.config, but then you can't manage them with NixOS anymore!
       "xdg/kitty/kitty.conf".source = builtins.path{ name = "kitty.conf"; path = ./config/kitty.conf;};
       "kmonad/neo_hybrid.kbd".source = builtins.path{ name = "neo_hybrid.kbd"; path = ./config/neo_hybrid.kbd;};
+      "kmonad/neo_hybrid_ergodox.kbd".source = builtins.path{ name = "neo_hybrid_ergodox.kbd"; path = ./config/neo_hybrid_ergodox.kbd;};
       "tmux.conf".source = builtins.path{ name = "tmux.conf"; path = ./config/tmux.conf;};
     };
 
@@ -114,6 +115,33 @@ in {
       Restart = "always";
     };
   };
+
+    systemd.user.services.kmonad_ergodox = {
+      enable = true;
+      description = "Autostart kmoand ";
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+      # Run kmoand on fixed config 
+      ExecStart = ''
+      /run/current-system/sw/bin/kmonad /etc/kmonad/neo_hybrid_ergodox.kbd 
+      '';
+      RestartSec = 5;
+      Restart = "always";
+    };
+  };
+
+  services.udev.packages = [
+    (
+      pkgs.writeTextFile {
+        name = "ergodox-kmonad udev rule";
+        text = ''
+        ACTION=="add", ATTRS{name}=="ZSA Technology Labs Inc Ergodox EZ Shine", TAG+="systemd", ENV{SYSTEMD_WANTS}="kmonad_ergodox.service"
+        '';
+
+        destination = "/etc/udev/rules.d/60-ergodox-kmonad.rules";
+      }
+      )
+    ];
 
 
   # Configure keymap in X11
