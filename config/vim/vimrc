@@ -779,6 +779,9 @@ set background=dark
 let g:everforest_background = 'soft'
 colorscheme everforest
 
+let g:everforest_enable_italic = 1
+
+
 """""""""""""""
 "  colorizer  "
 """""""""""""""
