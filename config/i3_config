@@ -197,7 +197,7 @@ focus_on_window_activation none
 hide_edge_borders smart
 
 exec_always sudo /usr/bin/kmonad /home/stefan/Dokumente/Programmieren/Projekte/other/kmonad/keymap/user/caplett/neo_hybrid.kbd
-exec_always swaymsg input type:keyboard repeat_delay 200
+exec_always swaymsg input type:keyboard repeat_delay 170
 exec_always swaymsg input type:keyboard repeat_rate 100
 # start a terminal
 bindsym $mod+Return exec kitty
