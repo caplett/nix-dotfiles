@@ -76,4 +76,9 @@
     after = [ "graphical-session-pre.target" ];
   };
 
+
+  environment.loginShellInit = ''
+    [[ "$(tty)" == /dev/tty1 ]] && sway
+  '';
+
 }
