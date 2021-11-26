@@ -49,7 +49,8 @@
     ];
   };
 
-
+  xdg.portal.enable = true;
+  
   systemd.user.services.kanshi = {
     enable = true;
     description = "Kanshi output autoconfig ";
