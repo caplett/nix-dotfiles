@@ -326,6 +326,7 @@ home.file = {
     lazygit
     mosh
     unstable.staruml
+    unstable.pdfpc
     vagrant
     qbittorrent
 
