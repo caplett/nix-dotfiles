@@ -21,6 +21,8 @@ in {
     ./vim.nix
     ./utils.nix
     ./sway.nix
+    #./i3.nix
+
     ./amd_gpu.nix
     (import "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos")
 
