@@ -341,6 +341,7 @@ home.file = {
     texlab
 
     mullvad-vpn
+    openvpn
 
     dolphin
 
