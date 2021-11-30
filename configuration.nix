@@ -281,6 +281,18 @@ home.file = {
   users.extraGroups.vboxusers.members = [ "stefan" ];
   virtualisation.virtualbox.host.enableExtensionPack = true;
 
+    # Publish this server and its address on the network
+  services.avahi = {
+    enable = true;
+    nssmdns = true;  # printing
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+      userServices = true;
+    };
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -393,7 +405,7 @@ home.file = {
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
