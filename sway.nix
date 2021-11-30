@@ -8,7 +8,7 @@
        "xdg/waybar/style.css".source = ./config/waybar/style.css;
   };
 
-  services.xserver.displayManager.defaultSession = "sway";
+  services.xserver.displayManager.defaultSession = "none";
 
   environment.systemPackages = with pkgs; [
     # Here we but a shell script into path, which lets us start sway.service (after importing the environment of the login shell).
