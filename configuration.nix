@@ -115,7 +115,7 @@ in {
   # };
 
   # Enable the X11 windowing system.
-  #services.xserver.enable = false;
+  services.xserver.enable = false;
 
   # Enable the GNOME Desktop Environment.
   #services.xserver.displayManager.gdm.enable = true;
