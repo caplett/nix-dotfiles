@@ -29,6 +29,11 @@ in {
       # Fish plug manager
       (fetchTarball "https://github.com/takagiy/nixos-declarative-fish-plugin-mgr/archive/0.0.5.tar.gz")
     ];
+    nixpkgs.overlays = [
+      (import (builtins.fetchTarball {
+        url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+      }))
+    ];
 
 
   # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
