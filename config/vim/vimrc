@@ -141,6 +141,8 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'folke/todo-comments.nvim'
 
 
+" Automatically close brackets
+Plug 'jiangmiao/auto-pairs'
 
 " latex handling
 Plug 'lervag/vimtex'
