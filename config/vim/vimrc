@@ -305,7 +305,7 @@ nnoremap H :BufferPrevious<CR>
 nnoremap L :BufferNext<CR>
 
 " Quick edit vimrc in vertical split
-nmap <silent> <leader>ev :e /etc/nixos/config/vimrc<CR>
+nmap <silent> <leader>ev :e /etc/nixos/config/vim/vimrc<CR>
 nmap <silent> <leader>ec :e /etc/nixos/configuration.nix<CR>
 
 nnoremap <leader>f <cmd>lua require('telescope.builtin').git_files()<CR>
