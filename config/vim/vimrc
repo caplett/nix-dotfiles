@@ -530,6 +530,7 @@ set completeopt=menu,menuone,noselect
 """"""""""""
 
 lua << EOF
+
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
   highlight = {
@@ -541,6 +542,11 @@ require'nvim-treesitter.configs'.setup {
   },
   indent = {
     enable = true
+  }
+}
+
+EOF
+
 lua <<EOF
   -- Setup nvim-cmp.
   local cmp = require'cmp'
