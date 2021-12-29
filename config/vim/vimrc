@@ -314,8 +314,6 @@ nnoremap <leader>h <cmd>lua require('telescope.builtin').oldfiles()<CR>
 
 
 nmap <Leader>H <cmd>lua require('telescope.builtin').man_pages()<CR>
-nmap <Leader>[ :BufferPrevious<CR>
-nmap <Leader>] :BufferNext<CR>
 nnoremap <leader>dd :BufferClose<CR>
 
 " Easy most-recent-buffer switching
