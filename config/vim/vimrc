@@ -525,9 +525,6 @@ EOF
 
 set completeopt=menu,menuone,noselect
 
-""""""""""""
-" nvim-cmp "
-""""""""""""
 
 lua << EOF
 
@@ -546,6 +543,10 @@ require'nvim-treesitter.configs'.setup {
 }
 
 EOF
+
+""""""""""""
+" nvim-cmp "
+""""""""""""
 
 lua <<EOF
   -- Setup nvim-cmp.
