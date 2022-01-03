@@ -389,6 +389,9 @@ home.file = {
     fd
     amd_gpu_patch
     amd_gpu_firmware
+
+    pulseaudio
+
   ];
 
   virtualisation.oci-containers.backend= "docker";
