@@ -384,7 +384,7 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " 
 let g:UltiSnipsSnippetsDir = $HOME."/.vim/privat_snippets"
-let g:UltiSnipsSnippetDirectories = [$HOME."/.vim/plugged/vim-snippets/UltiSnips/", $HOME."/.vim/privat_snippets"]
+let g:UltiSnipsSnippetDirectories = [$HOME."/.vim/plugged/vim-snippets/UltiSnips/", $HOME."/.vim/privat_snippets", $HOME."/.vim/privat_snippets_tmp",]
 
 let g:snips_author = "Stefan Geyer"
 
