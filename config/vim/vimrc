@@ -121,9 +121,6 @@ Plug 'karb94/neoscroll.nvim'
 " Fade out vim windows not in focus
 Plug 'sunjon/shade.nvim'
 
-" lsp trees visualieren
-Plug 'simrat39/symbols-outline.nvim'
-
 " Termninal aus nvim raus toggeln
 Plug 'akinsho/nvim-toggleterm.lua'
 
