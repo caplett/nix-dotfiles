@@ -118,7 +118,11 @@ in {
   networking.extraHosts = let
     hostsPath = https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts;
     hostsFile = builtins.fetchurl hostsPath;
-  in builtins.readFile "${hostsFile}";
+    additional_blocks = ''
+    0.0.0.0 youtube.com
+    0.0.0.0 www.youtube.com
+    '';
+  in builtins.readFile "${hostsFile}" + additional_blocks;
   # Select internationalisation properties.
   # i18n.defaultLocale = "en_US.UTF-8";
   # console = {
