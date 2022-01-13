@@ -36,6 +36,16 @@ in {
     ];
 
 
+  #Cleanup old derivations
+  nix.autoOptimiseStore = true;
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
+
   # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
 #sound.enable = false;
 
