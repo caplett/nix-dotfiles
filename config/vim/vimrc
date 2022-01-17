@@ -767,12 +767,6 @@ require'shade'.setup({
 })
 EOF
 
-""""""""""""""""""""
-"  symbol outline  "
-""""""""""""""""""""
-
-nnoremap <F4> <cmd>SymbolsOutline<cr>
-
 """"""""""""""""
 "  toggleterm  "
 """"""""""""""""
