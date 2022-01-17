@@ -131,6 +131,10 @@ in {
     additional_blocks = ''
     0.0.0.0 youtube.com
     0.0.0.0 www.youtube.com
+    0.0.0.0 bbc.com
+    0.0.0.0 www.bbc.com
+    0.0.0.0 tagesschau.de
+    0.0.0.0 www.tagesschau.de
     '';
   in builtins.readFile "${hostsFile}" + additional_blocks;
 
