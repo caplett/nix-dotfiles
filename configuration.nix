@@ -396,6 +396,7 @@ home.file = {
       ps.black
       #ps.jedi
       ps.numpy
+      ps.pynvim
     ]))
 
 
