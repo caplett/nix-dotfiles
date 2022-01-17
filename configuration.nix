@@ -36,9 +36,6 @@ in {
     ];
 
 
-  #Cleanup old derivations
-  nix.autoOptimiseStore = true;
-
   nix.gc = {
     automatic = true;
     dates = "weekly";
