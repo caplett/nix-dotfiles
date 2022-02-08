@@ -399,6 +399,7 @@ home.file = {
       #ps.jedi
       ps.numpy
       ps.pynvim
+      ps.pudb
     ]))
 
 
