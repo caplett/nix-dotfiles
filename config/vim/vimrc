@@ -92,8 +92,6 @@ Plug 'CoatiSoftware/vim-sourcetrail'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
 
-Plug 'marko-cerovac/material.nvim'
-
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 
