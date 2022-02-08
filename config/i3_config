@@ -216,9 +216,6 @@ bindcode $mod+$letter_d exec rofi -show run ssh
 #bindsym $mod+t exec alacritty -e nvim -c 'VimwikiInde'
 bindcode $mod+$letter_p exec kitty --title Vimwiki tmux -L kitty_ses -c "nvim -c 'VimwikiIndex'"
 
-#Launch firefox
-bindcode $mod+$letter_: exec nfirefox
-
 #Launch arandr
 bindcode $mod+$letter_i exec arandr
 
