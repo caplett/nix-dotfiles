@@ -420,7 +420,7 @@ bindcode $mod+$letter_. [class="KeePassXC"] scratchpad show
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"
 
 exec swaymsg "workspace 7; exec keepassxc;"
-exec swaymsg "workspace 4; exec firefox;"
+exec swaymsg "workspace 1; exec firefox;"
 
 exec swaymsg 'for_window [name=".*Todoist.*"] move window to workspace 1'
 exec swaymsg 'for_window [name="Todoist"] move window to workspace 1'
