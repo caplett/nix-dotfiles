@@ -132,6 +132,12 @@ in {
     0.0.0.0 www.bbc.com
     0.0.0.0 tagesschau.de
     0.0.0.0 www.tagesschau.de
+    0.0.0.0 golem.de
+    0.0.0.0 www.golem.de
+    0.0.0.0 heise.de
+    0.0.0.0 www.heise.de
+    0.0.0.0 news.ycombinator.com
+    0.0.0.0 www.news.ycombinator.com
     '';
   in builtins.readFile "${hostsFile}" + additional_blocks;
 
