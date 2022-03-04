@@ -278,6 +278,10 @@ home.file = {
     source = ./config/vim/ultisnips;
     recursive = true;
   };
+
+  ".config/kanshi/config" = {
+    source = ./config/kanshi/config;
+  };
 };
 
   };
