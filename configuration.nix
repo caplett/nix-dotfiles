@@ -141,12 +141,6 @@ in {
   in builtins.readFile "${hostsFile}" + additional_blocks;
 
 
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  # };
 
   # Enable the X11 windowing system.
   services.xserver.enable = false;
