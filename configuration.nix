@@ -389,6 +389,7 @@ home.file = {
     openvpn
 
     dolphin
+    copyq
 
     (python3.withPackages(ps: [
       #ps.pyls-mypy 

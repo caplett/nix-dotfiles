@@ -41,7 +41,18 @@
           swaymsg input type:touchpad tap disable
           '';
         }
-
+        )
+        (
+          pkgs.writeTextFile {
+            name = "sc";
+            destination = "/bin/screenshot_clip";
+            executable = true;
+            text = ''
+          #! ${pkgs.fish}/bin/fish
+          grim -t jpeg -g (slurp) /tmp/screenshot_clip.jpeg
+          copyq copy image/jpeg - < /tmp/screenshot_clip.jpeg
+          '';
+        }
         )
       ];
 

@@ -432,6 +432,7 @@ exec swaymsg 'for_window [name="Raindrop"] move window to workspace 2'
 exec swaymsg 'for_window [title=".*Raindrop"] move to workspace 2'
 exec swaymsg 'for_window [title=".*Raindrop.*"] move to workspace 2'
 
+exec "copyq"
 
 # 110 = Pos 1 key
 # bindcode 110 exec "/run/current-system/sw/bin/togglebacklight"
