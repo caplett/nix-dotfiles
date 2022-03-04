@@ -1,6 +1,6 @@
 (defcfg
   ;; For Linux (set your device input file here)
-  input  (device-file "/dev/input/by-path/pci-0000:00:14.0-usb-0:2:1.0-event-kbd")
+  input  (device-file "/dev/input/by-path/pci-0000:04:00.3-usb-0:2:1.0-event-kbd")
   output (uinput-sink "KMonad output"
     "/bin/sleep 1 && /usr/bin/setxkbmap us -option compose:ralt && xmodmap -e 'keycode 47 = colon semicolon' ")
 
@@ -28,9 +28,9 @@
 )
 
 (deflayer qwerty-neo
-  grv        1    2    3    4    5    6    7    8    9    0    @tpt =
-  Tab        @qm  @w3  e    r    t    y    u    i    @oc  p    ß    ´
-  @lv3       @ac  @s2  @da  @fm  g    h    j    k    @l2  @;3  \    @lv3
+  grv        1    2    3    4    5    6    7    8    9    0    _    @neo
+  Tab        q    @w3  e    r    t    y    u    i    o    p    ß    ´
+  @lv3       @ac  @s2  @da  @fm  g    h    j    k    l    @:3  \    @lv3
   @lv2 @lv4  z    x    c    v    b    n    m    ,    .    /    @lv2
   lctl       lmet lalt          spc             @lv4 _
 )                                                     
@@ -43,21 +43,37 @@
   lctl        lmet lalt          spc           S-@lv4 _
 )
 
+(deflayer neo
+  grv        1    2    3    4    5    6    7    8    9    0    _    @neo_querty
+  Tab        x    v    l    c    w    k    h    g    f    q    ß    ´
+  @lv3       u    i    a    e    o    s    n    r    t    d    y    @lv3
+  @neo2 @lv4 u    o    a    p    z    b    m    ,    .    j    @lv2
+  lctl       lmet lalt          spc             @lv4 _
+)                                                     
+
+(deflayer neo2
+  grv        1    2    3    4    5    6    7    8    9    0    _    =
+  Tab        X    V    L    C    W    K    H    G    F    Q    ß    ´
+  @lv3       U    I    A    E    O    S    N    R    T    D    Y    @lv3
+  @lv2 @lv4  U    O    A    P    Z    B    M    ,    .    J    @lv2
+  lctl       lmet lalt          spc             @lv4 _
+)                                                     
+
 (deflayer level3
-  _          ¹    ²    ³    ›    ‹    ¢    ¥    ‚    ‘    ’    _    _
-  _          @    \_   {    }    ^    !    <    >    =    &    €    /
-  XX         \    /    [    ]    *    ?    \(   \)   -    :    @    XX
-  @lv5  #    #    $    |    ~    `    +    %    "    '    :    @lv5
+  _          _    _    _    _    _    _    _    _    _    _    _    _
+  _          @    \_   [    ]    ^    !    <    >    =    &    _    _
+  XX         \    /    {    }    *    ?    \(   \)   -    ;    @    XX
+  @lv5  #    #    $    |    ~    `    +    %    "    '    ;    @lv5
   _          _    _              _              @lv6 _
 )
 
 (deflayer level4
-  _         ¹    ²    ³    ›    ‹    ¢    ¥    ‚    ‘    ’    _    _
-  _         tab  bspc up   del  pgdn _    1    2    3    @aks -    "
-  @lv6      esc  lft  down rght tab  @tpt 4    5    6    0    @aks @lv6
-  lsft home home _    ins  end  ret  @scr 7    8    9    ;    rsft
-  _         _    @tpt           ret            XX   _
-)
+  _         _    _    _    _    _    _    _    _    _    _    _    _
+  _         tab  bspc up   del  pgup _    1    2    3    _    -    _
+  @lv6      esc  lft  down rght tab  .    4    5    6    0    .    @lv6
+  lsft home home _    ins  end  pgdn _    7    8    9    ;    rsft
+  _         _    _              ret            XX   _
+)  
 
 (deflayer level5
   _         _    _    _    _    _    _    _    _    _    _    _    _
@@ -76,7 +92,7 @@
 )
 
 (deflayer koy
-  grv        1    2    3    4    5    6    7    8    9    0    @tpt =
+  grv        1    2    3    4    5    6    7    8    9    0    _    =
   Tab        @km  @.3  o    ,    y    v    g    c    @l3  ß    z    ´
   @lv3       @hc  @a2  e    @im  u    d    t    r    @n2  @sc  f    @lv3
   @ko2 x     x    q    ä    ü    ö    b    p    w    m    j    @ko2
@@ -84,13 +100,12 @@
 )                                                     
 
 (deflayer koy2
-  _         _    _    _    _    _    _    _    _    _    _    _    _
-  _         _    _    _    _    _    _    _    _    _    _    _    _
-  _         _    _    _    _    _    _    _    _    _    _    _    _
-  _   XX    _    _    _    _    _    _    _    _    _    _    _
-  _         _    _              _              _    _
+  grv         @qwe @koy _    _    _    _    _    _    _    _    _    _
+  S-tab       K    .    O    -    Y    V    G    C    L    ẞ    Z    ~
+  @lv5        H    A    E    I    U    D    T    R    N    S    F    @lv5
+  XX   X      X    Q    Ä    ü    Ö    B    P    W    M    J    XX
+  lctl        lmet lalt          spc           S-@lv4 _
 )
-                                                           
 #| --------------------------------------------------------------------------
 (deflayer koy2
   grv         @qwe @koy _    _    _    _    _    _    _    _    _    _
@@ -99,7 +114,7 @@
   XX   X      X    Q    Ä    Ü    Ö    B    P    W    M    J    XX
   lctl        lmet lalt          spc           S-@lv4 _
 )
-
+                                                           
 (deflayer level5
                                      _
   _         ₁    ₂    ₃    ♀    ♂    ⚥    ϰ    ⟨    ⟩    ₀    ‑    _
@@ -131,6 +146,11 @@
   koy (layer-switch koy)
   ko2 (layer-toggle koy2)
 
+
+  neo_querty (layer-switch qwerty-neo)
+  neo (layer-switch neo)
+  neo2 (layer-toggle neo2)
+
   d3  (tap-hold-next-release 500 d @lv3)
   k3  (tap-hold-next-release 500 k @lv3)
 
@@ -150,6 +170,7 @@
   o3  (tap-hold-next-release 500 o @lv3)
   .3  (tap-hold-next-release 500 . @lv3)
   ;3  (tap-hold-next-release 500 ; @lv3)
+  :3  (tap-hold-next-release 500 : @lv3)
 
   i4  (tap-hold-next-release 500 i @lv4)
   ;4  (tap-hold-next-release 500 ; @lv4)
@@ -170,7 +191,4 @@
                                    
   vm  (tap-hold-next-release 500 v lmet)
 
-  tpt (cmd-button "/home/stefan/Dokumente/Programmieren/Projekte/capG/touchpad_toggle/touchpad_toogle.py")   
-  aks (cmd-button "/home/stefan/.local/bin/anki_screenshot.py")    
-  scr (cmd-button "/usr/bin/flameshot gui -p /home/stefan/Bilder/screenshots/")
 )
