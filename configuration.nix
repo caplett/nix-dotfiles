@@ -21,6 +21,7 @@ in {
     ./vim.nix
     ./utils.nix
     ./sway.nix
+    ./external_hosts.nix
     #./i3.nix
 
     (import "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos")
