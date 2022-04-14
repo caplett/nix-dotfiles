@@ -104,14 +104,11 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'kosayoda/nvim-lightbulb'
 
 " Fancy Autocompletion
-Plug 'hrsh7th/nvim-compe'
+"Plug 'hrsh7th/nvim-compe'
 
 " Lualine mit Nord Theme
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
-
-" Besseres smooth scrollen
-Plug 'karb94/neoscroll.nvim'
 
 " Fade out vim windows not in focus
 Plug 'sunjon/shade.nvim'
@@ -131,9 +128,6 @@ Plug 'norcalli/nvim-colorizer.lua'
 " Highlight and search for TODO and other
 Plug 'folke/todo-comments.nvim'
 
-
-" Automatically close brackets
-Plug 'jiangmiao/auto-pairs'
 
 " latex handling
 " Use nvim in firefox
@@ -697,11 +691,6 @@ EOF
 "  neoscroll  "
 """""""""""""""
 
-lua << EOF
-require('neoscroll').setup({
-easing_function = "sine",
-})
-EOF
 
 
 """""""""""""""
