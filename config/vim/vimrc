@@ -844,3 +844,12 @@ tabnine:setup({
 
 EOF
 
+"""""""""""""""""""""""""""""""""""""""""
+"  Haskell LSP haskell-language-server  "
+"""""""""""""""""""""""""""""""""""""""""
+
+lua << EOF
+require'lspconfig'.hls.setup{}
+
+EOF
+
