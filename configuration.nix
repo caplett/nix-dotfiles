@@ -385,6 +385,12 @@ home.file = {
       ps.numpy
       ps.pynvim
       ps.pudb
+      ps.matplotlib
+      ps.scikit-learn
+      ps.pulp
+      ps.matplotlib
+      ps.click
+      ps.pandas
     ]))
 
 
