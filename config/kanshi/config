@@ -1,4 +1,6 @@
 profile {
 	output "Goldstar Company Ltd LG Ultra HD 0x0000474F" mode 2560x1440@59.951Hz position 0,0
 	output "Sharp Corporation LQ156M1JW01 0x00000000" mode 1920x1080@60.042Hz position 320,1440
+    exec swaymsg '[workspace="2"]' move workspace to output HDMI-A-1
+    exec swaymsg '[workspace="3"]' move workspace to output HDMI-A-1
 }
