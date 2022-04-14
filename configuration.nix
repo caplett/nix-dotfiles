@@ -125,22 +125,7 @@ in {
   networking.extraHosts = let
     hostsPath = https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts;
     hostsFile = builtins.fetchurl hostsPath;
-    additional_blocks = ''
-    0.0.0.0 youtube.com
-    0.0.0.0 www.youtube.com
-    0.0.0.0 bbc.com
-    0.0.0.0 www.bbc.com
-    0.0.0.0 tagesschau.de
-    0.0.0.0 www.tagesschau.de
-    0.0.0.0 golem.de
-    0.0.0.0 www.golem.de
-    0.0.0.0 heise.de
-    0.0.0.0 www.heise.de
-    0.0.0.0 news.ycombinator.com
-    0.0.0.0 www.news.ycombinator.com
-    '';
-  in builtins.readFile "${hostsFile}" + additional_blocks;
-
+  in builtins.readFile "${hostsFile}";
 
 
   # Enable the X11 windowing system.
