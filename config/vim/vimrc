@@ -159,6 +159,12 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'tom-anders/telescope-vim-bookmarks.nvim'
+
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+
 call plug#end()
 
 " Use Vim settings, rather than Vi settings (much better!).
@@ -512,7 +518,7 @@ EOF
 
 lua << EOF 
 
-
+require('telescope').load_extension('vim_bookmarks')
 
 EOF 
 
