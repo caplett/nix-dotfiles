@@ -68,7 +68,6 @@ in
 
     unstable.neovim
     wget
-    firefox
     htop
     pavucontrol
     ripgrep
@@ -98,20 +97,22 @@ in
     wdisplays
     lazygit
     mosh
-    unstable.pdfpc
+    pdfpc
 
     direnv
     kmonad
 
     #slack
     #zotero
-    texlive.combined.scheme-full
-    texlab
+    #texlive.combined.scheme-full
+    #texlab
     mullvad-vpn
     openvpn
     copyq
-    ag
+    silver-searcher
     fd
+
+    gcc
     ];
 
   home.file = {
