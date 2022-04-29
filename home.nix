@@ -6,6 +6,11 @@ let
   (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/master)
      # reuse the current configuration
      { config = config.nixpkgs.config; };
+     overlays = [
+      (import (builtins.fetchTarball {
+        url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+      }))
+     ];
 in
 {
   # Home Manager needs a bit of information about you and the
@@ -61,8 +66,7 @@ in
     lazygit
     htop
 
-    neovim
-
+    unstable.neovim
     wget
     firefox
     htop
@@ -143,9 +147,10 @@ in
     ".tmux.conf".source = builtins.path{ name = "tmux.conf"; path = ./config/tmux.conf;};
 
 
+    ".config/sway/config".source = ./config/i3_config;
 
-
-
+    ".config/waybar/config".source = ./config/waybar/config;
+    ".config/waybar/style.css".source = ./config/waybar/style.css;
 
   };
 
