@@ -1,10 +1,23 @@
 { config, lib, pkgs, ... }:
-{
+
+let 
+  
+  pluginWithDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
+in {
 
 
-  programs.neovim.enable = true;
-  programs.neovim.defaultEditor = true;
-  programs.neovim.configure.customRC = (builtins.readFile ./config/vim/vimrc);
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    configure.customRC = (builtins.readFile ./config/vim/vimrc);
+    configure.packages.myVimPackage = with pkgs.vimPlugins; {
+      # see examples below how to use custom packages
+      start = [ markdown-preview-nvim ];
+      # If a Vim plugin has a dependency that is not explicitly listed in
+      # opt that dependency will always be added to start to avoid confusion.
+    };
+  };
+
 
 
   environment.systemPackages = with pkgs; [

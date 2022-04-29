@@ -1,0 +1,152 @@
+{ config, pkgs, ... }:
+
+let
+  kmonad = import ./kmonad.nix;
+  unstable = import
+  (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/master)
+     # reuse the current configuration
+     { config = config.nixpkgs.config; };
+in
+{
+  # Home Manager needs a bit of information about you and the
+  # paths it should manage.
+  home.username = "stefan";
+  home.homeDirectory = "/home/stefan";
+
+  # This value determines the Home Manager release that your
+  # configuration is compatible with. This helps avoid breakage
+  # when a new Home Manager release introduces backwards
+  # incompatible changes.
+  #
+  # You can update Home Manager without changing this value. See
+  # the Home Manager release notes for a list of state version
+  # changes in each release.
+  home.stateVersion = "22.05";
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
+  programs.git = {
+    enable = true;
+    userName  = "Stefan Geyer";
+    userEmail = "git@stefan-geyer.org";
+  };
+
+  programs.fzf = {
+    enable = true;
+  };
+
+  programs.fish = {
+    enable = true;
+  };
+
+  programs.starship = {
+    enable = true;
+    # Configuration written to ~/.config/starship.toml
+    settings = {
+    # add_newline = false;
+
+    # character = {
+    #   success_symbol = "[➜](bold green)";
+    #   error_symbol = "[➜](bold red)";
+    # };
+
+    # package.disabled = true;
+    };
+  };
+
+  nixpkgs.config.allowUnfree = true;
+
+  home.packages = with pkgs; [
+    lazygit
+    htop
+
+    neovim
+
+    wget
+    firefox
+    htop
+    pavucontrol
+    ripgrep
+    keepassxc
+    dropbox
+    gparted
+    ncdu
+
+    entr
+    tmux
+    brightnessctl
+
+    git
+    fzf
+    ranger
+    tree
+    mupdf
+    qpdfview
+    zathura
+    vlc
+    conda
+
+    slurp
+    grim
+
+    feh
+    wdisplays
+    lazygit
+    mosh
+    unstable.pdfpc
+
+    direnv
+    kmonad
+
+    #slack
+    #zotero
+    texlive.combined.scheme-full
+    texlab
+    mullvad-vpn
+    openvpn
+    copyq
+    ag
+    fd
+    ];
+
+  home.file = {
+    ".config/nvim/init.vim" = {
+      source = ./config/vim/vimrc;
+      recursive = false;
+    };
+
+    ".config/fish" = {
+      source = ./config/fish;
+      recursive = true;
+    };
+
+    ".config/lazygit/config.yml" = {
+      source = ./config/lazygit/config.yml;
+    };
+
+    ".vim/privat_snippets" = {
+      source = ./config/vim/ultisnips;
+      recursive = true;
+    };
+
+    ".config/kanshi/config" = {
+      source = ./config/kanshi/config;
+    };
+
+    ".config/kitty/kitty.conf".source = builtins.path{ name = "kitty.conf"; path = ./config/kitty.conf;};
+
+    ".config/kmonad/neo_hybrid.kbd".source = builtins.path{ name = "neo_hybrid.kbd"; path = ./config/neo_hybrid.kbd;};
+
+    ".config/kmonad/neo_hybrid_ergodox.kbd".source = builtins.path{ name = "neo_hybrid_ergodox.kbd"; path = ./config/neo_hybrid_ergodox.kbd;};
+
+    ".tmux.conf".source = builtins.path{ name = "tmux.conf"; path = ./config/tmux.conf;};
+
+
+
+
+
+
+  };
+
+}

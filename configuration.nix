@@ -216,55 +216,7 @@ in {
     shell = pkgs.fish;
   };
 
-  home-manager.users.stefan = {
-    programs.git = {
-      enable = true;
-      userName  = "Stefan Geyer";
-      userEmail = "git@stefan-geyer.org";
-    };
-
-
-    programs.fzf = {
-      enable = true;
-    };
-
-    programs.starship = {
-      enable = true;
-    # Configuration written to ~/.config/starship.toml
-    settings = {
-    # add_newline = false;
-
-    # character = {
-    #   success_symbol = "[➜](bold green)";
-    #   error_symbol = "[➜](bold red)";
-    # };
-
-    # package.disabled = true;
-  };
-};
-
-home.file = {
-
-  ".config/fish" = {
-    source = ./config/fish;
-    recursive = true;
-  };
-
-  ".config/lazygit/config.yml" = {
-    source = ./config/lazygit/config.yml;
-  };
-
-  ".vim/privat_snippets" = {
-    source = ./config/vim/ultisnips;
-    recursive = true;
-  };
-
-  ".config/kanshi/config" = {
-    source = ./config/kanshi/config;
-  };
-};
-
-  };
+  home-manager.users.stefan = import ./home.nix;
 
   programs.fish = {
     enable = true;
@@ -289,7 +241,7 @@ home.file = {
 
       '';
 
-      nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
   #services.nfs.server.enable = true;
   networking.firewall.extraCommands = ''
   ip46tables -I INPUT 1 -i vboxnet+ -p tcp -m tcp --dport 2049 -j ACCEPT
