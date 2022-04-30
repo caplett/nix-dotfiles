@@ -108,6 +108,25 @@ in
     copyq
     silver-searcher
     fd
+    ripgrep-all
+
+    zotero
+
+    glfw-wayland
+
+    swaylock
+    swayidle
+    wl-clipboard
+    mako # notification daemon
+    alacritty # Alacritty is the default terminal in the config
+    kitty
+    dmenu # Dmenu is the default in the config but i recommend wofi since its wayland native
+
+    swaybg
+    mako # notification daemon
+    rofi
+    wofi
+    kanshi # autorandr
 
     gcc
 
