@@ -36,9 +36,6 @@ in
     userEmail = "git@stefan-geyer.org";
   };
 
-  programs.fzf = {
-    enable = true;
-  };
 
   programs.fish = {
     enable = true;
@@ -80,7 +77,7 @@ in
     brightnessctl
 
     git
-    fzf
+    #fzf
     ranger
     tree
     mupdf
