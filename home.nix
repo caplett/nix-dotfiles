@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  kmonad = import ./kmonad.nix;
   unstable = import
   (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/master)
      # reuse the current configuration
@@ -100,7 +99,6 @@ in
     pdfpc
 
     direnv
-    kmonad
 
     #slack
     #zotero
