@@ -71,7 +71,6 @@ in
     pavucontrol
     ripgrep
     keepassxc
-    dropbox
     gparted
     ncdu
 
