@@ -58,6 +58,9 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
+  fonts.fontconfig.enable = true;
+
+
   home.packages = with pkgs; [
     lazygit
     htop
@@ -108,7 +111,11 @@ in
     fd
 
     gcc
-    ];
+
+    nerdfonts
+    font-awesome
+    pango
+  ];
 
   home.file = {
     ".config/nvim/init.vim" = {
