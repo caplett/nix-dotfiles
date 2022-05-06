@@ -4,3 +4,11 @@ profile {
     exec swaymsg '[workspace="2"]' move workspace to output HDMI-A-1
     exec swaymsg '[workspace="3"]' move workspace to output HDMI-A-1
 }
+
+
+profile {
+	output "Samsung Electric Company S27E450 H4ZK800040" mode 1920x1080@60.000Hz position 0,0
+	output "Sharp Corporation LQ156M1JW01 0x00000000" mode 1920x1080@60.042Hz position 0,1080
+    exec swaymsg '[workspace="2"]' move workspace to output HDMI-A-1
+    exec swaymsg '[workspace="3"]' move workspace to output HDMI-A-1
+}
