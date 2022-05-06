@@ -320,7 +320,7 @@ in {
     lazygit
     mosh
     unstable.staruml
-    unstable.pdfpc
+    pdfpc
     vagrant
     qbittorrent
 
