@@ -357,10 +357,7 @@ in {
     ]))
 
 
-    pyright
-
     obsidian
-
 
     geckodriver
     light
