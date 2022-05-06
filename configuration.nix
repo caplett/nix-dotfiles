@@ -141,6 +141,17 @@ in {
     pango
   ];
 
+  ############
+  #  Flakes  #
+  ############
+
+  nix = {
+    package = pkgs.nixFlakes; # or versioned attributes like nix_2_7
+    extraOptions = ''
+    experimental-features = nix-command flakes
+    '';
+  };
+
 
   environment.etc = {
       # Put config files in /etc. Note that you also can put these in ~/.config, but then you can't manage them with NixOS anymore!
