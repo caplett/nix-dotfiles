@@ -369,6 +369,9 @@ in {
 
     pulseaudio
 
+    #UxPlay related stuff. FIXME
+    #https://github.com/FDH2/UxPlay
+    cmake openssl pkgconfig gst_all_1.gstreamer gst_all_1.gst-plugins-base gst_all_1.gst-plugins-good gst_all_1.gst-plugins-ugly gst_all_1.gst-plugins-bad pcre.dev avahi-compat gst_all_1.gst-libav libplist libunwind
   ];
 
   virtualisation.oci-containers.backend= "docker";
