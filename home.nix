@@ -36,7 +36,6 @@ in
     userEmail = "git@stefan-geyer.org";
   };
 
-
   programs.fish = {
     enable = true;
   };
@@ -59,7 +58,6 @@ in
   nixpkgs.config.allowUnfree = true;
 
   fonts.fontconfig.enable = true;
-
 
   home.packages = with pkgs; [
     lazygit

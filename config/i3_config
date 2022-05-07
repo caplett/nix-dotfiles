@@ -211,7 +211,7 @@ bindcode $mod+Shift+$letter_q kill
 
 # start dmenu (a program launcher)
 # $letter_d = d
-bindcode $mod+$letter_d exec rofi -show run ssh
+bindsym $mod+d exec /home/stefan/.nix-profile/bin/rofi -show run ssh
 #
 #bindsym $mod+t exec alacritty -e nvim -c 'VimwikiInde'
 bindcode $mod+$letter_p exec kitty --title Vimwiki tmux -L kitty_ses -c "nvim -c 'VimwikiIndex'"
@@ -437,3 +437,4 @@ exec "copyq"
 # 110 = Pos 1 key
 # bindcode 110 exec "/run/current-system/sw/bin/togglebacklight"
 
+output * bg #000000 solid_color

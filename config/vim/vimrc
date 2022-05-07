@@ -107,11 +107,8 @@ Plug 'kosayoda/nvim-lightbulb'
 "Plug 'hrsh7th/nvim-compe'
 
 " Lualine mit Nord Theme
-Plug 'hoob3rt/lualine.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
-
-" Fade out vim windows not in focus
-Plug 'sunjon/shade.nvim'
 
 " Termninal aus nvim raus toggeln
 Plug 'akinsho/nvim-toggleterm.lua'
@@ -573,6 +570,7 @@ lua <<EOF
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
+      { name = 'cmp_tabnine' },
       -- { name = 'vsnip' }, -- For vsnip users.
       -- { name = 'luasnip' }, -- For luasnip users.
       { name = 'ultisnips' }, -- For ultisnips users.
@@ -696,22 +694,6 @@ require('lualine').setup {
     }
 EOF
 
-"""""""""""""""
-"  neoscroll  "
-"""""""""""""""
-
-
-
-"""""""""""""""
-"  Shade.vim  "
-"""""""""""""""
-
-lua << EOF
-require'shade'.setup({
-  overlay_opacity = 80,
-  opacity_step = 1,
-})
-EOF
 
 """"""""""""""""
 "  toggleterm  "
@@ -755,7 +737,7 @@ set background=dark
 "" For light version.
 "" set background=light
 
-let g:everforest_background = 'soft'
+let g:everforest_background = 'medium'
 colorscheme everforest
 
 let g:everforest_enable_italic = 1

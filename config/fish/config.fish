@@ -10,4 +10,14 @@ if status is-interactive
         eval (direnv hook fish)
     end
 
+    set PATH $PATH /home/stefan/.nix-profile/bin
+    set PATH $PATH /nix/var/nix/profiles/default/bin
+
 end
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+eval /home/stefan/miniconda/bin/conda "shell.fish" "hook" $argv | source
+# <<< conda initialize <<<
+
+
