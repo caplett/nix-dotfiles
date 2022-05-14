@@ -129,13 +129,6 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'folke/todo-comments.nvim'
 
 
-" latex handling
-" Use nvim in firefox
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-if exists('g:started_by_firenvim')
-  set laststatus=0
-endif
-
 Plug 'lervag/vimtex'
 let g:tex_flavor='xelatex'
 let g:vimtex_view_method='zathura'
@@ -162,8 +155,6 @@ Plug 'honza/vim-snippets'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
 " Vim Script
 Plug 'ahmedkhalf/project.nvim'
 
@@ -309,7 +300,6 @@ nnoremap L :BufferNext<CR>
 nmap <silent> <leader>ev :e /etc/nixos/config/vim/vimrc<CR>
 nmap <silent> <leader>ec :e /etc/nixos/configuration.nix<CR>
 
-nnoremap <leader>f <cmd>lua require('telescope.builtin').git_files()<CR>
 nnoremap <leader>F <cmd>lua require('telescope.builtin').find_files()<CR>
 nnoremap <leader>h <cmd>lua require('telescope.builtin').oldfiles()<CR>
 
@@ -477,20 +467,6 @@ nnoremap <leader>w  <cmd>update<CR>
 nnoremap <leader>q  <cmd>quit<CR>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                            GitGutter                                  "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Dont use standard mappings. They interact with <leader>h from vim clap
-let g:gitgutter_map_keys = 0
-
-nmap ]j <Plug>(GitGutterNextHunk)
-nmap [j <Plug>(GitGutterPrevHunk)
-
-" Required after having changed the colorscheme
-hi clear SignColumn
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Other                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -515,7 +491,6 @@ lsp_status.config({
 })
 
 EOF
-
 
 
 lua << EOF 
@@ -641,8 +616,6 @@ lua <<EOF
 EOF
 
 nnoremap <leader>a  :ClangdSwitchSourceHeader<CR>
-
-autocmd BufWinEnter * BufferOrderByDirectory
 
 """"""""""""""""""
 "  Trouble.nvim  "
