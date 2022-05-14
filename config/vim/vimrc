@@ -119,7 +119,8 @@ Plug 'akinsho/nvim-toggleterm.lua'
 Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
 
 " Another eye friendly colortheme
-Plug 'sainnhe/everforest'
+"Plug 'sainnhe/everforest'
+Plug 'rmehri01/onenord.nvim', { 'branch': 'main' }
 
 " Highlight Colorcodes in theire color
 Plug 'norcalli/nvim-colorizer.lua'
@@ -642,21 +643,6 @@ EOF
 nnoremap <leader>a  :ClangdSwitchSourceHeader<CR>
 
 autocmd BufWinEnter * BufferOrderByDirectory
-
-"""""""""""""""""""""""""
-"  Material Colorsheme  "
-"""""""""""""""""""""""""
-
-let g:material_style = 'palenight'
-let g:material_italic_comments = 1
-let g:material_italic_keywords = 1
-let g:material_italic_functions = 1
-let g:material_contrast = 1
-let g:material_lighter_contrast = 1
-let g:material_borders = 1
-
-nnoremap <leader>ml :lua require('material.functions').change_style('lighter')<CR>
-nnoremap <leader>md :colorscheme nord<CR>
 
 """"""""""""""""""
 "  Trouble.nvim  "
