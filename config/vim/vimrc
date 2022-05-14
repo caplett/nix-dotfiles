@@ -610,12 +610,24 @@ lua <<EOF
   
   
   lspconfig.html.setup {
+      capabilities = capabilities,
+      }
+
+  -- require'lspconfig'.jedi_language_server.setup{
+  --    capabilities = capabilities,
+  -- }
+
+
+  lspconfig.pyright.setup{
     capabilities = capabilities,
+    settings = {
+        pyright = {
+            useLibraryCodeForTypes = true,
+            reportMissingImports = true,
+            }
+        }
   }
   
-  require'lspconfig'.jedi_language_server.setup{
-    capabilities = capabilities,
-  }
   
   
   require'lspconfig'.texlab.setup{
