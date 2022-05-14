@@ -92,6 +92,8 @@ Plug 'CoatiSoftware/vim-sourcetrail'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
 
+Plug 'kyazdani42/nvim-tree.lua'
+
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 
@@ -936,4 +938,24 @@ let g:mkdp_page_title = '「${name}」'
 " recognized filetypes
 " these filetypes will have MarkdownPreview... commands
 let g:mkdp_filetypes = ['markdown']
+
+
+"""""""""""""""""""
+"  Lua nvim tree  "
+"""""""""""""""""""
+
+lua << EOF
+vim.g.nvim_tree_respect_buf_cwd = 1
+
+require'nvim-tree'.setup ({
+    update_cwd = true,
+    update_focused_file = {
+        enable = true,
+        update_cwd = true
+    },
+})
+
+EOF
+
+nnoremap <F4> <cmd>NvimTreeFocus<cr>
 
