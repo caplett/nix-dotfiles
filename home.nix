@@ -120,6 +120,7 @@ in
     rofi
     wofi
     kanshi # autorandr
+    google-chrome
 
     gcc
 
