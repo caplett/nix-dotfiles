@@ -163,6 +163,8 @@ Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+" Vim Script
+Plug 'ahmedkhalf/project.nvim'
 
 call plug#end()
 
@@ -958,4 +960,14 @@ require'nvim-tree'.setup ({
 EOF
 
 nnoremap <F4> <cmd>NvimTreeFocus<cr>
+
+""""""""""""""""""
+"  Project nvim  "
+""""""""""""""""""
+
+lua << EOF
+  require("project_nvim").setup {}
+  require('telescope').load_extension('projects')
+EOF
+
 
