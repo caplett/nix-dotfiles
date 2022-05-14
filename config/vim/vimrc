@@ -930,3 +930,8 @@ lua << EOF
 EOF
 
 
+
+" Don't lose selection when shifting sidewards
+xnoremap <  <gv
+xnoremap >  >gv
+
