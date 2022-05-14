@@ -163,6 +163,7 @@ in
 
     ".config/sway/config".source = ./config/i3_config;
 
+    ".direnvrc".source = ./config/direnvrc;
 
 
     #".config/waybar/config".source = ./config/waybar/config;
