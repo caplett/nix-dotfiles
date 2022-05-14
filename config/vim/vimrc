@@ -160,6 +160,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 " Vim Script
 Plug 'ahmedkhalf/project.nvim'
 
+Plug 'direnv/direnv.vim'
+
 call plug#end()
 
 " Use Vim settings, rather than Vi settings (much better!).
