@@ -36,10 +36,6 @@ in
     userEmail = "git@stefan-geyer.org";
   };
 
-  programs.fish = {
-    enable = true;
-  };
-
   programs.starship = {
     enable = true;
     # Configuration written to ~/.config/starship.toml
@@ -62,6 +58,7 @@ in
   home.packages = with pkgs; [
     lazygit
     htop
+    fish
 
     unstable.neovim
     wget
@@ -90,7 +87,6 @@ in
     grim
 
     feh
-    wdisplays
     lazygit
     mosh
     pdfpc
@@ -117,7 +113,6 @@ in
     wl-clipboard
     mako # notification daemon
     alacritty # Alacritty is the default terminal in the config
-    kitty
     dmenu # Dmenu is the default in the config but i recommend wofi since its wayland native
 
     swaybg
@@ -168,8 +163,10 @@ in
 
     ".config/sway/config".source = ./config/i3_config;
 
-    ".config/waybar/config".source = ./config/waybar/config;
-    ".config/waybar/style.css".source = ./config/waybar/style.css;
+
+
+    #".config/waybar/config".source = ./config/waybar/config;
+    #".config/waybar/style.css".source = ./config/waybar/style.css;
 
   };
 
