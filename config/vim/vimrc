@@ -90,7 +90,7 @@ Plug 'CoatiSoftware/vim-sourcetrail'
 
 " Tabbar with fancy features
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'romgrk/barbar.nvim'
+"Plug 'romgrk/barbar.nvim'
 
 Plug 'kyazdani42/nvim-tree.lua'
 
@@ -161,6 +161,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'ahmedkhalf/project.nvim'
 
 Plug 'direnv/direnv.vim'
+
+Plug 'nanozuki/tabby.nvim'
 
 call plug#end()
 
@@ -297,12 +299,14 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
-nnoremap H :BufferPrevious<CR>
-nnoremap L :BufferNext<CR>
-nnoremap <leader>tt :tabnew<CR>
+"nnoremap H :BufferPrevious<CR>
+"nnoremap L :BufferNext<CR>
+nnoremap H :tabnext<CR>
+nnoremap L :tabprev<CR>
+nnoremap tt :tabnew<CR>
 nnoremap <leader>tn :tabnext<CR>
 nnoremap <leader>tp :tabprevious<CR>
-nnoremap <leader>tq :tabclose<CR>
+nnoremap tq :tabclose<CR>
 
 
 " Quick edit vimrc in vertical split
@@ -988,4 +992,13 @@ EOF
 " Don't lose selection when shifting sidewards
 xnoremap <  <gv
 xnoremap >  >gv
+
+
+"""""""""""
+"  tabby  "
+"""""""""""
+
+lua << EOF
+    require("tabby").setup{}
+EOF
 
