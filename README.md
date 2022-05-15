@@ -18,7 +18,12 @@
 * [ ] screenlock 
 * [ ] brightness
 * [ ] display abschalten
-* [ ] markdown preview
-* [ ] anederungen im nix repo zusammenfuehren
+* [X] markdown preview
+* [X] anederungen im nix repo zusammenfuehren
 * [ ] touchpad dinge: abschalten, tap
 * [ ] hintergrundbilder
+
+## visudo
+
+stefan ALL = NOPASSWD: /usr/bin/light
+stefan ALL = NOPASSWD: /usr/bin/kmonad
