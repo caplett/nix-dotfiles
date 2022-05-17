@@ -12,6 +12,7 @@ if status is-interactive
 
     set PATH $PATH /home/stefan/.nix-profile/bin
     set PATH $PATH /nix/var/nix/profiles/default/bin
+    set TERM xterm 
 
 end
 

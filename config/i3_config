@@ -65,7 +65,7 @@ set $base0F #B48EAD
 
 # Basic bar configuration using the Base16 variables.
 
-exec waybar
+exec /usr/bin/waybar
 #bar {
 ##   status_command waybar
 #
@@ -200,7 +200,7 @@ exec_always sudo /usr/bin/kmonad /home/stefan/Dokumente/Programmieren/Projekte/o
 exec_always swaymsg input type:keyboard repeat_delay 300
 exec_always swaymsg input type:keyboard repeat_rate 70
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec kitty --single-instance
 
 bindcode $mod+65 exec kitty
 
@@ -438,3 +438,5 @@ exec "copyq"
 # bindcode 110 exec "/run/current-system/sw/bin/togglebacklight"
 
 output * bg #000000 solid_color
+
+exec "systemctl --user import-environment"
