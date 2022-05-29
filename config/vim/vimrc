@@ -393,8 +393,26 @@ let g:UltiSnipsSnippetDirectories = [$HOME."/.vim/plugged/vim-snippets/UltiSnips
 
 let g:snips_author = "Stefan Geyer"
 
+"""""""""""""""
+"  Telescope  "
+"""""""""""""""
 
+lua << EOF
 
+require('telescope').setup({
+  defaults = {
+    layout_config = {
+      vertical = { width = 0.95 }
+      -- other layout configuration here
+    },
+    layout_strategy = "vertical",
+    sorting_strategy= "ascending",
+    -- other defaults configuration here
+  },
+  -- other configuration values here
+})
+
+EOF
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
