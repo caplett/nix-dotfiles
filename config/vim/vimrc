@@ -328,6 +328,7 @@ nnoremap <Space><space> <cmd>lua require('telescope.builtin').buffers()<CR>
 
 noremap <Leader>r '
 
+nnoremap <Leader>j <cmd> lua require('telescope.builtin').jumplist{}<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                Vimwiki                                 "
