@@ -23,6 +23,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
@@ -121,6 +122,7 @@ Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
 " Another eye friendly colortheme
 "Plug 'sainnhe/everforest'
 Plug 'rmehri01/onenord.nvim', { 'branch': 'main' }
+Plug 'EdenEast/nightfox.nvim' " Vim-Plug
 
 " Highlight Colorcodes in theire color
 Plug 'norcalli/nvim-colorizer.lua'
@@ -163,6 +165,9 @@ Plug 'ahmedkhalf/project.nvim'
 Plug 'direnv/direnv.vim'
 
 Plug 'nanozuki/tabby.nvim'
+
+" Vim Script
+Plug 'folke/which-key.nvim'
 
 call plug#end()
 
@@ -303,10 +308,10 @@ nnoremap <c-l> <c-w>l
 "nnoremap L :BufferNext<CR>
 nnoremap H :tabnext<CR>
 nnoremap L :tabprev<CR>
-nnoremap tt :tabnew<CR>
+nnoremap <leader>tt :tabnew<CR>
 nnoremap <leader>tn :tabnext<CR>
 nnoremap <leader>tp :tabprevious<CR>
-nnoremap tq :tabclose<CR>
+nnoremap <leader>tq :tabclose<CR>
 
 
 " Quick edit vimrc in vertical split
@@ -406,7 +411,8 @@ require('telescope').setup({
       -- other layout configuration here
     },
     layout_strategy = "vertical",
-    sorting_strategy= "ascending",
+    -- sorting_strategy= "ascending",
+    sorting_strategy= "descending",
     -- other defaults configuration here
   },
   -- other configuration values here
@@ -497,7 +503,6 @@ nnoremap <leader>r  <cmd>Rename<CR>
 nnoremap <leader>p  <cmd>lua require'telescope.builtin'.git_files{}<CR>
 nnoremap <leader>ws <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>
 nnoremap <leader>ds <cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<CR>
 nnoremap <leader>w  <cmd>update<CR>
 nnoremap <leader>q  <cmd>quit<CR>
 
@@ -516,6 +521,22 @@ set foldlevel=1
 
 " Do default action for previous item.
 nnoremap <silent> <space>=  :set ea noea<CR>
+
+lua << EOF
+
+    require("nvim-lsp-installer").setup({
+    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+})
+
+
+EOF
 
 lua << EOF
 
@@ -639,21 +660,20 @@ lua <<EOF
       capabilities = capabilities,
       }
 
-  -- require'lspconfig'.jedi_language_server.setup{
-  --    capabilities = capabilities,
-  -- }
-
 
   lspconfig.pyright.setup{
-    capabilities = capabilities,
-    settings = {
-        pyright = {
-            useLibraryCodeForTypes = true,
-            reportMissingImports = true,
-            }
-        }
+   capabilities = capabilities,
+   settings = {
+       pyright = {
+           useLibraryCodeForTypes = true,
+           reportMissingImports = true,
+           }
+       }
   }
   
+  -- require'lspconfig'.jedi_language_server.setup{
+  --   capabilities = capabilities,
+  -- }
   
   
   require'lspconfig'.texlab.setup{
@@ -759,7 +779,8 @@ set termguicolors
 lua << EOF
 
 require('onenord').setup({
-  theme = "dark", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
+  theme = "light", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
+  -- theme = "dark", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
   borders = true, -- Split window borders
   fade_nc = true, -- Fade non-current windows, making them more distinguishable
   -- Style that is applied to various groups: see `highlight-args` for options
@@ -784,7 +805,11 @@ require('onenord').setup({
   -- custom_colors = {}, -- Overwrite default colors
 })
 
+require('nightfox').setup({})
+
 EOF
+
+colorscheme onenord
 
 """""""""""""""
 "  colorizer  "
@@ -994,6 +1019,9 @@ require'nvim-tree'.setup ({
         enable = true,
         update_cwd = true
     },
+    view = {
+        side = "right"
+    },
 })
 
 EOF
@@ -1022,5 +1050,18 @@ xnoremap >  >gv
 
 lua << EOF
     require("tabby").setup{}
+EOF
+
+"""""""""""""""
+"  which key  "
+"""""""""""""""
+
+
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
 EOF
 
