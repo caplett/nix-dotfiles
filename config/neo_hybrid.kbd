@@ -32,15 +32,31 @@
   Tab        q    @w3  e    r    t    y    u    i    o    p    ß    ´
   @lv3       @ac  @s2  @da  @fm  g    h    j    k    l    @:3  \    @lv3
   @lv2 @lv4  z    x    c    v    b    n    m    ,    .    /    @lv2
-  lctl       lmet lalt          spc             @lv4 _
+  lctl       lmet @lalt_func    spc             @lv4 _
 )                                                     
+
+(deflayer lalt_layer
+  grv               1    2    3    4    5    6    7    8    9    0    -    =
+  tab               q    w    e    r    t    @swtl @sw1  @sw2  @sw3  @swtr [    ]
+  caps              a    s    d    f    g    @swml @sw4  @sw5  @sw6  @swmr '    \
+  @lalt_shift 102d  z    x    c    v    b    @swbl @sw7  @sw8  @sw9  @swbr rsft
+  lctl              lmet XX            spc             ralt rctl
+)
+
+(deflayer lalt_shift_layer
+  grv               1    2    3    4    5    6     7     8     9     0     -    =
+  tab               q    w    e    r    t    @smwtl @smw1  @smw2  @smw3  @smwtr [    ]
+  caps              a    s    d    f    g    @smwml @smw4  @smw5  @smw6  @smwmr '    \
+  XX         102d   z    x    c    v    b    @smwbl @smw7  @smw8  @smw9  @smwbr rsft
+  lctl              lmet XX            spc               ralt  rctl
+)
 
 (deflayer level2
   grv         F1   F2   F3   F4   F5   F6   F7   _    _    _    _    _
   S-tab       Q    W    E    R    T    Y    U    I    O    P    ẞ    ´
   @lv5        A    S    D    F    G    H    J    K    L    ;    \    @lv5
   XX   @lv4   Z    X    C    V    B    N    M    –    .    /    XX
-  lctl        lmet lalt          spc           S-@lv4 _
+  lctl        lmet @lalt_func2   spc           S-@lv4 _
 )
 
 (deflayer neo
@@ -156,7 +172,6 @@
 
   da  (tap-hold-next-release 500 d lalt)
 
-  w2  (tap-hold-next-release 500 w @lv2)
   o2  (tap-hold-next-release 500 o @lv2)
   s2  (tap-hold-next-release 500 s @lv2)
   l2  (tap-hold-next-release 500 l @lv2)
@@ -190,5 +205,48 @@
   im  (tap-hold-next-release 500 i lmet)
                                    
   vm  (tap-hold-next-release 500 v lmet)
+
+  lalt_func (around (layer-toggle lalt_layer) lalt)
+  lalt_func2 (around (layer-toggle lalt_shift_layer) lalt)
+  lalt_shift (layer-toggle lalt_shift_layer)
+
+  swtl (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace ⬁")
+  sw1  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace 1")
+  sw2  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace 2")
+  sw3  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace 3")
+  swtr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace ⬀")
+  swml (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace ⇦")
+  sw4  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace 4")
+  sw5  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace 5")
+  sw6  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace 6")
+  swmr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace ⇨")
+  swbl (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace ⬃")
+  sw7  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace 7")
+  sw8  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace 8")
+  sw9  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace 9")
+  swbr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace ⬂")
+
+
+  smwtl (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace ⬁")    
+  smw1  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 1")    
+  smw2  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 2")    
+  smw3  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 3")    
+  smwtr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace ⬀")    
+  smwml (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace ⇦")    
+  smw4  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 4")    
+  smw5  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 5")    
+  smw6  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 6")    
+  smwmr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace ⇨")    
+  smwbl (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace ⬃")    
+  smw7  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 7")    
+  smw8  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 8")    
+  smw9  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 9")    
+  smwbr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace ⬂")    
+
+
+
+
+
+
 
 )
