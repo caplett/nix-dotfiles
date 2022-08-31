@@ -44,10 +44,10 @@
 )
 
 (deflayer lalt_shift_layer
-  grv               1    2    3    4    5    6     7     8     9     0     -    =
-  tab               q    w    e    r    t    @smwtl @smw1  @smw2  @smw3  @smwtr [    ]
-  caps              a    s    d    f    g    @smwml @smw4  @smw5  @smw6  @smwmr '    \
-  XX         102d   z    x    c    v    b    @smwbl @smw7  @smw8  @smw9  @smwbr rsft
+  grv               1    2      3      4    5    6     7     8     9     0     -    =
+  tab               q    @swwu  @swcu  r    t    @smwtl @smw1  @smw2  @smw3  @smwtr [    ]
+  caps              a    @swwd  @swcd  f    g    @smwml @smw4  @smw5  @smw6  @smwmr '    \
+  XX         102d   z    x      c      v    b    @smwbl @smw7  @smw8  @smw9  @smwbr rsft
   lctl              lmet XX            spc               ralt  rctl
 )
 
@@ -227,26 +227,28 @@
   swbr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) workspace ⬂")
 
 
-  smwtl (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace ⬁")    
-  smw1  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 1")    
-  smw2  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 2")    
-  smw3  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 3")    
-  smwtr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace ⬀")    
-  smwml (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace ⇦")    
-  smw4  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 4")    
-  smw5  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 5")    
-  smw6  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 6")    
-  smwmr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace ⇨")    
-  smwbl (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace ⬃")    
-  smw7  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 7")    
-  smw8  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 8")    
-  smw9  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace 9")    
-  smwbr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1)  move container to workspace ⬂")    
+  smwtl (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace ⬁")    
+  smw1  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace 1")    
+  smw2  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace 2")    
+  smw3  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace 3")    
+  smwtr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace ⬀")    
+  smwml (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace ⇦")    
+  smw4  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace 4")    
+  smw5  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace 5")    
+  smw6  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace 6")    
+  smwmr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace ⇨")    
+  smwbl (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace ⬃")    
+  smw7  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace 7")    
+  smw8  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace 8")    
+  smw9  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace 9")    
+  smwbr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace ⬂")    
 
 
+  swwu  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move workspace to output up")
+  swwd  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move workspace to output down")
 
-
-
+  swcu  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to output up")
+  swcd  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to output down")
 
 
 )
