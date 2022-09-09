@@ -161,6 +161,20 @@ Plug 'nanozuki/tabby.nvim'
 " Vim Script
 Plug 'folke/which-key.nvim'
 
+Plug 'junegunn/vim-easy-align'
+
+Plug 'danymat/neogen'
+
+Plug 'ggandor/leap.nvim'
+
+Plug 'lukas-reineke/indent-blankline.nvim'
+
+Plug 'phha/zenburn.nvim'
+
+Plug 'simrat39/symbols-outline.nvim'
+
+Plug 'SmiteshP/nvim-navic'
+
 call plug#end()
 
 " Use Vim settings, rather than Vi settings (much better!).
@@ -652,7 +666,12 @@ lua <<EOF
       }
 
 
+
+  local navic = require("nvim-navic")
   lspconfig.pyright.setup{
+   on_attach = function(client, bufnr)
+     navic.attach(client, bufnr)
+   end,
    capabilities = capabilities,
    settings = {
        pyright = {
@@ -709,11 +728,18 @@ autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 "  Lualine  "
 """""""""""""
 lua << EOF
+local navic = require("nvim-navic")
+
 require('lualine').setup {
     --- options = {theme = "nord"}
     --- options = {theme = "everforest"}
-    options = {theme = "onenord"}
+    options = {theme = "onenord"},
+    sections = {
+        lualine_c = {
+            { navic.get_location, cond = navic.is_available },
+        }
     }
+}
 EOF
 
 
@@ -770,8 +796,8 @@ set termguicolors
 lua << EOF
 
 require('onenord').setup({
-  theme = "light", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
-  -- theme = "dark", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
+  -- theme = "light", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
+  theme = "dark", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
   borders = true, -- Split window borders
   fade_nc = true, -- Fade non-current windows, making them more distinguishable
   -- Style that is applied to various groups: see `highlight-args` for options
@@ -1038,5 +1064,85 @@ lua << EOF
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
+EOF
+
+""""""""""""""""""""
+"  Easy Paragraph  "
+""""""""""""""""""""
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+""""""""""""
+"  Neogen  "
+""""""""""""
+
+lua << EOF
+
+    require('neogen').setup{}
+
+EOF
+
+""""""""""
+"  Leap  "
+""""""""""
+
+lua << EOF
+
+    require('leap').set_default_keymaps()
+    require('leap').setup {
+          case_sensitive = false
+        }
+
+    -- Searching in all windows (including the current one) on the tab page.
+    function leap_all_windows()
+    local focusable_windows_on_tabpage = vim.tbl_filter(
+        function (win) return vim.api.nvim_win_get_config(win).focusable end,
+        vim.api.nvim_tabpage_list_wins(0)
+    )
+    require('leap').leap { target_windows = focusable_windows_on_tabpage }
+    end
+
+EOF
+
+""""""""""""""""""""""
+"  Indent Blackline  "
+""""""""""""""""""""""
+
+lua << EOF
+vim.opt.list = true
+
+
+require("indent_blankline").setup {
+    -- for example, context is off by default, use this to turn it on
+    show_current_context = true,
+    show_current_context_start = true,
+}
+EOF
+
+
+"""""""""""""""""""""
+"  symbols outline  "
+"""""""""""""""""""""
+
+lua << EOF
+    require("symbols-outline").setup()
+EOF
+
+"""""""""""""
+"  zenburn  "
+"""""""""""""
+
+lua << EOF
+    require("zenburn").setup()
+
+    require("lualine").setup {
+        options = {
+            theme = "zenburn",
+        }
+    }
 EOF
 
