@@ -56,7 +56,6 @@ Plug 'plasticboy/vim-markdown'
 
 Plug 'scrooloose/nerdcommenter'
 
-
 Plug 'vimwiki/vimwiki', {'branch' : 'master'}
 Plug 'michal-h21/vim-zettel'
 Plug 'https://github.com/alok/notational-fzf-vim'
@@ -83,11 +82,8 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 "Plug 'yuki-ycino/fzf-preview.vim'
-
-Plug 'averms/black-nvim', {'do': ':UpdateRemotePlugins'}
-
-Plug 'CoatiSoftware/vim-sourcetrail'
-
+ 
+Plug 'psf/black', { 'branch': 'stable' }
 
 " Tabbar with fancy features
 Plug 'kyazdani42/nvim-web-devicons'
@@ -147,15 +143,11 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
 " Autocompleiton
-Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-
-Plug 'MattesGroeger/vim-bookmarks'
-Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
@@ -268,12 +260,14 @@ set softtabstop=4
 set shiftround
 
 " hyprid number with auto toggling
-set number relativenumber cursorline
-augroup numbertoggle
-	autocmd!
-	autocmd BufEnter,FocusGained,InsertLeave * set relativenumber cursorline
-	autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber nocursorline
-augroup END 
+"set number relativenumber cursorline
+"augroup numbertoggle
+	"autocmd!
+	"autocmd BufEnter,FocusGained,InsertLeave * set relativenumber cursorline
+	"autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber nocursorline
+"augroup END 
+
+set number cursorline
 
 autocmd! bufwritepost init.vim source %
 
@@ -326,7 +320,7 @@ nmap <Leader>H <cmd>lua require('telescope.builtin').man_pages()<CR>
 nnoremap <leader>dd :BufferClose<CR>
 
 " Easy most-recent-buffer switching
-nnoremap <Tab> :b#<CR>
+"nnoremap <Tab> :b#<CR>
 
 nnoremap <Space><space> <cmd>lua require('telescope.builtin').buffers()<CR>
 
@@ -518,6 +512,9 @@ set scrolljump=1
 
 set foldlevel=1
 
+" Enable fold column
+set foldcolumn=3  
+
 
 " Do default action for previous item.
 nnoremap <silent> <space>=  :set ea noea<CR>
@@ -548,12 +545,6 @@ lsp_status.config({
 
 EOF
 
-
-lua << EOF 
-
-require('telescope').load_extension('vim_bookmarks')
-
-EOF 
 
 set completeopt=menu,menuone,noselect
 
@@ -606,7 +597,7 @@ lua <<EOF
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      { name = 'cmp_tabnine' },
+      -- { name = 'cmp_tabnine' },
       -- { name = 'vsnip' }, -- For vsnip users.
       -- { name = 'luasnip' }, -- For luasnip users.
       { name = 'ultisnips' }, -- For ultisnips users.
@@ -884,22 +875,6 @@ EOF
 "  nvim-cmp tabnine  "
 """"""""""""""""""""""
 
-lua << EOF
-
-local tabnine = require('cmp_tabnine.config')
-tabnine:setup({
-	max_lines = 1000;
-	max_num_results = 20;
-	sort = true;
-	run_on_every_keystroke = true;
-	snippet_placeholder = '..';
-	ignored_file_types = { -- default is not to ignore
-		-- uncomment to ignore in lua:
-		-- lua = true
-	};
-})
-
-EOF
 
 """""""""""""""""""""""""""""""""""""""""
 "  Haskell LSP haskell-language-server  "
