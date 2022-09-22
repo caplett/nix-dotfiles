@@ -10,7 +10,8 @@ SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr_s:sudo\x20\x2dE
 
 SETUVAR _fish_abbr_sv:sudo\x20\x2dE nvim
-SETUVAR _fish_abbr_v:LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 nvim
+#SETUVAR _fish_abbr_v:LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 nvim
+SETUVAR _fish_abbr_v:/usr/bin/nvim.appimage
 
 SETUVAR _fish_abbr_sgl:sudo\x20\x2dE lazygit
 SETUVAR _fish_abbr_gl:lazygit
@@ -24,6 +25,9 @@ SETUVAR _fish_abbr_p:ping 1.1
 
 SETUVAR _fish_abbr_cdn:cd /etc/nixos
 SETUVAR _fish_abbr_cdnc:cd /etc/nixos/config
+
+
+SETUVAR _fish_abbr_cdmcd:cd /home/stefan/master_arbeit/Code/dreamer-pytorch
 
 #SETUVAR _fish_abbr_tap-enable:swaymsg input type:touchpad tap enable
 #SETUVAR _fish_abbr_tap-disable:swaymsg input type:touchpad tap disable
@@ -60,3 +64,5 @@ SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR --export nixos_fish_plugins_installed:yes
+SETUVAR fish_user_paths:/home/stefan/\x2efzf/bin
+

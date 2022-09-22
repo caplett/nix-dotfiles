@@ -12,6 +12,7 @@ if status is-interactive
 
     set PATH $PATH /home/stefan/.nix-profile/bin
     set PATH $PATH /nix/var/nix/profiles/default/bin
+    set PATH $PATH /home/stefan/.cargo/bin
     set TERM xterm 
 
 end
@@ -23,4 +24,5 @@ direnv hook fish | source
 eval /home/stefan/miniconda/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
 
+set -gx  LD_LIBRARY_PATH /home/stefan/.mujoco/mujoco210/bin
 
