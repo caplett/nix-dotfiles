@@ -527,7 +527,6 @@ set scrolljump=1
 set foldlevel=1
 
 " Enable fold column
-set foldcolumn=3  
 
 
 " Do default action for previous item.
@@ -897,11 +896,6 @@ lua << EOF
   }
 EOF
 
-""""""""""""""""""""""
-"  nvim-cmp tabnine  "
-""""""""""""""""""""""
-
-
 """""""""""""""""""""""""""""""""""""""""
 "  Haskell LSP haskell-language-server  "
 """""""""""""""""""""""""""""""""""""""""
@@ -1136,13 +1130,5 @@ EOF
 "  zenburn  "
 """""""""""""
 
-lua << EOF
-    require("zenburn").setup()
 
-    require("lualine").setup {
-        options = {
-            theme = "zenburn",
-        }
-    }
-EOF
 
