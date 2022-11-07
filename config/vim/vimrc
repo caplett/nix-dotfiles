@@ -52,8 +52,6 @@ Plug 'Vimjas/vim-python-pep8-indent'
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'plasticboy/vim-markdown'
-
 Plug 'scrooloose/nerdcommenter'
 
 Plug 'vimwiki/vimwiki', {'branch' : 'master'}
@@ -112,9 +110,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 " Termninal aus nvim raus toggeln
 Plug 'akinsho/nvim-toggleterm.lua'
 
-" Plugin um register einfach waehlen zu koennen
-Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
-
 " Another eye friendly colortheme
 "Plug 'sainnhe/everforest'
 Plug 'rmehri01/onenord.nvim', { 'branch': 'main' }
@@ -124,7 +119,7 @@ Plug 'EdenEast/nightfox.nvim' " Vim-Plug
 Plug 'norcalli/nvim-colorizer.lua'
 
 " Highlight and search for TODO and other
-Plug 'folke/todo-comments.nvim'
+Plug 'folke/todo-comments.nvim', { 'branch': 'neovim-pre-0.8.0' }
 
 
 Plug 'lervag/vimtex'
@@ -167,18 +162,30 @@ Plug 'danymat/neogen'
 
 Plug 'ggandor/leap.nvim'
 
-Plug 'lukas-reineke/indent-blankline.nvim'
-
 Plug 'phha/zenburn.nvim'
 
 Plug 'simrat39/symbols-outline.nvim'
 
-Plug 'SmiteshP/nvim-navic'
+Plug 'jiangmiao/auto-pairs'
 
+Plug 'nvim-treesitter/nvim-treesitter-context'
+
+Plug 'jeetsukumaran/vim-indentwise'
+
+Plug 'wellle/targets.vim'
+
+Plug 'rebelot/kanagawa.nvim'
+
+Plug 'tpope/vim-surround'
+
+" Vim Script
+Plug 'gbprod/yanky.nvim'
+    
+   
 call plug#end()
 
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
+"" Use Vim settings, rather than Vi settings (much better!).
+"" This must be first, because it changes other options as a side effect.
 set nocompatible
 
 " allow backspacing over everything in insert mode
@@ -206,31 +213,31 @@ set hlsearch
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
+  "" Enable file type detection.
+  "" Use the default filetype settings, so that mail gets 'tw' set to 72,
+  "" 'cindent' is on in C files, etc.
+  "" Also load indent files, to automatically do language-dependent indenting.
   filetype plugin indent on
 
-  " Put these in an autocmd group, so that we can delete them easily.
+  "" Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
   au!
 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  " Also don't do it when the mark is in the first line, that is the default
-  " position when opening a file.
+  "" When editing a file, always jump to the last known cursor position.
+  "" Don't do it when the position is invalid or when inside an event handler
+  "" (happens when dropping a file on gvim).
+  "" Also don't do it when the mark is in the first line, that is the default
+  "" position when opening a file.
   autocmd BufReadPost *
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
+    "\   exe "normal! g`\"" |
     \ endif
 
   augroup END
 
 else
 
-  set autoindent		" always set autoindenting on
+  "set autoindent		" always set autoindenting on
 
 endif " has("autocmd")
 
@@ -276,9 +283,9 @@ set shiftround
 " hyprid number with auto toggling
 "set number relativenumber cursorline
 "augroup numbertoggle
-	"autocmd!
-	"autocmd BufEnter,FocusGained,InsertLeave * set relativenumber cursorline
-	"autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber nocursorline
+  ""autocmd!
+  ""autocmd BufEnter,FocusGained,InsertLeave * set relativenumber cursorline
+  ""autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber nocursorline
 "augroup END 
 
 set number cursorline
@@ -606,6 +613,7 @@ lua <<EOF
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
       ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+      --['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
@@ -638,7 +646,7 @@ lua <<EOF
   })
 
   -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
   --require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
   --  capabilities = capabilities
@@ -666,11 +674,7 @@ lua <<EOF
 
 
 
-  local navic = require("nvim-navic")
   lspconfig.pyright.setup{
-   on_attach = function(client, bufnr)
-     navic.attach(client, bufnr)
-   end,
    capabilities = capabilities,
    settings = {
        pyright = {
@@ -688,6 +692,11 @@ lua <<EOF
   require'lspconfig'.texlab.setup{
     capabilities = capabilities,
   }
+
+  require'lspconfig'.marksman.setup{
+      capabilities = capabilities
+      }
+
 
 EOF
 
@@ -727,17 +736,11 @@ autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 "  Lualine  "
 """""""""""""
 lua << EOF
-local navic = require("nvim-navic")
 
 require('lualine').setup {
     --- options = {theme = "nord"}
     --- options = {theme = "everforest"}
     options = {theme = "onenord"},
-    sections = {
-        lualine_c = {
-            { navic.get_location, cond = navic.is_available },
-        }
-    }
 }
 EOF
 
@@ -1102,22 +1105,6 @@ lua << EOF
 
 EOF
 
-""""""""""""""""""""""
-"  Indent Blackline  "
-""""""""""""""""""""""
-
-lua << EOF
-vim.opt.list = true
-
-
-require("indent_blankline").setup {
-    -- for example, context is off by default, use this to turn it on
-    show_current_context = true,
-    show_current_context_start = true,
-}
-EOF
-
-
 """""""""""""""""""""
 "  symbols outline  "
 """""""""""""""""""""
@@ -1126,9 +1113,56 @@ lua << EOF
     require("symbols-outline").setup()
 EOF
 
-"""""""""""""
-"  zenburn  "
-"""""""""""""
+""""""""""""""
+"  kanagawa  "
+""""""""""""""
+
+lua << EOF
+-- Default options:
+require('kanagawa').setup({
+    undercurl = true,           -- enable undercurls
+    commentStyle = { italic = true },
+    functionStyle = {},
+    keywordStyle = { italic = true},
+    statementStyle = { bold = true },
+    typeStyle = {},
+    variablebuiltinStyle = { italic = true},
+    specialReturn = true,       -- special highlight for the return keyword
+    specialException = true,    -- special highlight for exception handling keywords
+    transparent = false,        -- do not set background color
+    dimInactive = true,        -- dim inactive window `:h hl-NormalNC`
+    globalStatus = false,       -- adjust window separators highlight for laststatus=3
+    terminalColors = true,      -- define vim.g.terminal_color_{0,17}
+    colors = {},
+    overrides = {},
+    theme = "default"           -- Load "default" theme or the experimental "light" theme
+})
+
+-- setup must be called before loading
+vim.cmd("colorscheme kanagawa")
+
+EOF
 
 
+let g:vim_markdown_folding_disabled = 1
 
+lua << EOF
+require("yanky").setup({
+  -- your configuration comes here
+  -- or leave it empty to use the default settings
+  -- refer to the configuration section below
+})
+
+vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+
+vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
+vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
+
+require("telescope").load_extension("yank_history")
+
+EOF
+
+noremap gf :e <cfile><cr>

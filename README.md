@@ -4,10 +4,11 @@
 
 * fish
 * sway 
+* waybar
 * dropbox
 * kmoand
 * miniconda
-* fzf
+* fzf (apt) 
   
 ## TODO
 
