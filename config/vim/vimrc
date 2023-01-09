@@ -23,6 +23,8 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'lewis6991/impatient.nvim'
+
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
 
@@ -54,7 +56,9 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'vimwiki/vimwiki', {'branch' : 'master'}
+"Plug 'vimwiki/vimwiki', {'branch' : 'master'}
+Plug 'dkarter/bullets.vim'
+Plug 'lervag/wiki.vim'
 Plug 'michal-h21/vim-zettel'
 Plug 'https://github.com/alok/notational-fzf-vim'
 
@@ -111,7 +115,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-toggleterm.lua'
 
 " Another eye friendly colortheme
-"Plug 'sainnhe/everforest'
+Plug 'sainnhe/everforest'
 Plug 'rmehri01/onenord.nvim', { 'branch': 'main' }
 Plug 'EdenEast/nightfox.nvim' " Vim-Plug
 
@@ -166,23 +170,23 @@ Plug 'phha/zenburn.nvim'
 
 Plug 'simrat39/symbols-outline.nvim'
 
-Plug 'jiangmiao/auto-pairs'
-
 Plug 'nvim-treesitter/nvim-treesitter-context'
 
 Plug 'jeetsukumaran/vim-indentwise'
 
 Plug 'wellle/targets.vim'
 
-Plug 'rebelot/kanagawa.nvim'
-
 Plug 'tpope/vim-surround'
 
+Plug 'szw/vim-maximizer'
+
 " Vim Script
-Plug 'gbprod/yanky.nvim'
+"Plug 'gbprod/yanky.nvim'
     
    
 call plug#end()
+
+lua require('impatient')
 
 "" Use Vim settings, rather than Vi settings (much better!).
 "" This must be first, because it changes other options as a side effect.
@@ -351,8 +355,15 @@ noremap <Leader>r '
 nnoremap <Leader>j <cmd> lua require('telescope.builtin').jumplist{}<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                Vimwiki                                 "
+"                                Wiki                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd BufEnter *.md TSDisable highlight      
+
+let g:wiki_root = '~/vimwiki'
+let g:wiki_filetypes = ['md']
+let g:wiki_link_extension = '.md'
+
 
 let wiki_1 = {}
 let wiki_1.path = '/home/stefan/vimwiki'
@@ -1113,56 +1124,26 @@ lua << EOF
     require("symbols-outline").setup()
 EOF
 
-""""""""""""""
-"  kanagawa  "
-""""""""""""""
-
-lua << EOF
--- Default options:
-require('kanagawa').setup({
-    undercurl = true,           -- enable undercurls
-    commentStyle = { italic = true },
-    functionStyle = {},
-    keywordStyle = { italic = true},
-    statementStyle = { bold = true },
-    typeStyle = {},
-    variablebuiltinStyle = { italic = true},
-    specialReturn = true,       -- special highlight for the return keyword
-    specialException = true,    -- special highlight for exception handling keywords
-    transparent = false,        -- do not set background color
-    dimInactive = true,        -- dim inactive window `:h hl-NormalNC`
-    globalStatus = false,       -- adjust window separators highlight for laststatus=3
-    terminalColors = true,      -- define vim.g.terminal_color_{0,17}
-    colors = {},
-    overrides = {},
-    theme = "default"           -- Load "default" theme or the experimental "light" theme
-})
-
--- setup must be called before loading
-vim.cmd("colorscheme kanagawa")
-
-EOF
-
 
 let g:vim_markdown_folding_disabled = 1
 
-lua << EOF
-require("yanky").setup({
-  -- your configuration comes here
-  -- or leave it empty to use the default settings
-  -- refer to the configuration section below
-})
+"lua << EOF
+"require("yanky").setup({
+  "-- your configuration comes here
+  "-- or leave it empty to use the default settings
+  "-- refer to the configuration section below
+"})
 
-vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
-vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
-vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
-vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+"vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
+"vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
+"vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
+"vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
 
-vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
-vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
+"vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
+"vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 
-require("telescope").load_extension("yank_history")
+"require("telescope").load_extension("yank_history")
 
-EOF
+"EOF
 
 noremap gf :e <cfile><cr>
