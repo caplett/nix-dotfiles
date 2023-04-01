@@ -22,6 +22,7 @@ SETUVAR _fish_abbr_r:ranger
 SETUVAR _fish_abbr_kl:ps -A | fzf | grep -Eoh \"[^:][0-9]{2,6}[^:]\" | xargs kill
 SETUVAR _fish_abbr_h:htop
 SETUVAR _fish_abbr_p:ping 1.1
+SETUVAR _fish_abbr_pdf:sioyek      
 
 SETUVAR _fish_abbr_cdn:cd /etc/nixos
 SETUVAR _fish_abbr_cdnc:cd /etc/nixos/config
@@ -34,7 +35,8 @@ SETUVAR _fish_abbr_cdmcd:cd /home/stefan/master_arbeit/Code/dreamer-pytorch
 
 SETUVAR _fish_abbr_nr:NIXPKGS_ALLOW_UNFREE=1 nix run -f channel:nixos-21.05
 SETUVAR _fish_abbr_l:ls
-SETUVAR _fish_abbr_ss:grim -g (slurp) 
+SETUVAR _fish_abbr_ssf:grim -g (slurp) 
+SETUVAR _fish_abbr_ss:grim -g (slurp) - | xclip -i -selection clipboard -t image/png
 SETUVAR fish_color_autosuggestion:747369
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:99cc99

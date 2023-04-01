@@ -29,8 +29,8 @@
 
 (deflayer qwerty-neo
   grv        1    2    3    4    5    6    7    8    9    0    _    @neo
-  Tab        q    @w3  e    r    t    y    u    i    o    p    ß    ´
-  @lv3       @ac  @s2  @da  @fm  g    h    j    k    l    @:3  @lv3 @lv3
+  Tab        q    w    e    r    t    y    u    i    o    p    ß    ´
+  @lv3       @ac  s    d    f    g    h    j    k    l    @:3  @lv3 @lv3
   @lv2 @lv4  z    x    c    v    b    n    m    ,    .    /    @lv2
   lctl       lmet @lalt_func    spc             @lv4 _
 )                                                     
@@ -167,44 +167,44 @@
   neo (layer-switch neo)
   neo2 (layer-toggle neo2)
 
-  d3  (tap-hold-next-release 500 d @lv3)
-  k3  (tap-hold-next-release 500 k @lv3)
+  d3  (tap-hold-next-release 700 d @lv3)
+  k3  (tap-hold-next-release 700 k @lv3)
 
-  da  (tap-hold-next-release 500 d lalt)
+  da  (tap-hold-next-release 700 d lalt)
 
-  o2  (tap-hold-next-release 500 o @lv2)
-  s2  (tap-hold-next-release 500 s @lv2)
-  l2  (tap-hold-next-release 500 l @lv2)
+  o2  (tap-hold-next-release 700 o @lv2)
+  s2  (tap-hold-next-release 700 s @lv2)
+  l2  (tap-hold-next-release 700 l @lv2)
 
-  a2  (tap-hold-next-release 500 a @ko2)
-  n2  (tap-hold-next-release 500 n @ko2)
+  a2  (tap-hold-next-release 700 a @ko2)
+  n2  (tap-hold-next-release 700 n @ko2)
 
-  s3  (tap-hold-next-release 500 s @lv3)
-  l3  (tap-hold-next-release 500 l @lv3)
-  w3  (tap-hold-next-release 500 w @lv3)
-  o3  (tap-hold-next-release 500 o @lv3)
-  .3  (tap-hold-next-release 500 . @lv3)
-  ;3  (tap-hold-next-release 500 ; @lv3)
-  :3  (tap-hold-next-release 500 : @lv3)
+  s3  (tap-hold-next-release 700 s @lv3)
+  l3  (tap-hold-next-release 700 l @lv3)
+  w3  (tap-hold-next-release 700 w @lv3)
+  o3  (tap-hold-next-release 700 o @lv3)
+  .3  (tap-hold-next-release 700 . @lv3)
+  ;3  (tap-hold-next-release 700 ; @lv3)
+  :3  (tap-hold-next-release 700 : @lv3)
 
-  i4  (tap-hold-next-release 500 i @lv4)
-  ;4  (tap-hold-next-release 500 ; @lv4)
+  i4  (tap-hold-next-release 700 i @lv4)
+  ;4  (tap-hold-next-release 700 ; @lv4)
 
-  ac  (tap-hold-next-release 500 a lctl)
-  ;c  (tap-hold-next-release 500 ; lctl)
-  hc  (tap-hold-next-release 500 h lctl)
-  sc  (tap-hold-next-release 500 s lctl)
-  lc  (tap-hold-next-release 500 l lctl)
-  oc  (tap-hold-next-release 500 o lctl)
+  ac  (tap-hold-next-release 700 a lctl)
+  ;c  (tap-hold-next-release 700 ; lctl)
+  hc  (tap-hold-next-release 700 h lctl)
+  sc  (tap-hold-next-release 700 s lctl)
+  lc  (tap-hold-next-release 700 l lctl)
+  oc  (tap-hold-next-release 700 o lctl)
 
-  fm  (tap-hold-next-release 500 f lmet)
-  jm  (tap-hold-next-release 500 j lmet)
-  qm  (tap-hold-next-release 500 q lmet)
-  ;m  (tap-hold-next-release 500 ; lmet)
-  km  (tap-hold-next-release 500 k lmet)
-  im  (tap-hold-next-release 500 i lmet)
+  fm  (tap-hold-next-release 700 f lmet)
+  jm  (tap-hold-next-release 700 j lmet)
+  qm  (tap-hold-next-release 700 q lmet)
+  ;m  (tap-hold-next-release 700 ; lmet)
+  km  (tap-hold-next-release 700 k lmet)
+  im  (tap-hold-next-release 700 i lmet)
                                    
-  vm  (tap-hold-next-release 500 v lmet)
+  vm  (tap-hold-next-release 700 v lmet)
 
   lalt_func (around (layer-toggle lalt_layer) lalt)
   lalt_func2 (around (layer-toggle lalt_shift_layer) lalt)

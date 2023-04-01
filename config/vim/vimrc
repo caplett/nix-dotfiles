@@ -6,7 +6,6 @@
 """""""""""""""""
 "  Vim Plugins  "
 """""""""""""""""
-
 " download vim-plug if missing
 "if empty(glob("~/.vim/autoload/plug.vim"))
  " silent! execute '!curl --create-dirs -fsSLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
@@ -29,7 +28,6 @@ Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-Plug 'nvim-treesitter/nvim-treesitter-refactor'
 
 Plug 'nvim-lua/lsp-status.nvim'
 
@@ -44,13 +42,11 @@ Plug 'nvim-lua/popup.nvim'
 
 Plug 'sheerun/vim-polyglot'
 
+Plug 'tzachar/local-highlight.nvim'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Python                              "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Automatically handle indentation and formatiing for python
-Plug 'Vimjas/vim-python-pep8-indent'
-
 
 Plug 'airblade/vim-gitgutter'
 
@@ -68,7 +64,6 @@ Plug 'rhysd/vim-clang-format'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
-Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'kana/vim-operator-user'
 
 Plug 'christoomey/vim-tmux-navigator'
@@ -77,9 +72,6 @@ Plug 'tmux-plugins/vim-tmux'
 
 
 Plug 'simeji/winresizer'
-
-Plug 'altercation/vim-colors-solarized'
-Plug 'arcticicestudio/nord-vim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -101,9 +93,6 @@ Plug 'folke/lsp-colors.nvim'
 " Git Blame auf steroiden
 Plug 'rhysd/git-messenger.vim'
 
-" Lightbulb wenn eine lsp action verfeugbar ist
-Plug 'kosayoda/nvim-lightbulb'
-
 " Fancy Autocompletion
 "Plug 'hrsh7th/nvim-compe'
 
@@ -111,13 +100,12 @@ Plug 'kosayoda/nvim-lightbulb'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
-" Termninal aus nvim raus toggeln
-Plug 'akinsho/nvim-toggleterm.lua'
-
 " Another eye friendly colortheme
 Plug 'sainnhe/everforest'
 Plug 'rmehri01/onenord.nvim', { 'branch': 'main' }
 Plug 'EdenEast/nightfox.nvim' " Vim-Plug
+Plug 'arcticicestudio/nord-vim'
+Plug 'rebelot/kanagawa.nvim'
 
 " Highlight Colorcodes in theire color
 Plug 'norcalli/nvim-colorizer.lua'
@@ -363,6 +351,7 @@ autocmd BufEnter *.md TSDisable highlight
 let g:wiki_root = '~/vimwiki'
 let g:wiki_filetypes = ['md']
 let g:wiki_link_extension = '.md'
+let g:wiki_link_target_type = 'md'
 
 
 let wiki_1 = {}
@@ -587,10 +576,6 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
-  refactor = {
-    highlight_definitions = { enable = true },
-    --highlight_current_scope = { enable = true }
-  },
   indent = {
     enable = true
   },
@@ -691,6 +676,8 @@ lua <<EOF
        pyright = {
            useLibraryCodeForTypes = true,
            reportMissingImports = true,
+           diagnosticMode = "openFilesOnly",
+           autoSearchPaths = true,
            }
        }
   }
@@ -736,13 +723,6 @@ nnoremap <F3> <cmd>GitMessenger<cr>
 " ? zeigt die hilfeseite
 
 
-""""""""""""""""""""
-"  Nvim lightbulb  "
-""""""""""""""""""""
-
-autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-
-
 """""""""""""
 "  Lualine  "
 """""""""""""
@@ -751,37 +731,11 @@ lua << EOF
 require('lualine').setup {
     --- options = {theme = "nord"}
     --- options = {theme = "everforest"}
-    options = {theme = "onenord"},
+    --- options = {theme = "onenord"},
+    --- options = {theme = "gruvbox_dark"},
 }
 EOF
 
-
-""""""""""""""""
-"  toggleterm  "
-""""""""""""""""
-
-lua << EOF
-require("toggleterm").setup{
-    hide_numbers = true, -- hide the number column in toggleterm buffers
-    shade_filetypes = {},
-    shade_terminals = true,
-    start_in_insert = true,
-    insert_mappings = true, -- whether or not the open mapping applies in insert mode
-    direction = "vertical",
-
-    size = vim.o.columns * 0.4
-
-}
-EOF
-
-nnoremap <C-g> <cmd>ToggleTerm dir=git_dir<cr>
-tnoremap <silent><c-g> <Cmd>exe v:count1 . "ToggleTerm"<CR>
-
-  " Terminal mode:
-tnoremap <C-h> <c-\><c-n><c-w>h
-tnoremap <C-j> <c-\><c-n><c-w>j
-tnoremap <C-k> <c-\><c-n><c-w>k
-tnoremap <C-l> <c-\><c-n><c-w>l
 
 """"""""""""""""
 "  everforest  "
@@ -839,13 +793,40 @@ require('nightfox').setup({})
 
 EOF
 
-colorscheme onenord
+"colorscheme onenord
+
+
+lua << EOF
+
+-- Default options:
+require('kanagawa').setup({
+    compile = true,
+    undercurl = true,            -- enable undercurls
+    commentStyle = { italic = true },
+    keywordStyle = { italic = true},
+    statementStyle = { bold = true },
+    transparent = false,         -- do not set background color
+    dimInactive = true,         -- dim inactive window `:h hl-NormalNC`
+    terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+    theme = "wave",              -- Load "wave" theme when 'background' option is not set
+    background = {               -- map the value of 'background' option to a theme
+        dark = "wave",           -- try "dragon" !
+        light = "lotus"
+    },
+})
+
+vim.cmd("colorscheme kanagawa")
+
+EOF
+
 
 """""""""""""""
 "  colorizer  "
 """""""""""""""
 
-lua require("colorizer").setup()
+lua << EOF
+require("colorizer").setup()
+EOF
 
 """"""""""""""""""""""""
 "  todo-comments.nvim  "
@@ -908,15 +889,6 @@ lua << EOF
     -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
   },
   }
-EOF
-
-"""""""""""""""""""""""""""""""""""""""""
-"  Haskell LSP haskell-language-server  "
-"""""""""""""""""""""""""""""""""""""""""
-
-lua << EOF
-require'lspconfig'.hls.setup{}
-
 EOF
 
 """"""""""""""""""""""
@@ -1015,28 +987,6 @@ let g:mkdp_page_title = '「${name}」'
 let g:mkdp_filetypes = ['markdown']
 
 
-"""""""""""""""""""
-"  Lua nvim tree  "
-"""""""""""""""""""
-
-lua << EOF
-vim.g.nvim_tree_respect_buf_cwd = 1
-
-require'nvim-tree'.setup ({
-    update_cwd = true,
-    update_focused_file = {
-        enable = true,
-        update_cwd = true
-    },
-    view = {
-        side = "right"
-    },
-})
-
-EOF
-
-nnoremap <F4> <cmd>NvimTreeFocus<cr>
-
 """"""""""""""""""
 "  Project nvim  "
 """"""""""""""""""
@@ -1063,7 +1013,6 @@ EOF
 
 """""""""""""""
 "  which key  "
-"""""""""""""""
 
 
 lua << EOF
@@ -1094,27 +1043,6 @@ lua << EOF
 
 EOF
 
-""""""""""
-"  Leap  "
-""""""""""
-
-lua << EOF
-
-    require('leap').set_default_keymaps()
-    require('leap').setup {
-          case_sensitive = false
-        }
-
-    -- Searching in all windows (including the current one) on the tab page.
-    function leap_all_windows()
-    local focusable_windows_on_tabpage = vim.tbl_filter(
-        function (win) return vim.api.nvim_win_get_config(win).focusable end,
-        vim.api.nvim_tabpage_list_wins(0)
-    )
-    require('leap').leap { target_windows = focusable_windows_on_tabpage }
-    end
-
-EOF
 
 """""""""""""""""""""
 "  symbols outline  "
@@ -1127,23 +1055,15 @@ EOF
 
 let g:vim_markdown_folding_disabled = 1
 
-"lua << EOF
-"require("yanky").setup({
-  "-- your configuration comes here
-  "-- or leave it empty to use the default settings
-  "-- refer to the configuration section below
-"})
-
-"vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
-"vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
-"vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
-"vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
-
-"vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
-"vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
-
-"require("telescope").load_extension("yank_history")
-
-"EOF
-
 noremap gf :e <cfile><cr>
+
+
+lua << EOF
+require('local-highlight').setup({
+    file_types = {'python', 'cpp'},
+    hlgroup = 'Search',
+    cw_hlgroup = nil,
+})
+EOF
+
+set updatetime=100

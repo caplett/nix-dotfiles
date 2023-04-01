@@ -196,7 +196,7 @@ focus_on_window_activation none
 # Hides boarders if only one window is present
 hide_edge_borders smart
 
-exec_always sudo /usr/bin/kmonad /home/stefan/.config/nixpkgs/config/neo_hybrid.kbd
+exec_always sudo /usr/bin/nice -n -1 sudo /usr/bin/kmonad /home/stefan/.config/nixpkgs/config/neo_hybrid.kbd 
 exec_always swaymsg input type:keyboard repeat_delay 300
 exec_always swaymsg input type:keyboard repeat_rate 70
 # start a terminal
@@ -273,7 +273,7 @@ bindcode $mod+$letter_w layout tabbed
 bindcode $mod+$letter_e layout toggle split
 
 # toggle tiling / floating
-#bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle
 bindsym $mod+t floating toggle
 
 # change focus between tiling / floating windows
@@ -361,8 +361,8 @@ bindcode 202 exec "/home/stefan/Dokumente/Programmieren/Projekte/Burnit/toggle_l
 #  Move Window Between Primary Montior and Laptop Monitor  #
 ############################################################
 
-bindcode $mod_alt+12 exec "/home/stefan/Dokumente/Programmieren/Projekte/Burnit/i3_move_between_screens/i3_move_to_primary_screen.sh"
-bindcode $mod_alt+11 exec "/home/stefan/Dokumente/Programmieren/Projekte/Burnit/i3_move_between_screens/i3_move_to_laptop.sh"
+bindcode $mod_alt+12 exec "/home/stefan/Dropbox/Programmieren/Projekte/Burnit/i3_move_between_screens/i3_move_to_primary_screen.sh"
+bindcode $mod_alt+11 exec "/home/stefan/Dropbox/Programmieren/Projekte/Burnit/i3_move_between_screens/i3_move_to_laptop.sh"
 
 ################
 #  Lockscreen  #
