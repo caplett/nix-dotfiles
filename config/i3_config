@@ -230,29 +230,29 @@ bindcode $mod+$letter_o exec kitty
 bindcode $mod_alt+$letter_g exec xdootool_type_clipboard
 # change focus
 # 3 = h, $letter_j = j, $letter_k=k, $letter_l=l
-bindcode $mod+$letter_h focus left
-bindcode $mod+$letter_j focus down
-bindcode $mod+$letter_k focus up
-bindcode $mod+$letter_l focus right
+bindcode $mod+$letter_h exec echo "left" | nc -U /tmp/sway_tool_socket.socket
+bindcode $mod+$letter_j exec echo "down" | nc -U /tmp/sway_tool_socket.socket
+bindcode $mod+$letter_k exec echo "up" | nc -U /tmp/sway_tool_socket.socket
+bindcode $mod+$letter_l exec echo "right" | nc -U /tmp/sway_tool_socket.socket
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+Left exec echo "left" | nc -U /tmp/sway_tool_socket.socket
+bindsym $mod+Down exec echo "down" | nc -U /tmp/sway_tool_socket.socket
+bindsym $mod+Up exec echo "up" | nc -U /tmp/sway_tool_socket.socket
+bindsym $mod+Right exec echo "right" | nc -U /tmp/sway_tool_socket.socket
 
 # move focused window
 # $letter_h = h, $letter_j = j, $letter_k=k, $letter_l=l
-bindcode $mod+Shift+$letter_h move left 40px
-bindcode $mod+Shift+$letter_j move down 40px
-bindcode $mod+Shift+$letter_k move up 40px
-bindcode $mod+Shift+$letter_l move right 40px
+bindcode $mod+Shift+$letter_h exec echo "move_left" | nc -U /tmp/sway_tool_socket.socket
+bindcode $mod+Shift+$letter_j exec echo "move_down" | nc -U /tmp/sway_tool_socket.socket
+bindcode $mod+Shift+$letter_k exec echo "move_up" | nc -U /tmp/sway_tool_socket.socket
+bindcode $mod+Shift+$letter_l exec echo "move_right" | nc -U /tmp/sway_tool_socket.socket
 
 # alternatively, yobindsycm $mod+v exec u can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Left exec echo "move_left" | nc -U /tmp/sway_tool_socket.socket
+bindsym $mod+Shift+Down exec echo "move_down" | nc -U /tmp/sway_tool_socket.socket
+bindsym $mod+Shift+Up exec echo "move_up" | nc -U /tmp/sway_tool_socket.socket
+bindsym $mod+Shift+Right exec echo "move_right" | nc -U /tmp/sway_tool_socket.socket
 
 # split in horizontal orientation
 # $letter_b = b
@@ -434,6 +434,8 @@ exec swaymsg 'for_window [title=".*Raindrop"] move to workspace 2'
 exec swaymsg 'for_window [title=".*Raindrop.*"] move to workspace 2'
 
 exec "copyq"
+
+exec /home/stefan/miniconda/bin/python /home/stefan/.config/nixpkgs/scripts/sway_tools/sway_tool_server.py
 
 # 110 = Pos 1 key
 # bindcode 110 exec "/run/current-system/sw/bin/togglebacklight"
