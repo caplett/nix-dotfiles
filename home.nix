@@ -129,7 +129,7 @@ in
   ];
 
   home.file = {
-    ".config/nvim/init.vim" = {
+    ".config/nvim/init.lua" = {
       source = ./config/vim/vimrc;
       recursive = false;
     };
