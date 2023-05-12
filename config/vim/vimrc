@@ -1,4 +1,3 @@
-
 lua << EOF
 --""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 --"                            vimrc / init.vim                            "
@@ -8,109 +7,141 @@ lua << EOF
 --"  Vim Plugins  "
 --"""""""""""""""""
 vim.opt.hidden = true
-EOF
-
-" Load vim-plug
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
 
 
-call plug#begin('~/.vim/plugged')
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-Plug 'lewis6991/impatient.nvim'
+require("lazy").setup({
+{'nvim-neo-tree/neo-tree.nvim',
+    dependencies = {
+        'MunifTanjim/nui.nvim',
+    }
+},
 
-Plug 'williamboman/nvim-lsp-installer'
-Plug 'neovim/nvim-lspconfig'
+'lewis6991/impatient.nvim',
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+'williamboman/nvim-lsp-installer',
+'neovim/nvim-lspconfig',
 
-Plug 'nvim-lua/lsp-status.nvim'
+'nvim-treesitter/nvim-treesitter',
 
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/popup.nvim'
+'nvim-lua/lsp-status.nvim',
+
+'nvim-telescope/telescope.nvim',
+'nvim-lua/plenary.nvim',
+'nvim-lua/popup.nvim',
+
+'sheerun/vim-polyglot',
+
+'tzachar/local-highlight.nvim',
+
+'airblade/vim-gitgutter',
+
+'scrooloose/nerdcommenter',
+
+'dkarter/bullets.vim',
+'lervag/wiki.vim',
+'michal-h21/vim-zettel',
+
+'samoshkin/vim-mergetool',
+
+'rhysd/vim-clang-format',
+'tpope/vim-fugitive',
+'tpope/vim-unimpaired',
+'tpope/vim-repeat',
+'kana/vim-operator-user',
+
+'christoomey/vim-tmux-navigator',
+'edkolev/tmuxline.vim',
+'tmux-plugins/vim-tmux',
+
+'simeji/winresizer',
+
+'psf/black',
+
+'kyazdani42/nvim-web-devicons',
+
+'nvim-neo-tree/neo-tree.nvim',
+
+'kyazdani42/nvim-web-devicons',
+'folke/trouble.nvim',
+
+'folke/lsp-colors.nvim',
+
+-- Git Blame auf steroiden
+'rhysd/git-messenger.vim',
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                   Lint                                "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+-- Lualine mit Nord Theme
+'nvim-lualine/lualine.nvim',
+'kyazdani42/nvim-web-devicons',
 
-Plug 'sheerun/vim-polyglot'
+-- Another eye friendly colortheme
+'sainnhe/everforest',
+'rmehri01/onenord.nvim', 
+'EdenEast/nightfox.nvim',
+'arcticicestudio/nord-vim',
+'rebelot/kanagawa.nvim',
+'morhetz/gruvbox',
 
-Plug 'tzachar/local-highlight.nvim'
+-- Highlight Colorcodes in theire color
+'norcalli/nvim-colorizer.lua',
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                   Python                              "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+-- Highlight and search for TODO and other
+'folke/todo-comments.nvim',
 
-Plug 'airblade/vim-gitgutter'
+'lervag/vimtex',
 
-Plug 'scrooloose/nerdcommenter'
+-- Nvim-cmp
+{'hrsh7th/nvim-cmp',
+    dependencies = {
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
+    'hrsh7th/cmp-nvim-lsp',}
+},
 
-Plug 'dkarter/bullets.vim'
-Plug 'lervag/wiki.vim'
-Plug 'michal-h21/vim-zettel'
+-- Vim Script
+'ahmedkhalf/project.nvim',
 
-Plug 'samoshkin/vim-mergetool'
+'direnv/direnv.vim',
 
-Plug 'rhysd/vim-clang-format'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-repeat'
-Plug 'kana/vim-operator-user'
+'nanozuki/tabby.nvim',
 
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'edkolev/tmuxline.vim'
-Plug 'tmux-plugins/vim-tmux'
+'folke/which-key.nvim',
+
+'junegunn/vim-easy-align',
+
+'danymat/neogen',
+
+'phha/zenburn.nvim',
+
+'simrat39/symbols-outline.nvim',
+
+'nvim-treesitter/nvim-treesitter-context',
+
+'wellle/targets.vim',
+
+'tpope/vim-surround',
+
+'szw/vim-maximizer',
+
+'chaoren/vim-wordmotion',
+
+})
 
 
-Plug 'simeji/winresizer'
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-"Plug 'yuki-ycino/fzf-preview.vim'
- 
-Plug 'psf/black', { 'branch': 'stable' }
-
-" Tabbar with fancy features
-Plug 'kyazdani42/nvim-web-devicons'
-"Plug 'romgrk/barbar.nvim'
-
-Plug 'kyazdani42/nvim-tree.lua'
-
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'folke/trouble.nvim'
-
-Plug 'folke/lsp-colors.nvim'
-
-" Git Blame auf steroiden
-Plug 'rhysd/git-messenger.vim'
-
-" Fancy Autocompletion
-"Plug 'hrsh7th/nvim-compe'
-
-" Lualine mit Nord Theme
-Plug 'nvim-lualine/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-
-" Another eye friendly colortheme
-Plug 'sainnhe/everforest'
-Plug 'rmehri01/onenord.nvim', { 'branch': 'main' }
-Plug 'EdenEast/nightfox.nvim' " Vim-Plug
-Plug 'arcticicestudio/nord-vim'
-Plug 'rebelot/kanagawa.nvim'
-Plug 'morhetz/gruvbox'
-
-" Highlight Colorcodes in theire color
-Plug 'norcalli/nvim-colorizer.lua'
-
-" Highlight and search for TODO and other
-Plug 'folke/todo-comments.nvim', { 'branch': 'neovim-pre-0.8.0' }
-
-Plug 'lervag/vimtex'
-lua <<EOF
 vim.g.tex_flavor='xelatex'
 vim.g.vimtex_view_method='zathura'
 vim.g.vimtex_quickfix_mode=0
@@ -120,53 +151,9 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
     pattern = {"*.tex"},
     command = "nnoremap <leader>t <cmd>VimtexTocToggle<CR>",
     })
-EOF
 
-" Nvim-cmp
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-
-" Autocompleiton
-
-
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-
-" Vim Script
-Plug 'ahmedkhalf/project.nvim'
-
-Plug 'direnv/direnv.vim'
-
-Plug 'nanozuki/tabby.nvim'
-
-" Vim Script
-Plug 'folke/which-key.nvim'
-
-Plug 'junegunn/vim-easy-align'
-
-Plug 'danymat/neogen'
-
-Plug 'phha/zenburn.nvim'
-
-Plug 'simrat39/symbols-outline.nvim'
-
-Plug 'nvim-treesitter/nvim-treesitter-context'
-
-Plug 'wellle/targets.vim'
-
-Plug 'tpope/vim-surround'
-
-Plug 'szw/vim-maximizer'
-
-Plug 'chaoren/vim-wordmotion'
     
-   
-call plug#end()
 
-
-lua <<EOF
 vim.opt.compatible = False
 -- Use Vim settings, rather than Vi settings (much better!).
 -- This must be first, because it changes other options as a side effect.
@@ -445,24 +432,24 @@ vim.api.nvim_create_user_command( 'DocumentSymbol', ":lua vim.lsp.buf.document_s
 vim.api.nvim_create_user_command( 'WorkspaceSymbol', ":lua vim.lsp.buf.workspace_symbol()", {})
 vim.api.nvim_create_user_command( 'Format', ":lua vim.lsp.buf.formatting_sync(nil, 1000)", {})
 vim.api.nvim_create_user_command( 'Rename', ":lua vim.lsp.buf.rename()", {})
+
+vim.keymap.set("n", '<silent>K',  '<cmd>Hover<CR>', {})
+vim.keymap.set("n", '<silent>gd', '<cmd>Definition<CR>', {})
+vim.keymap.set("n", '<silent>gy', '<cmd>TypeDefinition<CR>', {})
+vim.keymap.set("n", '<silent>gi', '<cmd>Implementation<CR>', {})
+vim.keymap.set("n", '<silent>gr', '<cmd>References<CR>', {})
+vim.keymap.set("n", '<silent>]d', ':lua vim.lsp.diagnostic.goto_next()<CR>', {})
+vim.keymap.set("n", '<silent>[d', ':lua vim.lsp.diagnostic.goto_prev()<CR>', {})
+
+vim.keymap.set("n", '<leader>f',  '<cmd>Format<CR>', {})
+vim.keymap.set("n", '<leader>r',  '<cmd>Rename<CR>', {})
+vim.keymap.set("n", '<leader>p',  "<cmd>lua require'telescope.builtin'.git_files{}<CR>", {})
+vim.keymap.set("n", '<leader>ws', "<cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>", {})
+vim.keymap.set("n", '<leader>ds', "<cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>", {})
+vim.keymap.set("n", '<leader>w',  '<cmd>update<CR>', {})
+vim.keymap.set("n", '<leader>q',  '<cmd>quit<CR>', {})
+
 EOF
-
-nnoremap <silent>K  <cmd>Hover<CR>
-nnoremap <silent>gd <cmd>Definition<CR>
-nnoremap <silent>gy <cmd>TypeDefinition<CR>
-nnoremap <silent>gi <cmd>Implementation<CR>
-nnoremap <silent>gr <cmd>References<CR>
-nnoremap <silent>]d :lua vim.lsp.diagnostic.goto_next()<CR>
-nnoremap <silent>[d :lua vim.lsp.diagnostic.goto_prev()<CR>
-
-nnoremap <leader>f  <cmd>Format<CR>
-nnoremap <leader>r  <cmd>Rename<CR>
-nnoremap <leader>p  <cmd>lua require'telescope.builtin'.git_files{}<CR>
-nnoremap <leader>ws <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>
-nnoremap <leader>ds <cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>
-nnoremap <leader>w  <cmd>update<CR>
-nnoremap <leader>q  <cmd>quit<CR>
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Other                                  "
@@ -472,10 +459,11 @@ nnoremap <leader>q  <cmd>quit<CR>
 set scrolloff=4
 
 
-" Do default action for previous item.
-nnoremap <silent> <space>=  :set ea noea<CR>
-
 lua << EOF
+
+-- Do default action for previous item.
+-- vim.keymap.set("n", '<silent> <space>=  :set ea noea<CR>
+
 
     require("nvim-lsp-installer").setup({
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
@@ -630,37 +618,29 @@ cmp.setup({
       }
 
 
-EOF
 
-nnoremap <leader>a  :ClangdSwitchSourceHeader<CR>
+vim.keymap.set("n", '<leader>a', ':ClangdSwitchSourceHeader<CR>', {})
 
-""""""""""""""""""
-"  Trouble.nvim  "
-""""""""""""""""""
-nnoremap <F2> <cmd>TroubleToggle<cr>
 
-lua << EOF
+--""""""""""""""""
+-- Trouble.nvim  "
+--""""""""""""""""
+vim.keymap.set("n", '<F2>', '<cmd>TroubleToggle<cr>', {})
+
   --- more config can be found here: 
   --- https://github.com/folke/trouble.nvim
   require("trouble").setup { }
-EOF
-
-"""""""""""""""""""
-"  git messenger  "
-"""""""""""""""""""
-
-nnoremap <F3> <cmd>GitMessenger<cr>
-
-" zwei mal den befehl ausfuehren bewegt den crsor in das gitmessenger feld
-" Mit o und O kann durch die history gewechselt werden
-" d und D zeigen verschiedene dif versionen 
-" ? zeigt die hilfeseite
 
 
-"""""""""""""
-"  Lualine  "
-"""""""""""""
-lua << EOF
+-- zwei mal den befehl ausfuehren bewegt den crsor in das gitmessenger feld
+-- Mit o und O kann durch die history gewechselt werden
+-- d und D zeigen verschiedene dif versionen 
+-- ? zeigt die hilfeseite
+
+
+--"""""""""""
+-- Lualine  "
+--"""""""""""
 
 require('lualine').setup {
     --- options = {theme = "nord"}
@@ -668,16 +648,14 @@ require('lualine').setup {
     --- options = {theme = "onenord"},
     --- options = {theme = "gruvbox_dark"},
 }
-EOF
 
+--""""""""""""""
+-- everforest  "
+--""""""""""""""
 
-""""""""""""""""
-"  everforest  "
-""""""""""""""""
+ 
+vim.cmd("set termguicolors")
 
-set termguicolors 
-
-lua << EOF
 
 vim.cmd("colorscheme gruvbox")
 
