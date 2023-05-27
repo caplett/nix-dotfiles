@@ -158,7 +158,7 @@ vim.opt.compatible = False
 -- This must be first, because it changes other options as a side effect.
 
 -- allow backspacing over everything in insert mode
-vim.opt.backspace=indent,eol,start
+vim.opt.backspace="indent,eol,start"
 
 vim.opt.backup = true -- keep a backup filel
 
