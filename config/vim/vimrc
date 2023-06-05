@@ -25,7 +25,10 @@ require("lazy").setup({
 {'nvim-neo-tree/neo-tree.nvim',
     dependencies = {
         'MunifTanjim/nui.nvim',
-    }
+    },
+    config = function()
+      vim.keymap.set("n", "<F3>", ":NeoTreeFloatToggle<CR>")
+    end,
 },
 
 'lewis6991/impatient.nvim',
