@@ -197,8 +197,8 @@ focus_on_window_activation none
 hide_edge_borders smart
 
 exec_always sudo /usr/bin/nice -n -1 sudo /usr/bin/kmonad /home/stefan/.config/nixpkgs/config/neo_hybrid.kbd 
-exec_always swaymsg input type:keyboard repeat_delay 300
-exec_always swaymsg input type:keyboard repeat_rate 70
+exec_always swaymsg input type:keyboard repeat_delay 200
+exec_always swaymsg input type:keyboard repeat_rate 100
 # start a terminal
 bindsym $mod+Return exec kitty --single-instance
 
