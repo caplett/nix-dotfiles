@@ -19,10 +19,10 @@
 * [ ] screenlock 
 * [ ] brightness
 * [ ] display abschalten
-* [X] markdown preview
 * [X] anederungen im nix repo zusammenfuehren
-* [ ] touchpad dinge: abschalten, tap
-* [ ] hintergrundbilder
+* [-] markdown preview
+* [-] touchpad dinge: abschalten, tap
+* [-] hintergrundbilder
 
 ## visudo
 
