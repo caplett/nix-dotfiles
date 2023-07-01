@@ -350,13 +350,6 @@ bindcode 127` exec "/run/current-system/sw/bin/togglebacklight"
 
 bindcode 202 exec "/home/stefan/Dokumente/Programmieren/Projekte/Burnit/toggle_laptop_backlight/toogle_laptop_backlight.sh"
 
-############################################################
-#  Move Window Between Primary Montior and Laptop Monitor  #
-############################################################
-
-bindcode $mod_alt+12 exec "/home/stefan/Dropbox/Programmieren/Projekte/Burnit/i3_move_between_screens/i3_move_to_primary_screen.sh"
-bindcode $mod_alt+11 exec "/home/stefan/Dropbox/Programmieren/Projekte/Burnit/i3_move_between_screens/i3_move_to_laptop.sh"
-
 ################
 #  Lockscreen  #
 ################
@@ -413,18 +406,8 @@ bindcode $mod+$letter_. [class="KeePassXC"] scratchpad show
 
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"
 
-exec swaymsg "workspace 7; exec keepassxc;"
-exec swaymsg "workspace 1; exec firefox;"
-
-exec swaymsg 'for_window [name=".*Todoist.*"] move window to workspace 1'
-exec swaymsg 'for_window [name="Todoist"] move window to workspace 1'
-exec swaymsg 'for_window [title=".*Todoist"] move to workspace 1'
-exec swaymsg 'for_window [title=".*Todoist.*"] move to workspace 1'
-
-exec swaymsg 'for_window [name=".*Raindrop.*"] move window to workspace 2'
-exec swaymsg 'for_window [name="Raindrop"] move window to workspace 2'
-exec swaymsg 'for_window [title=".*Raindrop"] move to workspace 2'
-exec swaymsg 'for_window [title=".*Raindrop.*"] move to workspace 2'
+exec swaymsg "workspace ⬃; exec keepassxc;"
+exec swaymsg "workspace ⬁; exec firefox;"
 
 exec "copyq"
 
