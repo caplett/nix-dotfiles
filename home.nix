@@ -129,9 +129,9 @@ in
   ];
 
   home.file = {
-    ".config/nvim/init.lua" = {
-      source = ./config/vim/vimrc;
-      recursive = false;
+    ".config/nvim" = {
+      source = ./config/vim;
+      recursive = true;
     };
 
     ".config/fish" = {
