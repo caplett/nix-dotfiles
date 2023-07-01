@@ -244,11 +244,11 @@
   smwbr (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to workspace ⬂")    
 
 
-  swwu  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move workspace to output up")
-  swwd  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move workspace to output down")
+  swwu  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move workspace to output up | swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move workspace to output left")
 
-  swcu  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to output up")
-  swcd  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to output down")
+
+  swcu  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to output up | swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to output left")
+  swcd  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to output down | swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to output right")
 
 
 )
