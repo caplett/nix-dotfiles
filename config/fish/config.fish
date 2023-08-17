@@ -16,6 +16,7 @@ if status is-interactive
     set PATH $PATH /home/stefan/.local/bin
     set -g -x EDITOR nvim
     set -g -x TERM xterm 
+    set -g -x FZF_ALT_C_COMMAND '/home/stefan/.nix-profile/bin/fd --type d'
 
 end
 
