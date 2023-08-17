@@ -176,7 +176,7 @@ default_border pixel 1
 #  Autostart Programms  #
 #########################
 
-exec dropbox start
+exec /home/stefan/miniconda/bin/maestral start
 
 ###########
 #  Other  #
@@ -417,5 +417,7 @@ exec /home/stefan/miniconda/bin/python /home/stefan/.config/nixpkgs/scripts/sway
 # bindcode 110 exec "/run/current-system/sw/bin/togglebacklight"
 
 output * bg #000000 solid_color
+
+exec "/home/stefan/.nix-profile/bin/kanshi"
 
 exec "systemctl --user import-environment"
