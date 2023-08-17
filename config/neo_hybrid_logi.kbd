@@ -245,6 +245,7 @@
 
 
   swwu  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move workspace to output up | swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move workspace to output left")
+  swwd  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move workspace to output down | swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move workspace to output right")
 
 
   swcu  (cmd-button "swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to output up | swaymsg -s $(ls /run/user/1000/sway-ipc.* | head -n 1) move container to output left")
