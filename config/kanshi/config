@@ -1,14 +1,14 @@
 profile {
 	output "Goldstar Company Ltd LG Ultra HD 0x0000474F" mode 2560x1440@59.951Hz position 0,0
-	output "Sharp Corporation LQ156M1JW01 0x00000000" mode 1920x1080@60.042Hz position 320,1440
-    exec swaymsg '[workspace="2"]' move workspace to output HDMI-A-1
-    exec swaymsg '[workspace="3"]' move workspace to output HDMI-A-1
+	output "Sharp Corporation LQ156M1JW01 0x00000000" disable
+    exec swaymsg 'output eDP-1 disable'
+    exec swaymsg 'output HDMI-1 pos 0 0 res 2560x1440'
+    exec swaymsg 'output HDMI-1 enable'
 }
 
 
 profile {
-	output "Samsung Electric Company S27E450 H4ZK800040" mode 1920x1080@60.000Hz position 0,0
-	output "Sharp Corporation LQ156M1JW01 0x00000000" mode 1920x1080@60.042Hz position 0,1080
-    exec swaymsg '[workspace="2"]' move workspace to output HDMI-A-1
-    exec swaymsg '[workspace="3"]' move workspace to output HDMI-A-1
+	output "Sharp Corporation LQ156M1JW01 0x00000000"  mode 1920x1080@60.042Hz position 0,0
+    exec swaymsg 'output eDP-1 pos 0 0 res 1920x1080'
+    exec swaymsg 'output eDP-1 enable'
 }
