@@ -24,6 +24,10 @@ vim.loader.enable()
 -- Do default action for previous item.
 -- vim.keymap.set("n", '<silent> <space>=  :set ea noea<CR>
 
+-- Map Leader
+vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
+vim.g.mapleader = " "
+
 --"""""""""""""""""
 --"  Vim Plugins  "
 --"""""""""""""""""
@@ -43,12 +47,15 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 {'nvim-neo-tree/neo-tree.nvim',
+    lazy = false,
     dependencies = {
-        'MunifTanjim/nui.nvim',
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
     },
-    config = function()
-        vim.keymap.set("n", "<F3>", ":NeoTreeFloatToggle<CR>")
-    end,
+    keys = {
+      { "<F3>", "<cmd>NeoTreeFloatToggle<cr>", desc = "NeoTree" },
+    }
 },
 
 {'simrat39/symbols-outline.nvim',
@@ -90,7 +97,21 @@ require("lazy").setup({
         ignore_install = { "norg" }
         }
     end,
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
     build = ':TSUpdate',
+},
+
+{
+'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end,
+    opts = {
+        -- add any options here
+    },
+    lazy = false,
 },
 
 {'nvim-lua/lsp-status.nvim',
@@ -138,8 +159,6 @@ require("lazy").setup({
 
 'airblade/vim-gitgutter',
 
-'scrooloose/nerdcommenter',
-
 'dkarter/bullets.vim',
 'lervag/wiki.vim',
 'michal-h21/vim-zettel',
@@ -160,11 +179,8 @@ require("lazy").setup({
 
 'psf/black',
 
-'kyazdani42/nvim-web-devicons',
-
 'nvim-neo-tree/neo-tree.nvim',
 
-'kyazdani42/nvim-web-devicons',
 {'folke/trouble.nvim',
     config = function()
         vim.keymap.set("n", '<F2>', '<cmd>TroubleToggle<cr>', {})
@@ -180,20 +196,8 @@ require("lazy").setup({
 -- Git Blame auf steroiden
 'rhysd/git-messenger.vim',
 
-
--- Lualine mit Nord Theme
-{'nvim-lualine/lualine.nvim',
-    config = function()
-        require('lualine').setup {
-            --- options = {theme = "nord"}
-            --- options = {theme = "everforest"}
-            --- options = {theme = "onenord"},
-            --- options = {theme = "gruvbox_dark"},
-        }
     end,
 },
-
-'kyazdani42/nvim-web-devicons',
 
 -- Another eye friendly colortheme
 {'sainnhe/everforest',
@@ -346,8 +350,6 @@ require("lazy").setup({
     -- version = "*" 
 },
 
-'phha/zenburn.nvim',
-
 'simrat39/symbols-outline.nvim',
 
 'nvim-treesitter/nvim-treesitter-context',
@@ -356,9 +358,28 @@ require("lazy").setup({
 
 'tpope/vim-surround',
 
-'szw/vim-maximizer',
-
 'chaoren/vim-wordmotion',
+
+{'ThePrimeagen/refactoring.nvim',
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'nvim-treesitter/nvim-treesitter',
+        'nvim-telescope/telescope.nvim',
+        },
+    config=function()
+        require('refactoring').setup({})
+            -- load refactoring Telescope extension
+        require("telescope").load_extension("refactoring")
+
+        -- remap to open the Telescope refactoring menu in visual mode
+        vim.api.nvim_set_keymap(
+            "v",
+            "<leader>rr",
+            "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+            { noremap = true }
+        )
+    end,
+},
 
 { import = 'custom.plugins' },
 
@@ -436,10 +457,6 @@ vim.opt.virtualedit = "all"
 vim.opt.number = true
 vim.opt.cursorline = true
 vim.wo.cursorline = true
-
--- Map Leader
-vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
-vim.g.mapleader = " "
 
 
 

@@ -119,7 +119,6 @@ in
     mako # notification daemon
     rofi
     wofi
-    kanshi # autorandr
 
     gcc
 
