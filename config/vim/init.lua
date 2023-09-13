@@ -196,9 +196,6 @@ require("lazy").setup({
 -- Git Blame auf steroiden
 'rhysd/git-messenger.vim',
 
-    end,
-},
-
 -- Another eye friendly colortheme
 {'sainnhe/everforest',
     priority=1000,
