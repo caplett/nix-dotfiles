@@ -54,7 +54,7 @@ require("lazy").setup({
       "MunifTanjim/nui.nvim",
     },
     keys = {
-      { "<F3>", "<cmd>NeoTreeFloatToggle<cr>", desc = "NeoTree" },
+      { "<F3>", "<cmd>Neotree float toggle<cr>", desc = "NeoTree" },
     }
 },
 
