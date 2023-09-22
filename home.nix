@@ -165,8 +165,8 @@ in
     ".direnvrc".source = ./config/direnvrc;
 
 
-    #".config/waybar/config".source = ./config/waybar/config;
-    #".config/waybar/style.css".source = ./config/waybar/style.css;
+    ".config/waybar/config".source = ./config/waybar/config;
+    ".config/waybar/style.css".source = ./config/waybar/style.css;
 
   };
 
