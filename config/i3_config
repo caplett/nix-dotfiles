@@ -137,14 +137,9 @@ floating_modifier $mod
 #  Change keyboard layout  #
 ############################
 
-# Change layout but also i3 hotkeys
-bindsym XF86AudioPrev exec "setxkbmap -layout de -variant neo && setxkbmap -option && xmodmap /home/stefan/.Xmod_neo_usa        && cat .config/i3/variables .config/i3/colors .config/i3/base .config/i3/hotkeys_en_usa > .config/i3/config && i3-msg reload"
-bindsym XF86AudioPlay exec "setxkbmap -layout de && setxkbmap -option                                                           && cat .config/i3/variables .config/i3/colors .config/i3/base .config/i3/hotkeys_en_usa > .config/i3/config && i3-msg reload"
-bindsym XF86AudioNext exec "setxkbmap -layout de -variant neo && setxkbmap -option && xmodmap /home/stefan/.Xmod_neo_hybrid     && cat .config/i3/variables .config/i3/colors .config/i3/base .config/i3/hotkeys_en_usa > .config/i3/config && i3-msg reload"
-
 # Brightness
-bindsym XF86MonBrightnessDown exec "sudo /usr/bin/light -T 0.9"
-bindsym XF86MonBrightnessUp exec "sudo /usr/bin/light -T 1.1"
+bindsym XF86MonBrightnessDown exec "/home/stefan/.nix-profile/bin/brightnessctl s 6%-"
+bindsym XF86MonBrightnessUp exec "/home/stefan/.nix-profile/bin/brightnessctl s +6%"
 
 # Volume
 bindsym XF86AudioRaiseVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'
