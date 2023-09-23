@@ -357,6 +357,67 @@ require("lazy").setup({
 
 'chaoren/vim-wordmotion',
 
+    {
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp"
+    },
+
+'saadparwaiz1/cmp_luasnip',
+
+
+
+    { 
+        'zbirenbaum/copilot.lua',
+        config = function()
+            require("copilot").setup({
+                panel = {
+                    enabled = true,
+                    auto_refresh = true,
+                    keymap = {
+                        jump_prev = "[[",
+                        jump_next = "]]",
+                        accept = "<CR>",
+                        refresh = "gr",
+                        open = "<M-CR>"
+                    },
+                    layout = {
+                        position = "bottom", -- | top | left | right
+                        ratio = 0.4
+                    },
+                },
+                suggestion = {
+                    enabled = true,
+                    auto_trigger = true,
+                    debounce = 75,
+                    keymap = {
+                        accept = "<C-l>",
+                        accept_word = false,
+                        accept_line = false,  
+                        next = "<C-j>",
+                        prev = "<C-k>",
+                        dismiss = "<C-]>",
+                    },
+                },
+                filetypes = {
+                    yaml = false,
+                    markdown = false,
+                    help = false,
+                    gitcommit = false,
+                    gitrebase = false,
+                    hgcommit = false,
+                    svn = false,
+                    cvs = false,
+                    ["."] = false,
+                },
+                copilot_node_command = 'node', -- Node.js version must be > 16.x
+                server_opts_overrides = {}, 
+            })
+        end,
+    },
+
 {'ThePrimeagen/refactoring.nvim',
     dependencies = {
         'nvim-lua/plenary.nvim',
@@ -378,7 +439,123 @@ require("lazy").setup({
     end,
 },
 
-{ import = 'custom.plugins' },
+    {
+        'hrsh7th/nvim-cmp',
+        dependencies = {
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline',
+            'hrsh7th/cmp-nvim-lsp',
+            -- 'hrsh7th/cmp-copilot'
+        },
+        config=function()
+            local cmp = require'cmp'
+            require("luasnip").setup()
+
+            cmp.setup({
+                snippet = {
+                    -- REQUIRED - you must specify a snippet engine
+                    expand = function(args)
+                        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+                        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+                        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+                    end,
+                },
+                mapping = cmp.mapping.preset.insert({
+                    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+                    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+                    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+                    ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+                    --['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                }),
+                sources = {
+                    { name = 'nvim_lsp' },
+                    -- { name = "copilot" },
+                    -- { name = 'cmp_tabnine' },
+                    -- { name = 'vsnip' }, -- For vsnip users.
+                    { name = 'luasnip' }, -- For luasnip users.
+                    -- { name = 'ultisnips' }, -- For ultisnips users.
+                    -- { name = 'snippy' }, -- For snippy users.
+                    { name = 'buffer' },
+                    { name = 'cmdline' },
+                    { name = 'path' }
+                }
+            })
+
+            -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+            cmp.setup.cmdline('/', {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = {
+                    { name = 'buffer' }
+                }
+            })
+
+            -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+            cmp.setup.cmdline(':', {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = cmp.config.sources({
+                    { name = 'path' }
+                }, {
+                        { name = 'cmdline' }
+                    })
+            })
+
+            -- Setup lspconfig.
+            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+            -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+            --require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
+            --  capabilities = capabilities
+            -- }
+            local lspconfig = require'lspconfig'
+
+            lspconfig.clangd.setup{
+                cmd = { "clangd-10", "--background-index" , "--cross-file-rename", "--all-scopes-completion", "--completion-style=detailed", "-j=10"},
+                capabilities = capabilities
+            }
+
+            lspconfig.cmake.setup{
+                capabilities = capabilities
+            }
+
+
+            --Enable (broadcasting) snippet capability for completion
+            -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+            -- capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+
+            lspconfig.html.setup {
+                capabilities = capabilities,
+            }
+
+            lspconfig.pyright.setup{
+                capabilities = capabilities,
+                settings = {
+                    pyright = {
+                        analysis = {
+                            useLibraryCodeForTypes = true,
+                            typeCheckingMode = "strict",
+                            diagnosticMode = "workspace",
+                            autoSearchPaths = true,
+                        },
+                        exclude = "wandb/**",
+                    }
+                }
+            }
+
+            require'lspconfig'.texlab.setup{
+                capabilities = capabilities,
+            }
+
+            require'lspconfig'.marksman.setup{
+                capabilities = capabilities
+            }
+        end,
+    },
+
+
+-- { import = 'custom.plugins' },
 
 }, {})
 
