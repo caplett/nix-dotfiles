@@ -147,6 +147,8 @@ require("lazy").setup({
 
 'sheerun/vim-polyglot',
 
+'pocco81/true-zen.nvim',
+
 {'tzachar/local-highlight.nvim',
     config = function()
         require('local-highlight').setup({
