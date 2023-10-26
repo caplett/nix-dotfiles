@@ -195,9 +195,9 @@ exec_always sudo /usr/bin/nice -n -1 sudo /usr/bin/kmonad /home/stefan/.config/n
 exec_always swaymsg input type:keyboard repeat_delay 200
 exec_always swaymsg input type:keyboard repeat_rate 100
 # start a terminal
-bindsym $mod+Return exec kitty --single-instance
+bindsym $mod+Return exec footclient
 
-bindcode $mod+65 exec kitty
+bindcode $mod+65 exec footclient
 
 # kill focused window
 #bindsym $mod+Shift+q exec xdotool getwindowfocus windowkill
@@ -209,7 +209,7 @@ bindcode $mod+Shift+$letter_q kill
 bindsym $mod+d exec /home/stefan/.nix-profile/bin/rofi -show run ssh
 
 #Launch terminal
-bindcode $mod+$letter_o exec kitty
+bindcode $mod+$letter_o exec footclient
 
 #Launch pavucontrol
 #bindcode $mod+$letter_p exec pavucontrol
@@ -416,3 +416,5 @@ output * bg #000000 solid_color
 exec "/home/stefan/.nix-profile/bin/kanshi"
 
 exec "systemctl --user import-environment"
+
+exec "foot --server"
