@@ -168,6 +168,10 @@ in
     ".config/waybar/config".source = ./config/waybar/config;
     ".config/waybar/style.css".source = ./config/waybar/style.css;
 
+    ".config/foot/foot.ini".source = ./config/foot.ini;
+
+    ".ssh/config".source = ./config/ssh_config;
+
   };
 
 }
