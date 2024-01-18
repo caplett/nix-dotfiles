@@ -83,7 +83,6 @@ in
     vlc
     conda
 
-    slurp
     grim
 
     feh
@@ -118,7 +117,6 @@ in
     swaybg
     mako # notification daemon
     rofi
-    wofi
 
     gcc
 
