@@ -1,3 +1,55 @@
+# set -U fish_color_normal normal
+# set -U fish_color_command b294bb
+# set -U fish_color_quote b5bd68
+# set -U fish_color_redirection 8abeb7
+# set -U fish_color_end b294bb
+# set -U fish_color_error cc6666
+# set -U fish_color_param 81a2be
+# set -U fish_color_comment f0c674
+# set -U fish_color_match --background=brblue
+# set -U fish_color_selection white --bold --background=brblack
+# set -U fish_color_search_match bryellow --background=brblack
+# set -U fish_color_history_current --bold
+# set -U fish_color_operator 00a6b2
+# set -U fish_color_escape 00a6b2
+# set -U fish_color_cwd green
+# set -U fish_color_cwd_root red
+# set -U fish_color_valid_path --underline
+# set -U fish_color_autosuggestion 969896
+# set -U fish_color_user brgreen
+# set -U fish_color_host normal
+# set -U fish_color_cancel -r
+# set -U fish_pager_color_completion normal
+# set -U fish_pager_color_description B3A06D yellow
+# set -U fish_pager_color_prefix normal --bold --underline
+# set -U fish_pager_color_progress brwhite --background=cyan
+
+set -U fish_color_quote f7ca88
+set -U fish_color_command a1b56c
+set -U fish_color_normal normal
+set -U fish_color_redirection d8d8d8
+set -U fish_color_end ba8baf
+set -U fish_color_error ab4642
+set -U fish_color_param d8d8d8
+set -U fish_color_comment f7ca88
+set -U fish_color_match 7cafc2
+set -U fish_color_selection white --bold --background=brblack
+set -U fish_color_search_match bryellow --background=brblack
+set -U fish_color_history_current --bold
+set -U fish_color_operator 7cafc2
+set -U fish_color_escape 86c1b9
+set -U fish_color_cwd green
+set -U fish_color_cwd_root red
+set -U fish_color_valid_path --underline
+set -U fish_color_autosuggestion 585858
+set -U fish_color_user brgreen
+set -U fish_color_host normal
+set -U fish_color_cancel -r
+set -U fish_pager_color_completion normal
+set -U fish_pager_color_description B3A06D yellow
+set -U fish_pager_color_prefix normal --bold --underline
+set -U fish_pager_color_progress brwhite --background=cyan
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
     set fish_greeting
@@ -28,7 +80,7 @@ direnv hook fish | source
 eval /home/stefan/miniconda/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
 
-set -gx  LD_LIBRARY_PATH /home/stefan/.mujoco/mujoco210/bin
+# set -gx  LD_LIBRARY_PATH /home/stefan/.mujoco/mujoco210/bin
 
 set -U ZO_CMD zo
 set -U Z_CMD z
@@ -69,3 +121,4 @@ set -U _fish_abbr_ssf 'grim -g (slurp)'
 set -U _fish_abbr_ss 'grim -g (slurp) - | xclip -i -selection clipboard -t image/png'
 set -U --export nixos_fish_plugins_installed yes
 set -U fish_user_paths /home/stefan/.fzf/bin
+

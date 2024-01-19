@@ -1,0 +1,9 @@
+Host jumphost
+    Hostname 116.202.108.204
+    User root
+
+Host workstation_office
+    Hostname 127.0.0.1
+    User stefan
+    Port 9090
+    ProxyJump jumphost

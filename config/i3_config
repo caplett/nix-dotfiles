@@ -417,4 +417,8 @@ exec "/home/stefan/.nix-profile/bin/kanshi"
 
 exec "systemctl --user import-environment"
 
+exec "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway"
+
+include /etc/sway/config.d/*
+
 exec "foot --server"
