@@ -64,7 +64,6 @@ in
     wget
     htop
     pavucontrol
-    ripgrep
     keepassxc
     gparted
     ncdu
@@ -101,7 +100,6 @@ in
     copyq
     silver-searcher
     fd
-    ripgrep-all
 
     zotero
 
