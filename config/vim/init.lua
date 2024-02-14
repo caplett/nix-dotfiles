@@ -770,7 +770,7 @@ vim.keymap.set("n", '[d', ':lua vim.lsp.diagnostic.goto_prev()<CR>', { silent = 
 vim.keymap.set("n", '<leader>f',  '<cmd>Format<CR>', {})
 vim.keymap.set("n", '<leader>r',  '<cmd>Rename<CR>', {})
 vim.keymap.set("n", '<leader>p',  "<cmd>lua require'telescope.builtin'.git_files{}<CR>", {})
-vim.keymap.set("n", '<leader>ws', "<cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>", {})
+vim.keymap.set("n", '<leader>ws', "<cmd>lua require'telescope.builtin'.lsp_dynamic_workspace_symbols{}<CR>", {})
 vim.keymap.set("n", '<leader>ds', "<cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>", {})
 vim.keymap.set("n", '<leader>w',  '<cmd>update<CR>', {})
 vim.keymap.set("n", '<leader>q',  '<cmd>quit<CR>', {})
