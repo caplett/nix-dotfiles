@@ -206,7 +206,7 @@ bindcode $mod+Shift+$letter_q kill
 
 # start dmenu (a program launcher)
 # $letter_d = d
-bindsym $mod+d exec /home/stefan/.nix-profile/bin/rofi -show run ssh
+bindsym $mod+d exec wofi --show run
 
 #Launch terminal
 bindcode $mod+$letter_o exec footclient
