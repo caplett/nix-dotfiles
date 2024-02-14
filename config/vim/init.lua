@@ -159,7 +159,12 @@ require("lazy").setup({
     end,
 },
 
-'airblade/vim-gitgutter',
+{'airblade/vim-gitgutter',
+        config = function()
+            vim.api.nvim_command('let g:gitgutter_map_keys = 0')
+        end,
+},
+
 
 'dkarter/bullets.vim',
 'lervag/wiki.vim',
@@ -212,16 +217,6 @@ require("lazy").setup({
 'rebelot/kanagawa.nvim',
 'morhetz/gruvbox',
 
-{
-  -- Add indentation guides even on blank lines
-  'lukas-reineke/indent-blankline.nvim',
-  -- Enable `lukas-reineke/indent-blankline.nvim`
-  -- See `:help indent_blankline.txt`
-  opts = {
-    char = '┊',
-    show_trailing_blankline_indent = false,
-  },
-},
 
 -- Highlight Colorcodes in theire color
 {'norcalli/nvim-colorizer.lua',
