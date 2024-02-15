@@ -101,7 +101,7 @@ in
     silver-searcher
     fd
 
-    zotero
+    # zotero
 
     glfw-wayland
 
