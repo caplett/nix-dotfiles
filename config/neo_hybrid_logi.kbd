@@ -244,10 +244,10 @@
   smwbr (cmd-button "swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move container to workspace ⬂")    
 
 
-  swwu  (cmd-button "swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move workspace to output up | swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move workspace to output DP-4")
-  swwd  (cmd-button "swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move workspace to output down | swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move workspace to output eDP-1")
+  swwu  (cmd-button "swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move workspace to output up | swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move workspace to left")
+  swwd  (cmd-button "swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move workspace to output down | swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move workspace to output right")
 
-  swcu  (cmd-button "swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move container to output up | swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move container to output DP-4")
-  swcd  (cmd-button "swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move container to output down | swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move container to output eDP-1")
+  swcu  (cmd-button "swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move container to output up | swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move container to output left")
+  swcd  (cmd-button "swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move container to output down | swaymsg -s $(ls /run/user/*/sway-ipc.* | head -n 1) move container to output right")
 
 )
