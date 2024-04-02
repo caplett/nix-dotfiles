@@ -352,8 +352,6 @@ require("lazy").setup({
 
 'tpope/vim-surround',
 
-'chaoren/vim-wordmotion',
-
     {
         "L3MON4D3/LuaSnip",
         -- follow latest release.
