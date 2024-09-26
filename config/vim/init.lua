@@ -414,6 +414,18 @@ require("lazy").setup({
     },
 
 
+{
+    "CopilotC-Nvim/CopilotChat.nvim",
+    opts = {
+        show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
+        debug = false, -- Enable or disable debug mode, the log file will be in ~/.local/state/nvim/CopilotChat.nvim.log
+        disable_extra_info = 'no', -- Disable extra information (e.g: system prompt) in the response.
+        language = "English" -- Copilot answer language settings when using default prompts. Default language is English.
+        -- proxy = "socks5://127.0.0.1:3000", -- Proxies requests via https or socks.
+        -- temperature = 0.1,
+    },
+    config = function()
+        require("CopilotChat").setup({})
     end,
 },
 
@@ -425,6 +437,19 @@ require("lazy").setup({
             'hrsh7th/cmp-cmdline',
             'hrsh7th/cmp-nvim-lsp',
             -- 'hrsh7th/cmp-copilot'
+    build = function()
+        vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
+    end,
+    lazy = false,
+    tag = "v1.6.1",
+    -- event = "VeryLazy",
+    keys = {
+        { "<leader>cce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
+        { "<leader>cct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
+        {
+        "<leader>ccT",
+        "<cmd>CopilotChatVsplitToggle<cr>",
+        desc = "CopilotChat - Toggle Vsplit", -- Toggle vertical split
         },
         config=function()
             local cmp = require'cmp'

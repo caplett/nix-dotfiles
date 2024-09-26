@@ -87,6 +87,7 @@ set -U Z_CMD z
 set -U Z_DATA /home/stefan/.local/share/z/data
 set -U Z_DATA_DIR /home/stefan/.local/share/z
 set -U Z_EXCLUDE '^/home/stefan$'
+set -U MOZ_DISABLE_WAYLAND_PROXY 1
 set -U __fish_initialized 3100
 
 set -U _fish_abbr_s sudo -E
@@ -105,6 +106,7 @@ set -U _fish_abbr_kl 'ps -A | /home/stefan/.fzf/bin/fzf | grep -Eoh \"[^:][0-9]{
 set -U _fish_abbr_h htop
 set -U _fish_abbr_p 'ping 1.1'
 set -U _fish_abbr_pdf sioyek      
+set -U _fish_abbr_kmonadlogi 'sudo /usr/bin/kmonad /home/stefan/.config/nixpkgs/config/neo_hybrid_logi.kbd'
 
 set -U _fish_abbr_cdn cd /etc/nixos
 set -U _fish_abbr_cdnc cd /etc/nixos/config

@@ -7,3 +7,16 @@ Host workstation_office
     User stefan
     Port 9090
     ProxyJump jumphost
+
+Host workstation_ifsw
+    Hostname 127.0.0.1
+    User baer
+    Port 9195
+    ProxyJump jumphost
+
+Host horeka
+     Hostname horeka.scc.kit.edu
+     User st_ac143845
+     IdentityFile ~/.ssh/horeka_2_id_ed25519
+     ProxyJump workstation_office
+     ProxyJump workstation_office
