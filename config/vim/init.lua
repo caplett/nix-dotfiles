@@ -727,9 +727,7 @@ vim.keymap.set("n", "<c-l>", "<c-w>l")
 
 vim.keymap.set("n", "L", ":tabnext<CR>")
 vim.keymap.set("n", "H", ":tabprev<CR>")
-vim.keymap.set("n", "<leader>tt", ":tabnew<CR>")
-vim.keymap.set("n", "<leader>tn", ":tabnext<CR>")
-vim.keymap.set("n", "<leader>tp", ":tabprevious<CR>")
+vim.keymap.set("n", "<leader>tn", ":tabnew<CR>")
 vim.keymap.set("n", "<leader>tq", ":tabclose<CR>")
 
 vim.keymap.set("n", "<leader>F", "<cmd>lua require('telescope.builtin').find_files()<CR>")
