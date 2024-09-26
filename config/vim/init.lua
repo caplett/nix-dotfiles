@@ -198,8 +198,6 @@ require("lazy").setup({
     end,
 },
 
-'folke/lsp-colors.nvim',
-
 -- Git Blame auf steroiden
 'rhysd/git-messenger.vim',
 
@@ -217,6 +215,19 @@ require("lazy").setup({
 'rebelot/kanagawa.nvim',
 'morhetz/gruvbox',
 
+{
+    -- Add indentation guides even on blank lines
+    'lukas-reineke/indent-blankline.nvim',
+    -- Enable `lukas-reineke/indent-blankline.nvim`
+    -- See `:help indent_blankline.txt`
+    config=function()
+        require("ibl").setup({
+            indent = { char = "|" },
+            scope = { enabled = false },
+        })
+    end,
+    main = "ibl",
+},
 
 -- Highlight Colorcodes in theire color
 {'norcalli/nvim-colorizer.lua',
@@ -427,16 +438,6 @@ require("lazy").setup({
     config = function()
         require("CopilotChat").setup({})
     end,
-},
-
-    {
-        'hrsh7th/nvim-cmp',
-        dependencies = {
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-cmdline',
-            'hrsh7th/cmp-nvim-lsp',
-            -- 'hrsh7th/cmp-copilot'
     build = function()
         vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
     end,
@@ -451,82 +452,114 @@ require("lazy").setup({
         "<cmd>CopilotChatVsplitToggle<cr>",
         desc = "CopilotChat - Toggle Vsplit", -- Toggle vertical split
         },
-        config=function()
-            local cmp = require'cmp'
-            require("luasnip").setup()
+        {
+        "<leader>ccv",
+        ":CopilotChatVisual",
+        mode = "x",
+        desc = "CopilotChat - Open in vertical split",
+        },
+        {
+        "<leader>ccx",
+        ":CopilotChatInPlace<cr>",
+        mode = "x",
+        desc = "CopilotChat - Run in-place code",
+        },
+        {
+        "<leader>ccf",
+        "<cmd>CopilotChatFixDiagnostic<cr>", -- Get a fix for the diagnostic message under the cursor.
+        desc = "CopilotChat - Fix diagnostic",
+        },
+        {
+        "<leader>ccr",
+        "<cmd>CopilotChatReset<cr>", -- Reset chat history and clear buffer.
+        desc = "CopilotChat - Reset chat history and clear buffer",
+        }
+    },
+},
 
-            cmp.setup({
-                snippet = {
-                    -- REQUIRED - you must specify a snippet engine
-                    expand = function(args)
-                        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-                        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-                        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-                        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-                    end,
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-                    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-                    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-                    ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-                    --['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                }),
-                sources = {
-                    { name = 'nvim_lsp' },
-                    -- { name = "copilot" },
-                    -- { name = 'cmp_tabnine' },
-                    -- { name = 'vsnip' }, -- For vsnip users.
-                    { name = 'luasnip' }, -- For luasnip users.
-                    -- { name = 'ultisnips' }, -- For ultisnips users.
-                    -- { name = 'snippy' }, -- For snippy users.
-                    { name = 'buffer' },
-                    { name = 'cmdline' },
-                    { name = 'path' }
-                }
-            })
 
-            -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-            cmp.setup.cmdline('/', {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = 'buffer' }
-                }
-            })
+{
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-nvim-lsp',
+        -- 'hrsh7th/cmp-copilot'
+    },
+    config=function()
+        local cmp = require'cmp'
+        require("luasnip").setup()
 
-            -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-            cmp.setup.cmdline(':', {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = 'path' }
-                }, {
-                        { name = 'cmdline' }
-                    })
-            })
-
-            -- Setup lspconfig.
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
-            -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-            --require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
-            --  capabilities = capabilities
-            -- }
-            local lspconfig = require'lspconfig'
-
-            lspconfig.clangd.setup{
-                cmd = { "clangd-10", "--background-index" , "--cross-file-rename", "--all-scopes-completion", "--completion-style=detailed", "-j=10"},
-                capabilities = capabilities
+        cmp.setup({
+            snippet = {
+                -- REQUIRED - you must specify a snippet engine
+                expand = function(args)
+                    -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                    -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+                    -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+                end,
+            },
+            mapping = cmp.mapping.preset.insert({
+                ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+                ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+                ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+                ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+                --['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+            }),
+            sources = {
+                { name = 'nvim_lsp' },
+                -- { name = "copilot" },
+                -- { name = 'cmp_tabnine' },
+                -- { name = 'vsnip' }, -- For vsnip users.
+                { name = 'luasnip' }, -- For luasnip users.
+                -- { name = 'ultisnips' }, -- For ultisnips users.
+                -- { name = 'snippy' }, -- For snippy users.
+                { name = 'buffer' },
+                { name = 'cmdline' },
+                { name = 'path' }
             }
+        })
 
-            lspconfig.cmake.setup{
-                capabilities = capabilities
+        -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+        cmp.setup.cmdline('/', {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+                { name = 'buffer' }
             }
+        })
 
+        -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+        cmp.setup.cmdline(':', {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+                { name = 'path' }
+            }, {
+                    { name = 'cmdline' }
+                })
+        })
 
             --Enable (broadcasting) snippet capability for completion
             -- local capabilities = vim.lsp.protocol.make_client_capabilities()
             -- capabilities.textDocument.completion.completionItem.snippetSupport = true
+        -- Setup lspconfig.
+        local capabilities = require('cmp_nvim_lsp').default_capabilities()
+        -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+        --require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
+        --  capabilities = capabilities
+        -- }
+        local lspconfig = require'lspconfig'
 
+        lspconfig.clangd.setup{
+            cmd = { "clangd-10", "--background-index" , "--cross-file-rename", "--all-scopes-completion", "--completion-style=detailed", "-j=10"},
+            capabilities = capabilities
+        }
+
+        lspconfig.cmake.setup{
+            capabilities = capabilities
+        }
 
             lspconfig.html.setup {
                 capabilities = capabilities,
