@@ -15,8 +15,44 @@ Host workstation_ifsw
     ProxyJump jumphost
 
 Host horeka
-     Hostname horeka.scc.kit.edu
-     User st_ac143845
-     IdentityFile ~/.ssh/horeka_2_id_ed25519
-     ProxyJump workstation_office
-     ProxyJump workstation_office
+    Hostname horeka.scc.kit.edu
+    User st_ac143845
+    IdentityFile ~/.ssh/horeka_3_ed25519
+    # ProxyJump workstation-office.netbird.cloud
+    # ControlMaster auto
+    # ControlPath ~/.ssh/%r@%h:%p
+
+Host proxmox
+    Hostname 10.0.0.4
+    User root
+
+Host kubernetes1
+    Hostname 192.168.0.51
+    User stefan
+    ProxyJump proxmox
+
+Host kubernetes2
+    Hostname 192.168.0.52
+    User stefan
+    ProxyJump proxmox
+
+Host kubernetes3
+    Hostname 192.168.0.53
+    User stefan
+    ProxyJump proxmox
+
+
+Host hetzner-k3s-1.com
+    Hostname 10.1.0.5
+    User root
+    ProxyJump jumphost
+
+Host hetzner-k3s-2.com
+    Hostname 10.1.0.3
+    User root
+    ProxyJump jumphost
+
+Host hetzner-k3s-3.com
+    Hostname 10.1.0.4
+    User root
+    ProxyJump jumphost
