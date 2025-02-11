@@ -168,6 +168,8 @@ in
 
     ".ssh/config".source = ./config/ssh_config;
 
+    ".config/atuin/config.toml".source = ./config/atuin.toml;
+
   };
 
 }
