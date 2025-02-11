@@ -413,7 +413,7 @@ exec /home/stefan/miniconda/bin/python /home/stefan/.config/nixpkgs/scripts/sway
 
 output * bg #000000 solid_color
 
-exec "/home/stefan/.nix-profile/bin/kanshi"
+exec "/usr/bin/kanshi"
 
 exec "systemctl --user import-environment"
 
