@@ -19,8 +19,6 @@ Host horeka
     User st_ac143845
     IdentityFile ~/.ssh/horeka_3_ed25519
     # ProxyJump workstation-office.netbird.cloud
-    # ControlMaster auto
-    # ControlPath ~/.ssh/%r@%h:%p
 
 Host proxmox
     Hostname 10.0.0.4
