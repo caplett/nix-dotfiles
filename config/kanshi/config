@@ -1,9 +1,15 @@
 profile home {
 	output "Goldstar Company Ltd LG Ultra HD 0x0000474F" mode 2560x1440@59.951Hz position 0,0
-	output "Sharp Corporation LQ156M1JW01 0x00000000" mode 1920x1080@60.042Hz position 2560,160
+	output "Sharp Corporation LQ156M1JW01 0x00000000" mode 1920x1080@60.042Hz position 2560,160 transform normal
 }
 
 
 profile mobile {
 	output "Sharp Corporation LQ156M1JW01 0x00000000"  mode 1920x1080@60.042Hz position 0,0
 }
+
+profile office {
+    output "Goldstar Company Ltd LG SDQHD 303NTFA5M131" mode 2560x2880@29.987Hz position 0,0 transform 270
+	output "Sharp Corporation LQ156M1JW01 0x00000000"  mode 1920x1080@60.042Hz position 420,2560
+}
+
